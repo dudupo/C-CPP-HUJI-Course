@@ -52,7 +52,6 @@ void subSeq( std::ifstream & _stream , HashMap<std::string, int>  & _map ) {
   }
 
   std::cout << "total errors : " << grade << '\n';
-
 }
 
 int main (int argc, char* argv[]) {
