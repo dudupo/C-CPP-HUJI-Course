@@ -40,26 +40,55 @@ static int worktype [UPPER_BOUND_INPUT_LINES] = {0};
 
 typedef int (*function)(int, int);
 // -------------------------- functions definitions -------------------------
-
+/**
+ * @brief initilaize the students by asking for the parameters from the user-
+ * -and store them into the static arrays.
+ * @return 0 if the user press 'q' otherwise returns 1.
+ */
 int initilaizeStudent();
+/**
+ * @brief The main function. Actually, does nothing here.
+ * @return 0, to tell the system the execution ended without errors.
+ */
 char peekStdin();
-
+/**
+ * @brief The main function. Actually, does nothing here.
+ * @return 0, to tell the system the execution ended without errors.
+ */
 void popSpaces();
+/**
+ * @brief The main function. Actually, does nothing here.
+ * @return 0, to tell the system the execution ended without errors.
+ */
 int isLetter(char c);
+/**
+ * @brief The main function. Actually, does nothing here.
+ * @return 0, to tell the system the execution ended without errors.
+ */
 int isSpace(char c);
+/**
+ * @brief parsing the names of the student, dealing with naems which contains-
+ *  			-a spaces. store the name in the last empty cell inside the global-
+ *				-static names array.
+ * @return nothing.
+ */
 void parseNameWithSpaces(int student);
-
-
+ /**
+  * @brief initilaizes studens untill the 'initilaizeStudent' function return '0'
+  * -which occuer when the user pressing 'q' - the signal which indecate exit-
+  * -operation.
+  * @return nothing.
+  */
 void initilaizeStudentsList();
-
+/**
+ * @brief calculate and return the ration of the student grade relative to his-
+ * -age.
+ * @return the ration of the student grade relative to his age.
+ */
 double studentFactor( int student );
-int bastStudent();
-
-void swap(int i, int j);
+int bestStudent();
 void initilaizeSort();
-void quicksort();
 void mergesort(int start, int end, function compareFunction);
 void merge(int start_1, int end_1, int start_2, int end_2, function compareFunction);
-
-int getStudentGrade(int student1, int student2);
-int getStudentName(int student1,  int student2);
+int compareGrades(int student1, int student2);
+int compareNames(int student1,  int student2);
