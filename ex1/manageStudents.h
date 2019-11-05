@@ -36,7 +36,9 @@ static char citys               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_S
 static int students = 0;
 
 static int order [UPPER_BOUND_INPUT_LINES];
+static int worktype [UPPER_BOUND_INPUT_LINES] = {0};
 
+typedef int (*function)(int, int);
 // -------------------------- functions definitions -------------------------
 
 int initilaizeStudent();
@@ -56,5 +58,8 @@ int bastStudent();
 void swap(int i, int j);
 void initilaizeSort();
 void quicksort();
-void mergesort(int start, int end);
-void merge(int start, int end, int start2 , int end2);
+void mergesort(int start, int end, function compareFunction);
+void merge(int start_1, int end_1, int start_2, int end_2, function compareFunction);
+
+int getStudentGrade(int student1, int student2);
+int getStudentName(int student1,  int student2);

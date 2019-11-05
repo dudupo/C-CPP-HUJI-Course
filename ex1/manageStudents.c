@@ -20,6 +20,7 @@
 // ------------------------------ includes ------------------------------
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "manageStudents.h"
 // ... rest of includes from the system
 // ... all my includes
@@ -123,8 +124,18 @@ void initilaizeStudentsList() {
 
 double studentFactor( int student )
 {
-	return grades[student] / ages[student];
+	return ((double)grades[student] / ages[student]);
 }
+
+int getStudentGrade(int student1, int student2)
+{
+	return grades[student1] <= grades[student2];
+}
+int getStudentName(int student1,  int student2)
+{
+	return strcmp(names[student2] , names[student1]) > 0;
+}
+
 
 int bastStudent() {
 	double max = studentFactor(0);
@@ -159,12 +170,33 @@ void quicksort()
 
 }
 
-void merge(int i, int j, int end)
+void merge(int start_1, int end_1, int start_2, int end_2, function compareFunction)
 {
+	printf("%d - %d - %d - %d\n",  start_1,  start_2,  end_1,  end_2 );
+	int cursor_1 = start_1, cursor_2 = start_2;
+	int cursor_merged = start_1;
 
+	while ( cursor_1 <= end_1 && cursor_2 <= end_2  )
+	{
+		if ( compareFunction(order[cursor_1], order[cursor_2]) )
+			worktype[cursor_merged++] = order[cursor_1++];
+		else
+			worktype[cursor_merged++] = order[cursor_2++];
+	}
+	while( cursor_1 <= end_1 )
+		worktype[cursor_merged++] = order[cursor_1++];
+
+	while( cursor_2 <= end_2 )
+		worktype[cursor_merged++] = order[cursor_2++];
+
+	for ( int position = start_1 ; position <= end_2  ; position++)
+	{
+		order[position] = worktype[position];
+		worktype[position] = 0;
+	}
 }
 
-void mergesort(int start, int end)
+void mergesort(int start, int end, function compareFunction)
 {
 	if (start == end)
 	{
@@ -172,9 +204,9 @@ void mergesort(int start, int end)
 	}
 
 	int middle = (start + end) / 2;
-	mergesort(start, middle);
-	mergesort(middle, end);
-	merge(start, middle, middle, end);
+	mergesort(start, middle, compareFunction);
+	mergesort(middle+1, end, compareFunction);
+	merge(start, middle, middle+1, end, compareFunction);
 
 }
 
@@ -189,16 +221,31 @@ int main(int argc, char const *argv[])
 	if (argc == 2)
 	{
 
-		// for (int i = 0; i < students; i++)
-		// {
-		// 	printf("id : %d\n", ids[i] );
-		// 	printf("age : %d\n", ages[i] );
-		// 	printf("name : %s\n", names[i] );
-		// 	printf("country : %s\n", countrys[i]);
-		// }
+		if ( strcmp(argv[1], "bast") == 0 )
+		{
+			int baststudent = bastStudent();
+			printf("%s\n", names[baststudent] );
+		}
+		else if ( strcmp(argv[1], "merge") == 0  )
+		{
+				initilaizeSort();
+				mergesort(0 , students-1, &getStudentGrade);
 
-		int baststudent = bastStudent();
-		printf("%s\n", names[baststudent] );
+				for ( int k = 0; k < students; k++ )
+				{
+					printf("%s -> %d \n", names[order[k]] , grades[order[k]] );
+				}
+		}
+		else if ( strcmp(argv[1], "quick") == 0  )
+		{
+				initilaizeSort();
+				mergesort(0 , students-1, &getStudentName);
+
+				for ( int k = 0; k < students; k++ )
+				{
+					printf("%s -> %d \n", names[order[k]] , grades[order[k]] );
+				}
+		}
 	}
 	else
 	{
