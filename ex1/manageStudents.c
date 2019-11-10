@@ -52,13 +52,23 @@ void popSpaces()
 		getchar();
 	}
 }
+
+/**
+ * @brief isDigit checking if the charter is digit.
+ * @return 1 if the charter is digit else 0
+ */
+int isDigit( char c )
+{
+    return ( c <= '9' && c >= '0');
+}
+
 /**
  * @brief The main function. Actually, does nothing here.
  * @return 0, to tell the system the execution ended without errors.
  */
 int isLetter(char c)
 {
-	return (c >= 'A') && (c <='z');
+	return (c == '-') || ( (c >= 'A') && (c <='z') );
 }
 /**
  * @brief The main function. Actually, does nothing here.
@@ -101,12 +111,66 @@ void parseNameWithSpaces(int student)
 		}
 		else
 		{
+		    printf( "%s" , ERRORNAME);
 			return;
 		}
 	}
 	// todo : handle
 
 }
+
+
+int checkScan( int scan_feedback, char * errorMsg  )
+{
+    if ( scan_feedback != *ferror && scan_feedback != *feof )
+    {
+        printf( "%s\n", errorMsg );
+        return 0;
+    }
+    return  1;
+}
+
+int checkStr( int scan_feedback, char * str , char * errorMsg  )
+{
+    if ( !checkScan(scan_feedback, errorMsg))
+    {
+        return 0;
+    }
+    else
+    {
+        char pointer = str;
+        for ( ; str ; str++ )
+        {
+            if ( ! isLetter( *str ) )
+            {
+                printf( "%s\n", errorMsg );
+                return 0;
+            }
+        }
+    }
+    popSpaces();
+    return 1;
+}
+
+int checkInt( int scan_feedback, int val, int lower, int upper, char * errorMsg)
+{
+    if ( !checkScan(scan_feedback, errorMsg))
+    {
+        return 0;
+    }
+    else
+    {
+        if ( ( val >= lower ) && ( val <= upper ))
+        {
+            popSpaces();
+            return 1;
+        }
+        printf( "%s\n", errorMsg );
+        return 0;
+    }
+}
+
+
 /**
  * @brief initilaize the students by asking for the parameters from the user-
  * -and store them into the static arrays.
@@ -114,7 +178,7 @@ void parseNameWithSpaces(int student)
  */
 int initilaizeStudent() {
 	// requesting for input student.
-	printf("%s\n", ENTER_STUDENT);
+	 printf("%s\n", ENTER_STUDENT);
 	// gettig rid of spaces.
 	popSpaces();
 	// check if the user press 'q'.
@@ -125,13 +189,39 @@ int initilaizeStudent() {
 		// than return 0, which will stops input loop.
 		return 0;
 	}
+	popSpaces();
+
+	if (peekStdin() == '0')
+    {
+	    printf( "%s\n", ERRORIDES );
+	    return 0;
+    }
 	// parsing the student's id, and store in the id's.
-	scanf("%d", &ids[students] );
+    int scan_feedback = scanf("%lu", &ids[students] );
+    if ( !checkScan(scan_feedback, ERRORIDES))
+    {
+        return 0;
+    }
 	// parsing and storing the student's name.
 	parseNameWithSpaces(students);
 	// parding and stroing the rest of the parameters.
-	scanf("%d\t%d\t%s\t%s", &grades[students], &ages[students],
-	 countrys[students], citys[students]);
+
+
+    scan_feedback = scanf("%d", &grades[students]);
+    if (!checkInt(scan_feedback, grades[students], 0 ,100, ERRORGRADES))
+    {
+        return 0;
+    }
+    scan_feedback = scanf("%s", &countrys[students] );
+    if ( ! checkStr( scan_feedback, countrys[students], ERRORCOUNTRYNAME) )
+    {
+        return 0;
+    }
+    scan_feedback = scanf("%s", &citys[students] );
+    if ( ! checkStr( scan_feedback, citys[students] , ERRORCITYNAME ) )
+    {
+        return 0;
+    }
 	// increasing the student counter by one.
 	students++;
 	return 1;

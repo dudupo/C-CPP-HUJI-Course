@@ -11,6 +11,6 @@ if __name__ == '__main__':
 	size = 8
 	length = 20
 	for i in range(size):
-		print( '{0}\t{1}\t{2}\t{3}\t{4}\t{5}'.format(random.randint(1 , 10*7),
+		print( '{0}\t{1}\t{2}\t{3}\t{4}\t{5}'.format(random.randint(10**9 , 10**10),
 		random_key(length), random.randint(1,100) ,  random.randint(1,30) ,random_key(length), random_key(length)))
 	print('q')

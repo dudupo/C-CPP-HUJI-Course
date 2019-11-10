@@ -26,6 +26,12 @@
  // informative massage
  const char * ENTER_STUDENT =  "Enter student info. To exit press q, then enter";
 
+const char * ERRORNAME              = "ERROR: city can only contain alphabetic characters or ’-’ and spaces";
+const char * ERRORCITYNAME          = "ERROR: city can only contain alphabetic characters or ’-’";
+const char * ERRORCOUNTRYNAME       = "ERROR: country can only contain alphabetic characters or ’-’";
+const char * ERRORIDES              = "ERROR: id must contain ten digits and cannot start with zero";
+const char * ERRORAGES              = "ERROR: age can only be integer between 18 to 80";
+const char * ERRORGRADES            = "ERROR: grade can only be integer between 0 to 100";
 
 static unsigned long long  ids  [ UPPER_BOUND_INPUT_LINES ];
 static int ages                 [ UPPER_BOUND_INPUT_LINES ];
@@ -37,9 +43,22 @@ static int students = 0;
 
 static int order [UPPER_BOUND_INPUT_LINES];
 static int worktype [UPPER_BOUND_INPUT_LINES] = {0};
-
+const int AGESPARAMTYPE         = 1;
+const int GRADESPARAMTYPE       = 2;
+const int NAMESPARAMTYPE        = 3;
+const int COUNTRYSPARAMTYPE     = 4;
+const int CITYSPARAMTYPE        = 5;
+const int IDSPARAMTYPE          = 6;
 typedef int (*function)(int, int);
+typedef int (*scan_function) ( char param[] );
+typedef int (*check_function) ( char param[] );
+
 // -------------------------- functions definitions -------------------------
+
+int checkAges(  ) ;
+int checkGrades(  ) ;
+int checkNames(  ) ;
+int checkCountrys(  ) ;
 /**
  * @brief initilaize the students by asking for the parameters from the user-
  * -and store them into the static arrays.
@@ -86,9 +105,41 @@ void initilaizeStudentsList();
  * @return the ration of the student grade relative to his age.
  */
 double studentFactor( int student );
+
+/**
+ * @brief returns the best student by the ratio of the grade
+ *  relative to the age.
+ * @return the index of the best student.
+ */
 int bestStudent();
+/**
+ * @brief initilaize the order array which will storing (after the sorting)
+ *  the position of i' student in sorted order.
+ * @return nothing.
+ */
 void initilaizeSort();
+/**
+* @brief comparing studens by their names ( abc order ).
+* @return ture if the first student name is preceding the other.
+*/
 void mergesort(int start, int end, function compareFunction);
+/**
+* @brief the merge function, which mearge two sorted segments by given-
+*  -comparing function. in the first phase the function will store the sorted-
+*  -elements into the 'worktype' which is a spair static array at length 5000-
+*  -(UPPER_BOUND_INPUT_LINES). than in the second phase the function will copy-
+*  -the content beck to order array. the worktype is anloged to a temp-
+*  -variable which defined when executing swapping between two variables.
+* @return nothing.
+*/
 void merge(int start_1, int end_1, int start_2, int end_2, function compareFunction);
+/**
+ * @brief comparing studens by their grades.
+ * @return ture if the first student grade is lower or equal than the other.
+ */
 int compareGrades(int student1, int student2);
+/**
+ * @brief comparing studens by their names ( abc order ).
+ * @return ture if the first student name is preceding the other.
+ */
 int compareNames(int student1,  int student2);
