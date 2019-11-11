@@ -138,7 +138,7 @@ int isDigit( char c )
  */
 int isLetter(char c)
 {
-	return (c == '-') || ( (c >= 'A') && (c <='z') );
+	return (c == '-') || ( (c >= 'A') && (c <= 'z') );
 }
 /**
  * @brief The main function. Actually, does nothing here.
@@ -221,7 +221,7 @@ int checkInt( int scan_feedback, int val, int lower, int upper, const char * err
  */
 int parseNameWithSpaces(int scan_feedback, char * str)
 {
-	if ( !checkScan(scan_feedback, ERRORNAME))
+  if ( !checkScan(scan_feedback, ERRORNAME))
   {
     return DROPLINE;
   }
@@ -279,7 +279,8 @@ void resetStudent( )
  * -and store them into the static arrays.
  * @return 0 if the user press 'q' otherwise returns 1.
  */
-int initilaizeStudent() {
+int initilaizeStudent() 
+{
 	// requesting for input student.
  	printf("%s\n", ENTER_STUDENT);
 	// gettig rid of spaces.
@@ -302,41 +303,41 @@ int initilaizeStudent() {
 	char paramGrade [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
 	char paramAge [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
 	char paramCity [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
-	char paramCountry [ UPPER_BOUND_FIELD_SIZE ]= {0};
+	char paramCountry [ UPPER_BOUND_FIELD_SIZE ] = {0};
 
 	sscanf(line, "%s %[^\t] %[^\t] %[^\t] %[^\t] %[^\t] \t",
 	 paramId, paramName, paramGrade, paramAge, paramCountry, paramCity);
 
 	if (peekStdin() == ZERO)
-  {
+	{
 		resetStudent();
-    printError( ERRORIDES );
-    return CONTINUE;
-  }
+	    	printError( ERRORIDES );
+	    	return CONTINUE;
+	}
 	// parsing the student's id, and store in the id's.
-  int scan_feedback = sscanf(paramId, "%lu", &ids[students] );
-  if ( checkScan(scan_feedback, ERRORIDES) == DROPLINE)
-  {
+	int scan_feedback = sscanf(paramId, "%lu", &ids[students] );
+	if ( checkScan(scan_feedback, ERRORIDES) == DROPLINE)
+	{
 		resetStudent();
-    return CONTINUE;
-  }
+	return CONTINUE;
+	}
 	scan_feedback = sscanf(paramName, "%s", &names[students] );
 	// parsing and storing the student's name.
 	if (parseNameWithSpaces(scan_feedback, names[students]) == DROPLINE)
 	{
 		resetStudent();
-    return CONTINUE;
+    		return CONTINUE;
 	}
 	// parding and stroing the rest of the parameters.
 
 
-  scan_feedback = sscanf(paramGrade, "%d", &grades[students]);
-  if (checkInt(scan_feedback, grades[students], LOWERGRADE,
-		 UPPERGRADE, ERRORGRADES) == DROPLINE)
-  {
+	scan_feedback = sscanf(paramGrade, "%d", &grades[students]);
+	if (checkInt(scan_feedback, grades[students], LOWERGRADE,
+	 UPPERGRADE, ERRORGRADES) == DROPLINE)
+	{
 		resetStudent();
-    return CONTINUE;
-  }
+		return CONTINUE;
+	}
 
 	scan_feedback = sscanf(paramAge, "%d", &ages[students]);
 	if (!checkInt(scan_feedback, ages[students], LOWERAGE,
@@ -347,19 +348,19 @@ int initilaizeStudent() {
 	}
 
 	scan_feedback = sscanf(paramCountry, "%s", &countrys[students] );
-  if ( checkStr( scan_feedback, countrys[students], ERRORCOUNTRYNAME)
-	 == DROPLINE )
-  {
+	if ( checkStr( scan_feedback, countrys[students], ERRORCOUNTRYNAME)
+	== DROPLINE )
+	{
 		resetStudent();
-    return CONTINUE;
-  }
-  scan_feedback = sscanf(paramCity, "%s", &citys[students] );
-  if ( checkStr( scan_feedback, citys[students] , ERRORCITYNAME )
+		return CONTINUE;
+	}
+	scan_feedback = sscanf(paramCity, "%s", &citys[students] );
+	if ( checkStr( scan_feedback, citys[students] , ERRORCITYNAME )
 	 == DROPLINE )
-  {
+	{
 		resetStudent();
-    return CONTINUE;
-  }
+		return CONTINUE;
+	}
 	// increasing the student counter by one.
 	students++;
 	return CONTINUE;
@@ -408,7 +409,8 @@ int compareNames(int student1,  int student2)
  *  relative to the age.
  * @return the index of the best student.
  */
-int bestStudent() {
+int bestStudent() 
+{
 	// first define the first student as the best one.
 	// todo : handle empty array ...
 	double max = studentFactor(0);
@@ -459,9 +461,13 @@ void merge(int start_1, int end_1, int start_2, int end_2, function compareFunct
 		// storing the lower than the two students which are being examined.
 		// and increasing the cursor of the chosen segment.
 		if ( compareFunction(order[cursor_1], order[cursor_2]) )
+		{
 			worktype[cursor_merged++] = order[cursor_1++];
+		}		
 		else
+		{
 			worktype[cursor_merged++] = order[cursor_2++];
+		}	
 	}
 	// if the first cursor not reach to the end of his segment than push-
 	// the rest of the elements to the end of the worktype.
@@ -495,9 +501,9 @@ void mergesort(int start, int end, function compareFunction)
 	// parting the segment to two equals segments. and than sorting each of them.
 	int middle = (start + end) / 2;
 	mergesort(start, middle, compareFunction);
-	mergesort(middle+1, end, compareFunction);
+	mergesort(middle + 1, end, compareFunction);
 	// merging the sorted segments.
-	merge(start, middle, middle+1, end, compareFunction);
+	merge(start, middle, middle + 1, end, compareFunction);
 
 }
 
@@ -520,8 +526,9 @@ void quicksort(int start, int end, function compareFunction)
 {
 
 	if (  (start + 1) >= end )
+	{
 		return;
-
+	}
 	// chosing random parttion
 	int segement = start +  (rand() % (end - start));
 	// exchanging the loweres values which left to the parttion
@@ -541,7 +548,7 @@ void quicksort(int start, int end, function compareFunction)
 		}
 	}
 	quicksort(start, segement, compareFunction);
-	quicksort(segement +1 , end, compareFunction);
+	quicksort(segement + 1 , end, compareFunction);
 }
 
 /**
