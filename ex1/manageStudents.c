@@ -21,13 +21,83 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "manageStudents.h"
+//#include "manageStudents.h"
 // ... rest of includes from the system
 // ... all my includes
 
 // -------------------------- const definitions -------------------------
 
+// -------------------------- const definitions -------------------------
+#define UPPER_BOUND_LINE_SIZE 150
+#define UPPER_BOUND_FIELD_SIZE 40
+#define UPPER_BOUND_INPUT_LINES 5000
 
+// informative massage
+const char * ENTER_STUDENT =  "Enter student info. To exit press q, then enter";
+
+const char * ERRORNAME              = "ERROR: name can only contain alphabetic characters or '-' and spaces";
+const char * ERRORCITYNAME          = "ERROR: city can only contain alphabetic characters or '-'";
+const char * ERRORCOUNTRYNAME       = "ERROR: country can only contain alphabetic characters or '-'";
+const char * ERRORIDES              = "ERROR: id must contain ten digits and cannot start with zero";
+const char * ERRORAGES              = "ERROR: age can only be integer between 18 to 80";
+const char * ERRORGRADES            = "ERROR: grade can only be integer between 0 to 100";
+const char * BESTSTUDENTOUT         = "best student info is:\t";
+const char * BESTOPT                = "best";
+const char * MERGEOPT               = "merge";
+const char * QUICKOPT               = "quick";
+const int CONTINUE      = 1;
+const int STOP          = 0;
+const int LOWERGRADE    = 0;
+const int UPPERGRADE    = 100;
+const int LOWERAGE      = 0;
+const int UPPERAGE      = 100;
+const char QUIT         = 'q';
+const char ZERO         = '0';
+const int DROPLINE      = 0;
+
+static unsigned long long  ids  [ UPPER_BOUND_INPUT_LINES ] = {0};
+static int ages                 [ UPPER_BOUND_INPUT_LINES ] = {0};
+static int grades               [ UPPER_BOUND_INPUT_LINES ] = {0};
+static char names               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
+static char countrys            [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
+static char citys               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
+static int students = 0;
+static int lines = 1;
+static int order [UPPER_BOUND_INPUT_LINES];
+static int worktype [UPPER_BOUND_INPUT_LINES] = {0};
+const int AGESPARAMTYPE         = 1;
+const int GRADESPARAMTYPE       = 2;
+const int NAMESPARAMTYPE        = 3;
+const int COUNTRYSPARAMTYPE     = 4;
+const int CITYSPARAMTYPE        = 5;
+const int IDSPARAMTYPE          = 6;
+typedef int (*function)(int, int);
+typedef int (*scan_function) ( char param[] );
+typedef int (*check_function) ( char param[] );
+
+
+// -------------------------- functions definitions -------------------------
+
+void resetStudent( );
+int checkAges(  ) ;
+int checkGrades(  ) ;
+int checkNames(  ) ;
+int checkCountrys(  ) ;
+int initilaizeStudent();
+char peekStdin();
+void popSpaces();
+int isLetter(char c);
+int isSpace(char c);
+int parseNameWithSpaces(int scan_feedback, char * str);
+void initilaizeStudentsList();
+double studentFactor( int student );
+int bestStudent();
+void initilaizeSort();
+void mergesort(int start, int end, function compareFunction);
+void quicksort(int start, int end, function compareFunction);
+void merge(int start_1, int end_1, int start_2, int end_2, function compareFunction);
+int compareGrades(int student1, int student2);
+int compareNames(int student1,  int student2);
 
 // ------------------------------ functions -----------------------------
 
@@ -78,99 +148,132 @@ int isSpace(char c)
 {
 	return c == ' ' || c == '\t' || c == '\n';
 }
+
+
 /**
- * @brief parsing the names of the student, dealing with naems which contains-
- *  			-a spaces. store the name in the last empty cell inside the global-
- *				-static names array.
- * @return nothing.
+ * @brief printing the error to stdout.
  */
-void parseNameWithSpaces(int student)
+void printError(const char * error)
 {
-	// position of the charter in the string which will represent the name
-	int position = 0;
-	while(  isSpace( peekStdin() ) || isLetter( peekStdin() ) )
-	{
-		// get rid of the spaces.
-		popSpaces();
-		// check that the first charter is letter, otherwise ( forexample in case-
-		// -that the the next charter is digit ) the function will abort.
-		if ( isLetter( peekStdin() ) )
-		{
-			// looked position which greater than one implays that the name contains-
-			// -multiple words, in that case the function will seprate the words by-
-			// -space.
-			if ( position > 0 )
-			{
-				names[student][position++]= ' ';
-			}
-			// appends the next charters untill the next one isn't letter.
-			while( isLetter( peekStdin() ))
-			{
-				names[student][position++]= getchar();
-			}
-		}
-		else
-		{
-		    printf( "%s" , ERRORNAME);
-			return;
-		}
-	}
-	// todo : handle
-
+	printf( "%s\nin line %d\n", error, lines);
 }
-
-
-int checkScan( int scan_feedback, char * errorMsg  )
+/**
+ * @brief checking that the input has entered in the type format.
+ */
+int checkScan( int scan_feedback, const char * errorMsg  )
 {
-    if ( scan_feedback != *ferror && scan_feedback != *feof )
+  if ( scan_feedback != 1 )
+  {
+    printError( errorMsg );
+    return DROPLINE;
+  }
+  return CONTINUE;
+}
+/**
+ * @brief checking that the input which entered is string.
+ */
+int checkStr( int scan_feedback, char * str , const char * errorMsg  )
+{
+  if ( !checkScan(scan_feedback, errorMsg))
+  {
+    return DROPLINE;
+  }
+  else
+  {
+    char * pointer = str;
+    for ( ; *pointer ; pointer++ )
     {
-        printf( "%s\n", errorMsg );
-        return 0;
+      if ( ! isLetter( *pointer ) )
+      {
+        printError( errorMsg );
+        return DROPLINE;
+      }
     }
-    return  1;
+  }
+  return CONTINUE;
 }
-
-int checkStr( int scan_feedback, char * str , char * errorMsg  )
+/**
+ * @brief checking that the input which entered is integer in given range.
+ */
+int checkInt( int scan_feedback, int val, int lower, int upper, const char * errorMsg)
 {
     if ( !checkScan(scan_feedback, errorMsg))
     {
-        return 0;
-    }
-    else
-    {
-        char pointer = str;
-        for ( ; str ; str++ )
-        {
-            if ( ! isLetter( *str ) )
-            {
-                printf( "%s\n", errorMsg );
-                return 0;
-            }
-        }
-    }
-    popSpaces();
-    return 1;
-}
-
-int checkInt( int scan_feedback, int val, int lower, int upper, char * errorMsg)
-{
-    if ( !checkScan(scan_feedback, errorMsg))
-    {
-        return 0;
+        return DROPLINE;
     }
     else
     {
         if ( ( val >= lower ) && ( val <= upper ))
         {
             popSpaces();
-            return 1;
+            return CONTINUE;
         }
-        printf( "%s\n", errorMsg );
-        return 0;
+        printError( errorMsg );
+        return DROPLINE;
     }
 }
 
+/**
+ * @brief parsing the names of the student, dealing with naems which contains-
+ *  			-a spaces. store the name in the last empty cell inside the global-
+ *				-static names array.
+ * @return nothing.
+ */
+int parseNameWithSpaces(int scan_feedback, char * str)
+{
+	if ( !checkScan(scan_feedback, ERRORNAME))
+  {
+    return DROPLINE;
+  }
+  else
+  {
+    char * pointer = str;
+    for ( ; *pointer ; pointer++ )
+    {
+      if ((*pointer != ' ') && (!isLetter( *pointer )))
+      {
+        printError( ERRORNAME );
+        return DROPLINE;
+      }
+    }
+  }
+  return CONTINUE;
 
+}
+/**
+ * @brief rest the student fields.
+ */
+void restStrField( char field [] )
+{
+	for ( int i = 0; i < UPPER_BOUND_FIELD_SIZE; i++ )
+	{
+		field[i] = 0;
+	}
+}
+/**
+ * @brief printing the student to stdot.
+ */
+void printStudent(int student)
+{
+	printf("%lu\t%s\t%d\t%d\t%s\t%s\n", ids[student], names[student],
+	 grades[student], ages[student], countrys[student], citys[student]  );
+}
+
+/**
+ * @brief rest the field of the given student.
+ */
+void resetStudent( )
+{
+	ids[students] 			= 0;
+	grades[students] 		= 0;
+	ages[students] 			= 0;
+	restStrField(names[students]);
+	restStrField(citys[students]);
+	restStrField(countrys[students]);
+	//scanf("%[^\n]");
+	char line [ UPPER_BOUND_LINE_SIZE ] = {0};
+	gets(line);
+}
 /**
  * @brief initilaize the students by asking for the parameters from the user-
  * -and store them into the static arrays.
@@ -178,53 +281,88 @@ int checkInt( int scan_feedback, int val, int lower, int upper, char * errorMsg)
  */
 int initilaizeStudent() {
 	// requesting for input student.
-	 printf("%s\n", ENTER_STUDENT);
+ 	printf("%s\n", ENTER_STUDENT);
 	// gettig rid of spaces.
 	popSpaces();
 	// check if the user press 'q'.
-	if ( peekStdin() == 'q' )
+	if ( peekStdin() == QUIT )
 	{
 		// poping 'q' from the stdin stream.
 		getchar();
 		// than return 0, which will stops input loop.
-		return 0;
+		return STOP;
 	}
 	popSpaces();
 
-	if (peekStdin() == '0')
-    {
-	    printf( "%s\n", ERRORIDES );
-	    return 0;
-    }
+	char line [ UPPER_BOUND_LINE_SIZE ] = {0};
+	gets( line );
+
+	char paramId [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
+	char paramName [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
+	char paramGrade [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
+	char paramAge [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
+	char paramCity [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
+	char paramCountry [ UPPER_BOUND_FIELD_SIZE ]= {0};
+
+	sscanf(line, "%s %[^\t] %[^\t] %[^\t] %[^\t] %[^\t] \t",
+	 paramId, paramName, paramGrade, paramAge, paramCountry, paramCity);
+
+	if (peekStdin() == ZERO)
+  {
+		resetStudent();
+    printError( ERRORIDES );
+    return CONTINUE;
+  }
 	// parsing the student's id, and store in the id's.
-    int scan_feedback = scanf("%lu", &ids[students] );
-    if ( !checkScan(scan_feedback, ERRORIDES))
-    {
-        return 0;
-    }
+  int scan_feedback = sscanf(paramId, "%lu", &ids[students] );
+  if ( checkScan(scan_feedback, ERRORIDES) == DROPLINE)
+  {
+		resetStudent();
+    return CONTINUE;
+  }
+	scan_feedback = sscanf(paramName, "%s", &names[students] );
 	// parsing and storing the student's name.
-	parseNameWithSpaces(students);
+	if (parseNameWithSpaces(scan_feedback, names[students]) == DROPLINE)
+	{
+		resetStudent();
+    return CONTINUE;
+	}
 	// parding and stroing the rest of the parameters.
 
 
-    scan_feedback = scanf("%d", &grades[students]);
-    if (!checkInt(scan_feedback, grades[students], 0 ,100, ERRORGRADES))
-    {
-        return 0;
-    }
-    scan_feedback = scanf("%s", &countrys[students] );
-    if ( ! checkStr( scan_feedback, countrys[students], ERRORCOUNTRYNAME) )
-    {
-        return 0;
-    }
-    scan_feedback = scanf("%s", &citys[students] );
-    if ( ! checkStr( scan_feedback, citys[students] , ERRORCITYNAME ) )
-    {
-        return 0;
-    }
+  scan_feedback = sscanf(paramGrade, "%d", &grades[students]);
+  if (checkInt(scan_feedback, grades[students], LOWERGRADE,
+		 UPPERGRADE, ERRORGRADES) == DROPLINE)
+  {
+		resetStudent();
+    return CONTINUE;
+  }
+
+	scan_feedback = sscanf(paramAge, "%d", &ages[students]);
+	if (!checkInt(scan_feedback, ages[students], LOWERAGE,
+		 UPPERAGE, ERRORAGES))
+	{
+		resetStudent();
+		return CONTINUE;
+	}
+
+	scan_feedback = sscanf(paramCountry, "%s", &countrys[students] );
+  if ( checkStr( scan_feedback, countrys[students], ERRORCOUNTRYNAME)
+	 == DROPLINE )
+  {
+		resetStudent();
+    return CONTINUE;
+  }
+  scan_feedback = sscanf(paramCity, "%s", &citys[students] );
+  if ( checkStr( scan_feedback, citys[students] , ERRORCITYNAME )
+	 == DROPLINE )
+  {
+		resetStudent();
+    return CONTINUE;
+  }
 	// increasing the student counter by one.
 	students++;
-	return 1;
+	return CONTINUE;
 }
 /**
  * @brief initilaizes studens untill the 'initilaizeStudent' function return '0'
@@ -236,7 +374,7 @@ void initilaizeStudentsList()
 {
 	while( initilaizeStudent() )
 	{
-
+		lines++;
 	}
 }
 /**
@@ -362,6 +500,62 @@ void mergesort(int start, int end, function compareFunction)
 	merge(start, middle, middle+1, end, compareFunction);
 
 }
+
+/**
+ * @brief swapping two elements in the sorteted array.
+ * @return nothing
+ */
+void swap(int i, int j)
+{
+	int temp = order[i];
+	order[i] = order[j];
+	order[j] = temp;
+}
+
+/**
+ * @brief implemetion of the quicksort sort.
+ * @return nothing.
+ */
+void quicksort(int start, int end, function compareFunction)
+{
+
+	if (  (start + 1) >= end )
+		return;
+
+	// chosing random parttion
+	int segement = start +  (rand() % (end - start));
+	// exchanging the loweres values which left to the parttion
+	for (int i = start; i < segement; i++ )
+	{
+		if ( compareFunction(order[segement], order[i]) )
+		{
+			swap(segement, i);
+		}
+	}
+	// exchanging the loweres values which right to the parttion
+	for (int i = segement + 1; i < end; i++ )
+	{
+		if ( compareFunction(order[i], order[segement]) )
+		{
+			swap(segement, i);
+		}
+	}
+	quicksort(start, segement, compareFunction);
+	quicksort(segement +1 , end, compareFunction);
+}
+
+/**
+ * @brief printing the sorted array.
+ * @return nothing
+ */
+void printStudentsSortedOrder()
+{
+	for ( int k = 0; k < students; k++ )
+	{
+		printStudent(order[k]);
+	}
+}
+
 /**
  * @brief The main function. parsing the command line arguments and executing
  * the requested command of the user.
@@ -373,35 +567,28 @@ int main(int argc, char const *argv[])
 	if (argc == 2)
 	{
 
-		if ( strcmp(argv[1], "best") == 0 )
+		if ( strcmp(argv[1], BESTOPT) == 0 )
 		{
 			int beststudent = bestStudent();
-			printf("%s\n", names[beststudent] );
+			printf("%s", BESTSTUDENTOUT);
+			printStudent(beststudent);
 		}
-		else if ( strcmp(argv[1], "merge") == 0  )
+		else if ( strcmp(argv[1], MERGEOPT) == 0  )
 		{
 				initilaizeSort();
 				mergesort(0 , students-1, &compareGrades);
-
-				for ( int k = 0; k < students; k++ )
-				{
-					printf("%s -> %d \n", names[order[k]] , grades[order[k]] );
-				}
+				printStudentsSortedOrder();
 		}
-		else if ( strcmp(argv[1], "quick") == 0  )
+		else if ( strcmp(argv[1], QUICKOPT) == 0  )
 		{
 				initilaizeSort();
-				mergesort(0 , students-1, &compareNames);
-
-				for ( int k = 0; k < students; k++ )
-				{
-					printf("%s -> %d \n", names[order[k]] , grades[order[k]] );
-				}
+				quicksort(0 , students, &compareNames);
+				printStudentsSortedOrder();
 		}
 	}
 	else
 	{
-		// handle ERROR ...
+
 	}
 
 	/* code */

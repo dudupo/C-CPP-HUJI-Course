@@ -19,28 +19,41 @@
 
 
  // -------------------------- const definitions -------------------------
-
+#define UPPER_BOUND_LINE_SIZE 150
 #define UPPER_BOUND_FIELD_SIZE 40
 #define UPPER_BOUND_INPUT_LINES 5000
 
  // informative massage
  const char * ENTER_STUDENT =  "Enter student info. To exit press q, then enter";
 
-const char * ERRORNAME              = "ERROR: city can only contain alphabetic characters or ’-’ and spaces";
-const char * ERRORCITYNAME          = "ERROR: city can only contain alphabetic characters or ’-’";
-const char * ERRORCOUNTRYNAME       = "ERROR: country can only contain alphabetic characters or ’-’";
+const char * ERRORNAME              = "ERROR: name can only contain alphabetic characters or '-' and spaces";
+const char * ERRORCITYNAME          = "ERROR: city can only contain alphabetic characters or '-'";
+const char * ERRORCOUNTRYNAME       = "ERROR: country can only contain alphabetic characters or '-'";
 const char * ERRORIDES              = "ERROR: id must contain ten digits and cannot start with zero";
 const char * ERRORAGES              = "ERROR: age can only be integer between 18 to 80";
 const char * ERRORGRADES            = "ERROR: grade can only be integer between 0 to 100";
+const char * BESTSTUDENTOUT         = "best student info is:\t";
+const char * BESTOPT                = "best";
+const char * MERGEOPT               = "merge";
+const char * QUICKOPT               = "quick";
+const int CONTINUE      = 1;
+const int STOP          = 0;
+const int LOWERGRADE    = 0;
+const int UPPERGRADE    = 100;
+const int LOWERAGE      = 0;
+const int UPPERAGE      = 100;
+const char QUIT         = 'q';
+const char ZERO         = '0';
+const int DROPLINE      = 0;
 
-static unsigned long long  ids  [ UPPER_BOUND_INPUT_LINES ];
-static int ages                 [ UPPER_BOUND_INPUT_LINES ];
-static int grades               [ UPPER_BOUND_INPUT_LINES ];
-static char names               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ];
-static char countrys            [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ];
-static char citys               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ];
+static unsigned long long  ids  [ UPPER_BOUND_INPUT_LINES ] = {0};
+static int ages                 [ UPPER_BOUND_INPUT_LINES ] = {0};
+static int grades               [ UPPER_BOUND_INPUT_LINES ] = {0};
+static char names               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
+static char countrys            [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
+static char citys               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
 static int students = 0;
-
+static int lines = 1;
 static int order [UPPER_BOUND_INPUT_LINES];
 static int worktype [UPPER_BOUND_INPUT_LINES] = {0};
 const int AGESPARAMTYPE         = 1;
@@ -53,7 +66,13 @@ typedef int (*function)(int, int);
 typedef int (*scan_function) ( char param[] );
 typedef int (*check_function) ( char param[] );
 
+
+
+
+
 // -------------------------- functions definitions -------------------------
+
+void resetStudent( );
 
 int checkAges(  ) ;
 int checkGrades(  ) ;
@@ -91,7 +110,7 @@ int isSpace(char c);
  *				-static names array.
  * @return nothing.
  */
-void parseNameWithSpaces(int student);
+int parseNameWithSpaces(int scan_feedback, char * str);
  /**
   * @brief initilaizes studens untill the 'initilaizeStudent' function return '0'
   * -which occuer when the user pressing 'q' - the signal which indecate exit-
@@ -119,10 +138,15 @@ int bestStudent();
  */
 void initilaizeSort();
 /**
-* @brief comparing studens by their names ( abc order ).
-* @return ture if the first student name is preceding the other.
-*/
+ * @brief implemetion of the merge sort.
+ * @return nothing.
+ */
 void mergesort(int start, int end, function compareFunction);
+/**
+ * @brief implemetion of the quicksort sort.
+ * @return nothing.
+ */
+void quicksort(int start, int end, function compareFunction);
 /**
 * @brief the merge function, which mearge two sorted segments by given-
 *  -comparing function. in the first phase the function will store the sorted-
