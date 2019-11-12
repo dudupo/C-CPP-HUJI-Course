@@ -45,17 +45,18 @@ const char * BESTSTUDENTOUT         = "best student info is:\t";
 const char * BESTOPT                = "best";
 const char * MERGEOPT               = "merge";
 const char * QUICKOPT               = "quick";
+const char * USAGE									= "USAGE: ./manageStudents (best|quick|merge)";
 const int CONTINUE      = 1;
 const int STOP          = 0;
 const int LOWERGRADE    = 0;
 const int UPPERGRADE    = 100;
-const int LOWERAGE      = 0;
-const int UPPERAGE      = 100;
+const int LOWERAGE      = 18;
+const int UPPERAGE      = 80;
 const char QUIT         = 'q';
 const char ZERO         = '0';
 const int DROPLINE      = 0;
 
-static unsigned long long  ids  [ UPPER_BOUND_INPUT_LINES ] = {0};
+static unsigned long long ids   [ UPPER_BOUND_INPUT_LINES ] = {0};
 static int ages                 [ UPPER_BOUND_INPUT_LINES ] = {0};
 static int grades               [ UPPER_BOUND_INPUT_LINES ] = {0};
 static char names               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
@@ -255,7 +256,7 @@ void restStrField( char field [] )
  */
 void printStudent(int student)
 {
-	printf("%lu\t%s\t%d\t%d\t%s\t%s\n", ids[student], names[student],
+	printf("%I64u\t%s\t%d\t%d\t%s\t%s\n", ids[student], names[student],
 	 grades[student], ages[student], countrys[student], citys[student]  );
 }
 
@@ -271,20 +272,20 @@ void resetStudent( )
 	restStrField(citys[students]);
 	restStrField(countrys[students]);
 	//scanf("%[^\n]");
-	char line [ UPPER_BOUND_LINE_SIZE ] = {0};
-	gets(line);
+	//char line [ UPPER_BOUND_LINE_SIZE ] = {0};
+	//gets(line);
 }
 /**
  * @brief initilaize the students by asking for the parameters from the user-
  * -and store them into the static arrays.
  * @return 0 if the user press 'q' otherwise returns 1.
  */
-int initilaizeStudent() 
+int initilaizeStudent()
 {
 	// requesting for input student.
  	printf("%s\n", ENTER_STUDENT);
 	// gettig rid of spaces.
-	popSpaces();
+
 	// check if the user press 'q'.
 	if ( peekStdin() == QUIT )
 	{
@@ -293,35 +294,36 @@ int initilaizeStudent()
 		// than return 0, which will stops input loop.
 		return STOP;
 	}
-	popSpaces();
 
 	char line [ UPPER_BOUND_LINE_SIZE ] = {0};
 	gets( line );
 
-	char paramId [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
-	char paramName [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
-	char paramGrade [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
-	char paramAge [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
-	char paramCity [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
-	char paramCountry [ UPPER_BOUND_FIELD_SIZE ] = {0};
-
-	sscanf(line, "%s %[^\t] %[^\t] %[^\t] %[^\t] %[^\t] \t",
+	char paramId [ UPPER_BOUND_FIELD_SIZE ] 			= {0};
+	char paramName [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
+	char paramGrade [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
+	char paramAge [ UPPER_BOUND_FIELD_SIZE ] 			= {0};
+	char paramCity [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
+	char paramCountry [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
+	// scanf( "%s\t%[^\t]\t%s\t%s\t%s\t%s\n",
+	//  paramId, paramName, paramGrade, paramAge, paramCountry, paramCity);
+	sscanf(line, "%[^\t] %[^\t] %[^\t] %[^\t] %[^\t] %[^\t] ",
 	 paramId, paramName, paramGrade, paramAge, paramCountry, paramCity);
-
-	if (peekStdin() == ZERO)
+	//printf("%s\n",paramName);
+	//printf("%s\n", paramName);
+	if ( ( peekStdin() == ZERO ) || ( peekStdin() == EOF ) )
 	{
 		resetStudent();
 	    	printError( ERRORIDES );
 	    	return CONTINUE;
 	}
 	// parsing the student's id, and store in the id's.
-	int scan_feedback = sscanf(paramId, "%lu", &ids[students] );
+	int scan_feedback = sscanf(paramId, "%I64u", &ids[students] );
 	if ( checkScan(scan_feedback, ERRORIDES) == DROPLINE)
 	{
 		resetStudent();
 	return CONTINUE;
 	}
-	scan_feedback = sscanf(paramName, "%s", &names[students] );
+	scan_feedback = sscanf(paramName, "%s", names[students] );
 	// parsing and storing the student's name.
 	if (parseNameWithSpaces(scan_feedback, names[students]) == DROPLINE)
 	{
@@ -333,30 +335,30 @@ int initilaizeStudent()
 
 	scan_feedback = sscanf(paramGrade, "%d", &grades[students]);
 	if (checkInt(scan_feedback, grades[students], LOWERGRADE,
-	 UPPERGRADE, ERRORGRADES) == DROPLINE)
+	UPPERGRADE, ERRORGRADES) == DROPLINE)
 	{
 		resetStudent();
 		return CONTINUE;
 	}
 
 	scan_feedback = sscanf(paramAge, "%d", &ages[students]);
-	if (!checkInt(scan_feedback, ages[students], LOWERAGE,
-		 UPPERAGE, ERRORAGES))
+	if (checkInt(scan_feedback, ages[students], LOWERAGE,
+	UPPERAGE, ERRORAGES) == DROPLINE)
 	{
 		resetStudent();
 		return CONTINUE;
 	}
 
-	scan_feedback = sscanf(paramCountry, "%s", &countrys[students] );
+	scan_feedback = sscanf(paramCountry, "%s", countrys[students] );
 	if ( checkStr( scan_feedback, countrys[students], ERRORCOUNTRYNAME)
 	== DROPLINE )
 	{
 		resetStudent();
 		return CONTINUE;
 	}
-	scan_feedback = sscanf(paramCity, "%s", &citys[students] );
+	scan_feedback = sscanf(paramCity, "%s", citys[students] );
 	if ( checkStr( scan_feedback, citys[students] , ERRORCITYNAME )
-	 == DROPLINE )
+	== DROPLINE )
 	{
 		resetStudent();
 		return CONTINUE;
@@ -409,7 +411,7 @@ int compareNames(int student1,  int student2)
  *  relative to the age.
  * @return the index of the best student.
  */
-int bestStudent() 
+int bestStudent()
 {
 	// first define the first student as the best one.
 	// todo : handle empty array ...
@@ -463,11 +465,11 @@ void merge(int start_1, int end_1, int start_2, int end_2, function compareFunct
 		if ( compareFunction(order[cursor_1], order[cursor_2]) )
 		{
 			worktype[cursor_merged++] = order[cursor_1++];
-		}		
+		}
 		else
 		{
 			worktype[cursor_merged++] = order[cursor_2++];
-		}	
+		}
 	}
 	// if the first cursor not reach to the end of his segment than push-
 	// the rest of the elements to the end of the worktype.
@@ -564,6 +566,15 @@ void printStudentsSortedOrder()
 }
 
 /**
+ * @brief printing the USAGE format.
+ * @return nothing
+ */
+void printUsage()
+{
+	printf("%s\n", USAGE);
+}
+
+/**
  * @brief The main function. parsing the command line arguments and executing
  * the requested command of the user.
  * @return 0 if the program have been run suecssfully.
@@ -576,14 +587,17 @@ int main(int argc, char const *argv[])
 
 		if ( strcmp(argv[1], BESTOPT) == 0 )
 		{
-			int beststudent = bestStudent();
-			printf("%s", BESTSTUDENTOUT);
-			printStudent(beststudent);
+			if ( students > 0)
+			{
+				int beststudent = bestStudent();
+				printf("%s", BESTSTUDENTOUT);
+				printStudent(beststudent);
+			}
 		}
 		else if ( strcmp(argv[1], MERGEOPT) == 0  )
 		{
 				initilaizeSort();
-				mergesort(0 , students-1, &compareGrades);
+				mergesort(0 , students - 1, &compareGrades);
 				printStudentsSortedOrder();
 		}
 		else if ( strcmp(argv[1], QUICKOPT) == 0  )
@@ -592,10 +606,16 @@ int main(int argc, char const *argv[])
 				quicksort(0 , students, &compareNames);
 				printStudentsSortedOrder();
 		}
+		else
+		{
+			printUsage();
+			return 1;
+		}
 	}
 	else
 	{
-
+		printUsage();
+		return 1;
 	}
 
 	/* code */
