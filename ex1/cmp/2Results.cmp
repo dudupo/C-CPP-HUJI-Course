@@ -1,4 +1,4 @@
 Enter student info. To exit press q, then enter
-ERROR: id must contain ten digits and cannot start with zero
+ERROR: info must match specified format
 in line 0
 Enter student info. To exit press q, then enter

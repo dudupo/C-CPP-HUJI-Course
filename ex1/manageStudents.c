@@ -41,7 +41,7 @@ const char * ERRORCOUNTRYNAME       = "ERROR: country can only contain alphabeti
 const char * ERRORIDES              = "ERROR: id must contain ten digits and cannot start with zero";
 const char * ERRORAGES              = "ERROR: age can only be integer between 18 to 80";
 const char * ERRORGRADES            = "ERROR: grade can only be integer between 0 to 100";
-const char * BESTSTUDENTOUT         = "best student info is:\t";
+const char * BESTSTUDENTOUT         = "best student info is: ";
 const char * BESTOPT                = "best";
 const char * MERGEOPT               = "merge";
 const char * QUICKOPT               = "quick";
@@ -56,14 +56,14 @@ const char QUIT         = 'q';
 const char ZERO         = '0';
 const int DROPLINE      = 0;
 
-static unsigned long long ids   [ UPPER_BOUND_INPUT_LINES ] = {0};
+static unsigned long ids   			[ UPPER_BOUND_INPUT_LINES ] = {0};
 static int ages                 [ UPPER_BOUND_INPUT_LINES ] = {0};
 static int grades               [ UPPER_BOUND_INPUT_LINES ] = {0};
 static char names               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
 static char countrys            [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
 static char citys               [ UPPER_BOUND_INPUT_LINES ][ UPPER_BOUND_FIELD_SIZE ] = {0};
 static int students = 0;
-static int lines = 1;
+static int lines = 0;
 static int order [UPPER_BOUND_INPUT_LINES];
 static int worktype [UPPER_BOUND_INPUT_LINES] = {0};
 const int AGESPARAMTYPE         = 1;
@@ -149,8 +149,6 @@ int isSpace(char c)
 {
 	return c == ' ' || c == '\t' || c == '\n';
 }
-
-
 /**
  * @brief printing the error to stdout.
  */
@@ -161,11 +159,11 @@ void printError(const char * error)
 /**
  * @brief checking that the input has entered in the type format.
  */
-int checkScan( int scan_feedback, const char * errorMsg  )
+int checkScan( int scan_feedback)
 {
   if ( scan_feedback != 1 )
   {
-    printError( errorMsg );
+
     return DROPLINE;
   }
   return CONTINUE;
@@ -173,9 +171,9 @@ int checkScan( int scan_feedback, const char * errorMsg  )
 /**
  * @brief checking that the input which entered is string.
  */
-int checkStr( int scan_feedback, char * str , const char * errorMsg  )
+int checkStr( int scan_feedback, char * str)
 {
-  if ( !checkScan(scan_feedback, errorMsg))
+  if ( !checkScan(scan_feedback))
   {
     return DROPLINE;
   }
@@ -186,19 +184,33 @@ int checkStr( int scan_feedback, char * str , const char * errorMsg  )
     {
       if ( ! isLetter( *pointer ) )
       {
-        printError( errorMsg );
+
         return DROPLINE;
       }
     }
   }
   return CONTINUE;
 }
+
+int checkStrContainDigits(char param [])
+{
+	char * pointer = param;
+	for (; *pointer; pointer++ )
+	{
+		if ( !isDigit(*pointer) )
+		{
+			return DROPLINE;
+		}
+	}
+	return CONTINUE;
+}
+
 /**
  * @brief checking that the input which entered is integer in given range.
  */
-int checkInt( int scan_feedback, int val, int lower, int upper, const char * errorMsg)
+int checkInt( int scan_feedback, int val, int lower, int upper)
 {
-    if ( !checkScan(scan_feedback, errorMsg))
+    if ( !checkScan(scan_feedback))
     {
         return DROPLINE;
     }
@@ -206,10 +218,8 @@ int checkInt( int scan_feedback, int val, int lower, int upper, const char * err
     {
         if ( ( val >= lower ) && ( val <= upper ))
         {
-            popSpaces();
             return CONTINUE;
         }
-        printError( errorMsg );
         return DROPLINE;
     }
 }
@@ -222,7 +232,7 @@ int checkInt( int scan_feedback, int val, int lower, int upper, const char * err
  */
 int parseNameWithSpaces(int scan_feedback, char * str)
 {
-  if ( !checkScan(scan_feedback, ERRORNAME))
+  if ( !checkScan(scan_feedback))
   {
     return DROPLINE;
   }
@@ -233,7 +243,6 @@ int parseNameWithSpaces(int scan_feedback, char * str)
     {
       if ((*pointer != ' ') && (!isLetter( *pointer )))
       {
-        printError( ERRORNAME );
         return DROPLINE;
       }
     }
@@ -256,7 +265,7 @@ void restStrField( char field [] )
  */
 void printStudent(int student)
 {
-	printf("%I64u\t%s\t%d\t%d\t%s\t%s\n", ids[student], names[student],
+	printf("%lu\t%s\t%d\t%d\t%s\t%s\t\n", ids[student], names[student],
 	 grades[student], ages[student], countrys[student], citys[student]  );
 }
 
@@ -275,6 +284,23 @@ void resetStudent( )
 	//char line [ UPPER_BOUND_LINE_SIZE ] = {0};
 	//gets(line);
 }
+
+
+/**
+ * @brief scanning word while using '\t' as dilameter.
+ * @return the position of the end of the word inside the line.
+ */
+int scanWord(char line[], char param[], int start )
+{
+	int i = start;
+
+	for (int k = 0; (line[i] != '\t') && (line[i] != '\n') ; i++ )
+	{
+		param[k++] = line[i];
+	}
+	return i + 1;
+}
+
 /**
  * @brief initilaize the students by asking for the parameters from the user-
  * -and store them into the static arrays.
@@ -304,62 +330,75 @@ int initilaizeStudent()
 	char paramAge [ UPPER_BOUND_FIELD_SIZE ] 			= {0};
 	char paramCity [ UPPER_BOUND_FIELD_SIZE ] 		= {0};
 	char paramCountry [ UPPER_BOUND_FIELD_SIZE ] 	= {0};
-	// scanf( "%s\t%[^\t]\t%s\t%s\t%s\t%s\n",
-	//  paramId, paramName, paramGrade, paramAge, paramCountry, paramCity);
-	sscanf(line, "%[^\t] %[^\t] %[^\t] %[^\t] %[^\t] %[^\t] ",
-	 paramId, paramName, paramGrade, paramAge, paramCountry, paramCity);
-	//printf("%s\n",paramName);
-	//printf("%s\n", paramName);
-	if ( ( peekStdin() == ZERO ) || ( peekStdin() == EOF ) )
+
+	int start = 0;
+	start = scanWord(line, paramId, start );
+	start = scanWord(line, paramName, start );
+	start = scanWord(line, paramGrade, start );
+	start = scanWord(line, paramAge, start );
+	start = scanWord(line, paramCountry, start );
+	start = scanWord(line, paramCity, start );
+
+	if (paramId[0] == ZERO || (checkStrContainDigits(paramId) == DROPLINE) )
 	{
 		resetStudent();
-	    	printError( ERRORIDES );
-	    	return CONTINUE;
+  	printError( ERRORIDES );
+  	return CONTINUE;
+	}
+	int digits_count = 0;
+	for (digits_count = 0; paramId[digits_count]; digits_count++ )
+	{
+
 	}
 	// parsing the student's id, and store in the id's.
-	int scan_feedback = sscanf(paramId, "%I64u", &ids[students] );
-	if ( checkScan(scan_feedback, ERRORIDES) == DROPLINE)
+	int scan_feedback = sscanf(paramId, "%lu", &ids[students] );
+	if ( (digits_count != 10) || checkScan(scan_feedback) == DROPLINE)
 	{
+		printError( ERRORIDES );
 		resetStudent();
-	return CONTINUE;
+		return CONTINUE;
 	}
-	scan_feedback = sscanf(paramName, "%s", names[students] );
+	scan_feedback = sscanf(paramName, "%[^\t]", names[students] );
 	// parsing and storing the student's name.
 	if (parseNameWithSpaces(scan_feedback, names[students]) == DROPLINE)
 	{
+		printError( ERRORNAME );
 		resetStudent();
-    		return CONTINUE;
+		return CONTINUE;
 	}
 	// parding and stroing the rest of the parameters.
 
-
 	scan_feedback = sscanf(paramGrade, "%d", &grades[students]);
-	if (checkInt(scan_feedback, grades[students], LOWERGRADE,
-	UPPERGRADE, ERRORGRADES) == DROPLINE)
+	if (checkInt(scan_feedback, grades[students], LOWERGRADE, UPPERGRADE)
+        == DROPLINE || (checkStrContainDigits(paramGrade) ==
+        DROPLINE))
 	{
+		printError( ERRORGRADES );
 		resetStudent();
 		return CONTINUE;
 	}
 
 	scan_feedback = sscanf(paramAge, "%d", &ages[students]);
 	if (checkInt(scan_feedback, ages[students], LOWERAGE,
-	UPPERAGE, ERRORAGES) == DROPLINE)
+        UPPERAGE) == DROPLINE  || (checkStrContainDigits(paramAge) ==
+        DROPLINE))
 	{
+		printError( ERRORAGES );
 		resetStudent();
 		return CONTINUE;
 	}
 
 	scan_feedback = sscanf(paramCountry, "%s", countrys[students] );
-	if ( checkStr( scan_feedback, countrys[students], ERRORCOUNTRYNAME)
-	== DROPLINE )
+	if (checkStr( scan_feedback, countrys[students]) == DROPLINE )
 	{
+		printError( ERRORCOUNTRYNAME );
 		resetStudent();
 		return CONTINUE;
 	}
 	scan_feedback = sscanf(paramCity, "%s", citys[students] );
-	if ( checkStr( scan_feedback, citys[students] , ERRORCITYNAME )
-	== DROPLINE )
+	if (checkStr( scan_feedback, citys[students]) == DROPLINE )
 	{
+		printError( ERRORCITYNAME );
 		resetStudent();
 		return CONTINUE;
 	}
@@ -581,30 +620,49 @@ void printUsage()
  */
 int main(int argc, char const *argv[])
 {
-	initilaizeStudentsList();
+
 	if (argc == 2)
 	{
 
 		if ( strcmp(argv[1], BESTOPT) == 0 )
 		{
+			initilaizeStudentsList();
 			if ( students > 0)
 			{
 				int beststudent = bestStudent();
 				printf("%s", BESTSTUDENTOUT);
 				printStudent(beststudent);
 			}
+			else
+			{
+				return 1;
+			}
 		}
 		else if ( strcmp(argv[1], MERGEOPT) == 0  )
 		{
-				initilaizeSort();
-				mergesort(0 , students - 1, &compareGrades);
-				printStudentsSortedOrder();
+			initilaizeStudentsList();
+
+			if ( students == 0 )
+			{
+				return 1;
+			}
+
+			initilaizeSort();
+			mergesort(0 , students - 1, &compareGrades);
+			printStudentsSortedOrder();
 		}
 		else if ( strcmp(argv[1], QUICKOPT) == 0  )
 		{
-				initilaizeSort();
-				quicksort(0 , students, &compareNames);
-				printStudentsSortedOrder();
+			initilaizeStudentsList();
+
+			if ( students == 0 )
+			{
+				return 1;
+			}
+
+			initilaizeSort();
+			quicksort(0 , students, &compareNames);
+			printStudentsSortedOrder();
 		}
 		else
 		{
