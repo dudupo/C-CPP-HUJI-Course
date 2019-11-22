@@ -1,0 +1,24 @@
+Hey again everyone!
+This time i wrote a bit more extensive tests.
+- So far there are only static tests, and i'm aiming towards writing random
+ones as well. (if i have the time)
+- If anyone has any ideas for more test cases, or finds an issue with the current
+one, i would really appreciate it if you contact me. It helps all of us!
+so lets work together to help each other!
+
+YOU NEED:
+    1. python compiler
+    2. c compiler
+    3. luck
+
+HOW TO RUN TEST:
+    1. Open the "TEST" directory.
+    2. Put your "c_ex2.tar" tar file in the "YourFilesHere" folder.
+    3. Double click on "run_tester.bat"
+    4. If you pass all the tests - you will get a cool smiley face :)
+
+IF THAT DOESN'T WORK: (your python key-word is probably saved differently)
+    1. Open the "TEST" directory in Pycharm as a project.
+    2. Make sure your project interpreter is version 3.7.
+    3. Put your "c_ex2.tar" tar file in the "YourFilesHere" folder.
+    4. Run "c_ex2_tester.py" through pycharm (WITHOUT PYTEST)
