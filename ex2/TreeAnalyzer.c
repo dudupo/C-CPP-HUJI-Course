@@ -355,6 +355,9 @@ void printPath(Node *u, Node *v, int nodes)
         // cleaning.
         freeList(entrypoint);
         free(color);
+        free(entrypoint);
+        free(rightpart);
+        free(intersection);
         printf("\n");
 
 
