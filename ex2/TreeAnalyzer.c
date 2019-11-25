@@ -118,7 +118,10 @@ void freeGraph( Node** nodes_array  )
                 Node ** ptr_nodes = nodes_array;
                 for (; *ptr_nodes; ptr_nodes++)
                 {
-                        freeList((*ptr_nodes)->edges);
+                        // if ((*ptr_nodes)->edges)
+                        // {
+                                freeList((*ptr_nodes)->edges);
+                        //}
                 }
         }
         free(nodes_array);
@@ -169,6 +172,7 @@ void freeList( List * lstptr)
         {
                 freeList(lstptr->next);
         }
+        //free(lsptr->next);
         free(lstptr);
 }
 /**
@@ -355,9 +359,9 @@ void printPath(Node *u, Node *v, int nodes)
         // cleaning.
         freeList(entrypoint);
         free(color);
-        free(entrypoint);
-        free(rightpart);
-        free(intersection);
+        // free(entrypoint);
+        // free(rightpart);
+        // free(intersection);
         printf("\n");
 
 
