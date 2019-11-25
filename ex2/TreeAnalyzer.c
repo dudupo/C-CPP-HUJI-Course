@@ -23,7 +23,7 @@
 #include <unistd.h>
 // -------------------------- const definitions -------------------------
 
-
+#define REQUIREDPATHTOSTORE 3
 const char * ERROR                  = "Invalid input\n";
 const char * USAGE                  = "Usage:  TreeAnalyzer <Graph File Path> <First Vertex> <Second Vertex>\n";
 const char * MSGMAXHEIGHT           = "Length of Maximal Branch: %d\n";
@@ -33,11 +33,37 @@ const char * MSGNUMBEROFEDGES       = "Edges Count: %d\n";
 const char * MSGDIAMETERTREE        = "Diameter Length: %d\n";
 const char * MSGDROOTKEY            = "Root Vertex: %d\n";
 const char * MSGSHORTEST            = "Shortest Path Between %d and %d:";
+const char * STRINGFORMAT = "%s";
+const char * DECFORMAT = "%d";
+const char * FORMATNODEINPATH = " %d";
+const char * FILEREADFORMAT = "r";
+const char UPSCORE = '-';
 const char ZERODIGIT ='0';
 const char ONEDIGIT  ='1';
 const char NINEDIGIT ='9';
-
-
+const char SPACE = ' ';
+const char TAB = '\t';
+const char NEWLINE = '\n';
+const int ISNUMBER = 1;
+const int ISNOTNUMBER = 0;
+const int ZERO = 0;
+const int RED = 1;
+const int EMPTYPATH = 0;
+const int LEAFHEIGT = 1;
+const int EDGELENGTH = 1;
+const int PREPROCESSINGITEMS = 2;
+const int FIRSTITEM = 0;
+const int LONGESTPATH = 0;
+const int SECONDPATH = 1;
+const int TEMPPATH = 2;
+const int FIRSTARG = 1;
+const int SECONDARG = 2;
+const int TREETHARG = 3;
+const int NUMBEROFARGS = 4;
+const int FAILTOOPEN = -1;
+const int SUCCEED = 0;
+const int ARBITRARYNODE = 0;
+const int HISTTONEXTCHARTER = 1;
 
 // -------------------------- const definitions -------------------------
 
@@ -53,7 +79,7 @@ typedef struct node_t
 
 } Node;
 
-static Node** graph;
+static Node** graph = NULL;
 
 typedef struct node_list_t
 {
@@ -65,29 +91,35 @@ typedef int (*compare_func)(int x, int y);
 List * allocList();
 Node * allocNode(int key);
 Node * getRoot(Node * node);
-Node ** parsing_file(const char * path);
+Node ** parsingFile(FILE *, int);
 void connectEdge(Node * perent, Node * children);
-void listpush (List * list_obj, Node * item);
+// void listPush (List * list_obj, Node * item);
 void freeList( List * lstptr);
-void print_path(Node *u, Node *v, int n);
-void freegraph( Node** nodes_array  );
+void printPath(Node *u, Node *v, int n);
+void freeGraph( Node** nodes_array  );
 int maxHeight(Node * root);
 int minHeight(Node * root);
 int getHeightbyfun(Node * root, compare_func compare);
 int getNodes(Node * root);
 int getDiameter(Node *root);
-int check_if_digit( char charter );
-int check_if_number( char const * str );
+int checkIfDigit( char charter );
+int checkIfNumber( char const * str );
+
+// ------------------------------ functions -----------------------------
 
 /**
  * @brief free the address of given nodes array.
  * @return nothing.
  */
-void freegraph( Node** nodes_array  )
+void freeGraph( Node** nodes_array  )
 {
-        for (Node ** ptr_nodes = nodes_array; *ptr_nodes; ptr_nodes++)
+        if ( nodes_array != NULL )
         {
-                freeList((*ptr_nodes)->edges);
+                Node ** ptr_nodes = nodes_array;
+                for (; *ptr_nodes; ptr_nodes++)
+                {
+                        freeList((*ptr_nodes)->edges);
+                }
         }
         free(nodes_array);
 }
@@ -95,34 +127,15 @@ void freegraph( Node** nodes_array  )
  * @brief clean the graph and exit if the flag given flag turned on.
  * @return nothing.
  */
-void exit_failure( int flag )
+void exitFailure( int flag )
 {
         if ( flag )
         {
-                //freegraph( graph );
-                fprintf( stderr, "%s", ERROR);
+                freeGraph( graph );
+                fprintf( stderr, STRINGFORMAT, ERROR);
                 exit(EXIT_FAILURE);
         }
 }
-
-// ------------------------------ functions -----------------------------
-
-/**
- * @brief pushing element to the end of the lsit.
- * @return nothing.
- */
-void listpush (List * list_obj, Node * item)
-{
-        List * ptr = list_obj;
-        // getting the last element.
-        while(ptr->next != NULL)
-        {
-                ptr = ptr->next;
-        }
-        ptr->next = allocList();
-        ptr->next->node = item;
-}
-
 /**
  * @brief allocate a node, indexed by the given kay.
  * @return poiter to the initialized node.
@@ -168,7 +181,7 @@ void connectEdge(Node * perent, Node * children)
         while(ptr->node != NULL)
         {
 
-                exit_failure( ptr->node->key == children->key );
+                exitFailure( ptr->node->key == children->key );
                 ptr = ptr->next;
         }
         ptr->next = allocList();
@@ -192,7 +205,7 @@ Node * getRoot(Node * node)
  * @brief reading the first charter and pushing it back for the stream.
  * @return the heading charther.
  */
-char peek_file(FILE *fp)
+char peekFile(FILE *fp)
 {
         char ret = getc(fp);
         ungetc(ret, fp);
@@ -204,124 +217,141 @@ char peek_file(FILE *fp)
  */
 int connectable(int perent, int children, int n)
 {
-        return children < n && children >= 0 && children != perent;
+        return children < n && children >= ZERO && children != perent;
 }
 
 /**
- * @brief pop_spaces - popping spaces from the stream stream.
+ * @brief popSpaces - popping spaces from the stream stream.
  * @return nothing.
  */
-void pop_spaces(FILE *fp)
+void popSpaces(FILE *fp)
 {
-        while( peek_file(fp) == ' ' || peek_file(fp) == '\t' )
+        while( peekFile(fp) == SPACE || peekFile(fp) == TAB )
         {
                 getc(fp);
         }
 }
 /**
- * @brief get_next_number - return the next number from the stream.
+ * @brief getNextNumber - return the next number from the stream.
  * @return nothing but storing the number in the given address.
  */
-void get_next_number(FILE *fp, int * variable)
+void getNextNumber(FILE *fp, int * variable)
 {
-        pop_spaces(fp);
+        popSpaces(fp);
         char worktype [64];
-        fscanf (fp, "%s", worktype);
-        exit_failure( !check_if_number( worktype ) );
-        sscanf(worktype, "%d", variable);
-        //
+        fscanf (fp, STRINGFORMAT, worktype);
+        exitFailure( !checkIfNumber( worktype ) );
+        sscanf(worktype, DECFORMAT, variable);
 }
 
 /**
- * @brief parsing_file - generating the graph by reading a given file path
+ * @brief extractingGraphSize - storing the number of the nodes.
+ * @return nothing.
+ */
+void extractingGraphSize(FILE * fp, int * nodescount)
+{
+        exitFailure ( peekFile(fp) == EOF );
+        getNextNumber(fp, nodescount);
+        exitFailure ( *nodescount == ZERO );
+}
+/**
+ * @brief parsingFile - generating the graph by reading a given file path
  * @return array of Nodes pointers.
  */
-Node ** parsing_file(const char * path)
+Node ** parsingFile(FILE * file_object ,int graph_size)
 {
-        FILE *fp;
-        fp = fopen(path, "r");
-        int n;
-
-        exit_failure ( peek_file(fp) == EOF );
-        get_next_number(fp, &n);
-        exit_failure ( n == 0 );
-
-        Node ** nodes = malloc( sizeof(Node *) * n );
-        for (int i = 0; i < n; i++) {
-                nodes[i] = allocNode(i);
-        }
-
-        pop_spaces(fp);
-        getc(fp);
-        int perent = 0, children;
-        while(peek_file(fp) != EOF)
+        // allocate array to store the nodes.
+        Node ** nodes = calloc( sizeof(Node *),  graph_size );
+        for (int node_index = ZERO; node_index < graph_size; node_index++)
         {
-                pop_spaces(fp);
-                while(peek_file(fp) != EOF && peek_file(fp) != '\n' && peek_file(fp) != '-')
+                nodes[node_index] = allocNode(node_index);
+        }
+        // popping spaces
+        popSpaces(file_object);
+        // get rid of '\n' charter
+        getc(file_object);
+        // initialize the perent, the node which the line discribe.
+        int perent = ZERO, children;
+        // iterate over the lines.
+        while(peekFile(file_object) != EOF)
+        {
+                popSpaces(file_object);
+                // define the nmbers in the line as the childrens of the node
+                // which indexed as the line number.
+                while(peekFile(file_object) != EOF &&
+                      peekFile(file_object) != NEWLINE && peekFile(file_object) != UPSCORE)
                 {
-                        get_next_number(fp, &children);
-                        exit_failure(!connectable( perent, children, n));
+                        getNextNumber(file_object, &children);
+                        exitFailure(!connectable( perent, children, graph_size));
+                        // connect the perent to the child.
                         connectEdge(nodes[perent], nodes[children]);
-                        pop_spaces(fp);
+                        popSpaces(file_object);
                 }
-                if (peek_file(fp) == '-')
+                // handle the case when the line include only '-'.
+                if (peekFile(file_object) == UPSCORE)
                 {
-                        getc(fp);
+                        getc(file_object);
                 }
-                pop_spaces(fp);
-                getc(fp);
+                popSpaces(file_object);
+                getc(file_object);
+                // increasing the perent to the follwing line.
                 perent++;
         }
 
-        exit_failure ( n != perent );
-
-
-        fclose (fp);
+        exitFailure ( graph_size != perent );
+        fclose (file_object);
         return nodes;
 }
 /**
- * @brief print_path printing the shortest path between u and v.
+ * @brief printPath printing the shortest path between u and v.
  * @return nothing.
  */
-void print_path(Node *u, Node *v, int nodes)
+void printPath(Node *u, Node *v, int nodes)
 {
-
-        // List * leftpart =   allocList();
+        // the 'rightpart' will store the path from thr root to v.
         List * rightpart =  allocList();
-
         int * color = calloc( nodes, sizeof(int) );
 
         printf( MSGSHORTEST, u->key, v->key );
-
+        // first we find the lca(u,v) the last common ancestor of the nodes
+        // so, we colring in red all the nodes in the path from v to the
+        // root.
         for (Node * ptr = v; ptr != NULL; ptr=ptr->perent)
         {
                 List * temp = allocList();
                 rightpart->node = ptr;
                 temp->next = rightpart;
                 rightpart = temp;
-                color[ptr->key] = 1;
+                color[ptr->key] = RED;
         }
         rightpart = rightpart->next;
-
         Node * intersection;
-        for (intersection = u; intersection != NULL && (!color[intersection->key]);
+        // than we climb up from u to the root, untill we encounter the
+        // lca, ( the first red node. )
+        for (intersection = u;
+             intersection != NULL && (color[intersection->key] != RED);
              intersection=intersection->perent)
         {
-                printf(" %i",intersection->key);
+                // while climbing we printingt the nodes. ( the left part )
+                printf(FORMATNODEINPATH, intersection->key);
         }
-
         List * right_ptr;
+        // the 'right part' contains the nodes on the path from the root to u
+        // so now, we will getting dawn in the tree, unill we get the lca.
         for (right_ptr = rightpart; right_ptr != NULL &&
              right_ptr->node != intersection; right_ptr = right_ptr->next)
         {
 
         }
+        // than we, get dawn to v from the lca, while printing the 'right part'
+        // of the path between u to v.
         for (; right_ptr != NULL; right_ptr = right_ptr->next)
         {
-                printf(" %i",right_ptr->node->key);
+                printf(FORMATNODEINPATH, right_ptr->node->key);
         }
-
+        // cleaning.
         freeList(rightpart);
+        free(color);
         printf("\n");
 
 
@@ -338,7 +368,7 @@ int getHeightbyfun(Node * root, compare_func compare)
         // if the node is a leaf than return 0
         if ( root->edges->node == NULL )
         {
-                return 1;
+                return LEAFHEIGT;
         }
         // define a pointer which will be used to iterate over the edges.
         List * ptr_node = root->edges;
@@ -354,7 +384,7 @@ int getHeightbyfun(Node * root, compare_func compare)
                 ret = compare(ret, height);
         }
         // adding the contrbutie of the current node to the height.
-        return 1 + ret;
+        return EDGELENGTH + ret;
 }
 /**
  * @brief max - return the maximum of two variables.
@@ -386,7 +416,7 @@ int sum(int x, int y)
  */
 int maxHeight(Node * root)
 {
-        return getHeightbyfun(root, &max) - 1;
+        return getHeightbyfun(root, &max) - EDGELENGTH;
 }
 /**
  * @brief return the minimum length from the root to leaf
@@ -394,7 +424,7 @@ int maxHeight(Node * root)
  */
 int minHeight(Node * root)
 {
-        return getHeightbyfun(root, &min) - 1;
+        return getHeightbyfun(root, &min) - EDGELENGTH;
 }
 
 /**
@@ -425,53 +455,67 @@ void swap(int * _max, int i, int j)
  */
 void sort(int * _max)
 {
-        swap(_max, 2, 1);
-        swap(_max, 1, 0);
-        swap(_max, 2, 1);
+        swap(_max, TEMPPATH, SECONDPATH);
+        swap(_max, SECONDPATH, LONGESTPATH);
+        swap(_max, TEMPPATH, SECONDPATH);
 }
 /**
  * @brief The main function. Actually, does nothing here.
  * @return 0, to tell the system the execution ended without errors.
  */
 int getDiameter(Node *root){
-        int ret = 0;
-        int _max[3] = {0, 0,0};
+        // init ret, the variable which will store the longest of the paths-
+        // -wich have been examined.
+        int ret = ZERO;
+        // we need to store 3 paths each time, the two lonest and onother
+        // temp path which will be use to examine alternative diameter.
+        int _max[REQUIREDPATHTOSTORE] = {ZERO, ZERO, ZERO};
 
         if ( root->edges->node == NULL )
         {
-                return 0;
+                return EMPTYPATH;
         }
-
+        // initialize pointer which will iterate over the childrens of the node.
         List * ptr_node = root->edges;
-        int i;
-
-        for (i = 0; i < 2 && ptr_node != NULL && ptr_node->node != NULL; i++)
+        int index;
+        // fill the fitst and the second positions of _max. _max[0] will store
+        // the longest path, _max[1] will store the second path in length.
+        for (index = ZERO; index < TEMPPATH && ptr_node != NULL &&
+             ptr_node->node != NULL; index++)
         {
-                _max[i] = maxHeight(ptr_node->node);
+                // calculating the longest path of the children and add to it
+                // the length of the edge which connecting the perent to
+                // the children.
+                _max[index] = maxHeight(ptr_node->node) + EDGELENGTH;
                 ptr_node = ptr_node->next;
         }
-        if ( i == 1)
+        if ( index == SECONDPATH)
         {
-                ret =  _max[0] + 1;
+                // in case that the node has only one child.
+                ret =  _max[LONGESTPATH];
         }
-        else if ( i > 1 )
+        else if ( index > SECONDPATH )
         {
+                // search for alternative to the longest and the second path.
                 for (; ptr_node->node != NULL;
                      ptr_node = ptr_node->next)
                 {
 
-                        _max[2] = maxHeight(ptr_node->node);
+                        _max[TEMPPATH] = maxHeight(ptr_node->node) + EDGELENGTH;
+                        // srot the _max array, make sure that the longest will
+                        // be stored in the first position, and the seconed
+                        // right after him.
                         sort(_max);
                 }
-
-                ret =  _max[0] + _max[1] + 2;
+                // calculate the diameter that passes through the node.
+                ret =  _max[LONGESTPATH] + _max[SECONDPATH];
         }
-
+        // iterate in reqursivly over the sub trees, and looking for diameters
+        // that doesn't pass through the node.
         for (ptr_node = root->edges; ptr_node->node != NULL;
-             ptr_node = ptr_node->next) {
-
+             ptr_node = ptr_node->next)
+        {
                 ret = max(ret, getDiameter(ptr_node->node));
-
         }
         return ret;
 
@@ -480,73 +524,83 @@ int getDiameter(Node *root){
  * @brief return 1 if the given charter is digit
  * @return return 1 if the given charter is digit.
  */
-int check_if_digit( char charter )
+int checkIfDigit( char charter )
 {
-        return charter >= '0' && charter <= '9';
+        return charter >= ZERODIGIT && charter <= NINEDIGIT;
 }
 /**
  * @brief return 1 if the given string is intger.
  * @return return 1 if the given string is intger.
  */
-int check_if_number( char const * str )
+int checkIfNumber( char const * str )
 {
         char const * ptr = str;
-        if ( *ptr == '0' && (!*( ptr + 1 )) )
+        // check an endcase, str = '0'
+        if ( *ptr == ZERODIGIT && (!*( ptr + HISTTONEXTCHARTER )) )
         {
-                return 1;
+                return ISNUMBER;
         }
-        if ( *ptr < '1' || *ptr >'9'   )
+        // check that the first charter inside the range '1'-'9'
+        if ( *ptr < ONEDIGIT || *ptr > NINEDIGIT   )
         {
-                return 0;
+                return ISNOTNUMBER;
         }
+        // iterate over the string
         for (; *ptr; ptr++)
         {
-                if (!check_if_digit(*ptr))
+                // if the charter isn't digit.
+                if (!checkIfDigit(*ptr))
                 {
-                        return 0;
+                        return ISNOTNUMBER;
                 }
         }
-        return 1;
+        return ISNUMBER;
 }
 /**
- * @brief The main function. Actually, does nothing here.
+ * @brief The main function.
  * @return 0, to tell the system the execution ended without errors.
  */
 int main(int argc, char const *argv[])
 {
 
-
-        if ( argc == 4 && check_if_number(argv[2]) && check_if_number(argv[3]) )
+        // check the args
+        if ( argc == NUMBEROFARGS && checkIfNumber(argv[SECONDARG])
+         && checkIfNumber(argv[TREETHARG]) )
         {
-
-                exit_failure( access( argv[1], F_OK ) == -1  );
-
-                graph = parsing_file( argv[1] );
-                Node * root = getRoot(graph[0]);
+                // check the file path.
+                exitFailure( access( argv[FIRSTARG], F_OK ) == FAILTOOPEN );
+                FILE *file_object;
+                file_object = fopen(argv[FIRSTARG], FILEREADFORMAT);
+                int graph_size;
+                extractingGraphSize(file_object, &graph_size);
+                // generate the Graph
+                graph = parsingFile( file_object, graph_size );
+                Node * root = getRoot(graph[ARBITRARYNODE]);
 
                 int u, v;
+                // the scanning is safe becuse the argv[2] and argv[3]
+                // alraedy confered as integers.
+                sscanf(argv[SECONDARG], DECFORMAT, &u);
+                sscanf(argv[TREETHARG], DECFORMAT, &v);
+                // extracting the graph size.
 
-                sscanf(argv[2], "%d", &u);
-                sscanf(argv[3], "%d", &v);
-
-                int graph_size = getNodes(root);
-                exit_failure ( u >= graph_size || v >= graph_size
-                               || u < 0 || v < 0 );
-
+                exitFailure ( u >= graph_size || v >= graph_size
+                               || u < ZERO || v < ZERO );
+                // execute and print all the missions.
                 printf(MSGDROOTKEY, root->key);
                 printf(MSGNUMBEROFVERTAX, graph_size);
-                printf(MSGNUMBEROFEDGES, graph_size - 1);
+                printf(MSGNUMBEROFEDGES, graph_size - EDGELENGTH);
                 printf(MSGMINHEIGHT, minHeight(root));
                 printf(MSGMAXHEIGHT, maxHeight(root));
                 printf(MSGDIAMETERTREE, getDiameter(root));
-                print_path(graph[u], graph[v], graph_size);
+                printPath(graph[u], graph[v], graph_size);
 
         }
         else
         {
-                fprintf(stderr,"%s", USAGE );
+                fprintf(stderr, STRINGFORMAT, USAGE );
                 return EXIT_FAILURE;
         }
 
-        return 0;
+        return SUCCEED;
 }
