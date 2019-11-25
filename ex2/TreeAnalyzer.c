@@ -595,6 +595,8 @@ int main(int argc, char const *argv[])
                 printf(MSGDIAMETERTREE, getDiameter(root));
                 printPath(graph[u], graph[v], graph_size);
 
+                freeGraph(graph);
+
         }
         else
         {
