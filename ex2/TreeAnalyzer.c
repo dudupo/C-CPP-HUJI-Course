@@ -38,9 +38,9 @@ const char * DECFORMAT = "%d";
 const char * FORMATNODEINPATH = " %d";
 const char * FILEREADFORMAT = "r";
 const char UPSCORE = '-';
-const char ZERODIGIT ='0';
-const char ONEDIGIT  ='1';
-const char NINEDIGIT ='9';
+const char ZERODIGIT = '0';
+const char ONEDIGIT  = '1';
+const char NINEDIGIT = '9';
 const char SPACE = ' ';
 const char TAB = '\t';
 const char NEWLINE = '\n';
@@ -70,7 +70,9 @@ const int HISTTONEXTCHARTER = 1;
 typedef struct node_list_t NodeList;
 typedef struct node_list_t List;
 typedef struct node_t Node;
-
+/**
+ * @brief define a vertex in the graph.
+ */
 typedef struct node_t
 {
         int key;
@@ -80,7 +82,9 @@ typedef struct node_t
 } Node;
 
 static Node** graph = NULL;
-
+/**
+ * @brief define a linked list.
+ */
 typedef struct node_list_t
 {
         NodeList * next;
@@ -120,7 +124,8 @@ void freeGraph( Node** nodes_array  )
                 {
                         // if ((*ptr_nodes)->edges)
                         // {
-                                freeList((*ptr_nodes)->edges);
+                        freeList((*ptr_nodes)->edges);
+                        free((*ptr_nodes))
                         //}
                 }
         }
@@ -262,7 +267,7 @@ void extractingGraphSize(FILE * fp, int * nodescount)
  * @brief parsingFile - generating the graph by reading a given file path
  * @return array of Nodes pointers.
  */
-Node ** parsingFile(FILE * file_object ,int graph_size)
+Node ** parsingFile(FILE * file_object, int graph_size)
 {
         // allocate array to store the nodes.
         Node ** nodes = calloc( sizeof(Node *),  graph_size );
@@ -323,7 +328,7 @@ void printPath(Node *u, Node *v, int nodes)
         // first we find the lca(u,v) the last common ancestor of the nodes
         // so, we colring in red all the nodes in the path from v to the
         // root.
-        for (Node * ptr = v; ptr != NULL; ptr=ptr->perent)
+        for (Node * ptr = v; ptr != NULL; ptr = ptr->perent)
         {
                 List * temp = allocList();
                 rightpart->node = ptr;
@@ -337,7 +342,7 @@ void printPath(Node *u, Node *v, int nodes)
         // lca, ( the first red node. )
         for (intersection = u;
              intersection != NULL && (color[intersection->key] != RED);
-             intersection=intersection->perent)
+             intersection = intersection->perent)
         {
                 // while climbing we printingt the nodes. ( the left part )
                 printf(FORMATNODEINPATH, intersection->key);
@@ -473,7 +478,8 @@ void sort(int * _max)
  * @brief The main function. Actually, does nothing here.
  * @return 0, to tell the system the execution ended without errors.
  */
-int getDiameter(Node *root){
+int getDiameter(Node *root)
+{
         // init ret, the variable which will store the longest of the paths-
         // -wich have been examined.
         int ret = ZERO;
@@ -575,7 +581,7 @@ int main(int argc, char const *argv[])
 
         // check the args
         if ( argc == NUMBEROFARGS && checkIfNumber(argv[SECONDARG])
-         && checkIfNumber(argv[TREETHARG]) )
+             && checkIfNumber(argv[TREETHARG]) )
         {
                 // check the file path.
                 exitFailure( access( argv[FIRSTARG], F_OK ) == FAILTOOPEN );
@@ -595,7 +601,7 @@ int main(int argc, char const *argv[])
                 // extracting the graph size.
 
                 exitFailure ( u >= graph_size || v >= graph_size
-                               || u < ZERO || v < ZERO );
+                              || u < ZERO || v < ZERO );
                 // execute and print all the missions.
                 printf(MSGDROOTKEY, root->key);
                 printf(MSGNUMBEROFVERTAX, graph_size);
