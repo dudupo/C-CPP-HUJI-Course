@@ -121,13 +121,10 @@ void freeGraph( Node** nodes_array  )
         if ( nodes_array != NULL )
         {
                 Node ** ptr_nodes = nodes_array;
-                for (; *ptr_nodes; ptr_nodes++)
+                for (; *ptr_nodes != NULL; ptr_nodes++)
                 {
-                        // if ((*ptr_nodes)->edges)
-                        // {
                         freeList((*ptr_nodes)->edges);
                         free((*ptr_nodes));
-                        //}
                 }
         }
         free(nodes_array);
@@ -178,7 +175,6 @@ void freeList( List * lstptr)
         {
                 freeList(lstptr->next);
         }
-        //free(lsptr->next);
         free(lstptr);
 }
 /**
@@ -190,7 +186,6 @@ void connectEdge(Node * perent, Node * children)
         List * ptr = perent->edges;
         while(ptr->node != NULL)
         {
-
                 exitFailure( ptr->node->key == children->key );
                 ptr = ptr->next;
         }
