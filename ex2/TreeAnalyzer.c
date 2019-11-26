@@ -125,7 +125,7 @@ void freeGraph( Node** nodes_array  )
                         // if ((*ptr_nodes)->edges)
                         // {
                         freeList((*ptr_nodes)->edges);
-                        free((*ptr_nodes))
+                        free((*ptr_nodes));
                         //}
                 }
         }
