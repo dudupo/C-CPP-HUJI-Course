@@ -321,9 +321,6 @@ void printPath(Node *u, Node *v, int nodes)
         List * rightpart =  allocList();
         int * color = calloc( nodes, sizeof(int) );
 
-        // wil be used to free the list.
-        List * entrypoint = rightpart;
-
         printf( MSGSHORTEST, u->key, v->key );
         // first we find the lca(u,v) the last common ancestor of the nodes
         // so, we colring in red all the nodes in the path from v to the
@@ -336,6 +333,11 @@ void printPath(Node *u, Node *v, int nodes)
                 rightpart = temp;
                 color[ptr->key] = RED;
         }
+
+        // wil be used to free the list.
+        List * entrypoint = rightpart;
+
+
         rightpart = rightpart->next;
         Node * intersection;
         // than we climb up from u to the root, untill we encounter the
