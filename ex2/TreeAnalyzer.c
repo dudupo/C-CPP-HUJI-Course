@@ -64,6 +64,7 @@ const int FAILTOOPEN = -1;
 const int SUCCEED = 0;
 const int ARBITRARYNODE = 0;
 const int HISTTONEXTCHARTER = 1;
+const int ENDOFSEG = 1;
 
 // -------------------------- const definitions -------------------------
 
@@ -270,11 +271,14 @@ void extractingGraphSize(FILE * fp, int * nodescount)
 Node ** parsingFile(FILE * file_object, int graph_size)
 {
         // allocate array to store the nodes.
-        Node ** nodes = calloc( sizeof(Node *),  graph_size );
+        Node ** nodes = calloc( sizeof(Node *),  graph_size + ENDOFSEG  );
         for (int node_index = ZERO; node_index < graph_size; node_index++)
         {
                 nodes[node_index] = allocNode(node_index);
         }
+        // define the last element as NULL for stopping condition in the
+        // iteration.
+        nodes[graph_size]  = NULL;
         // popping spaces
         popSpaces(file_object);
         // get rid of '\n' charter
