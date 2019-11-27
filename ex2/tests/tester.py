@@ -16,7 +16,7 @@ import re
 #######################################################################################################################
 
 # Use the executable built via CLion
-PATH_TO_EXECUTABLE_FOLDER = "../cmake-build-debug/"
+PATH_TO_EXECUTABLE_FOLDER = "../"
 
 # If system has valgrind available, use it to ensure your program has no memory leaks.
 # On Windows/other systems with no 'valgrind' in path, this doesn't do anything.
