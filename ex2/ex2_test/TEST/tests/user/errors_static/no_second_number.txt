@@ -1,1 +1,1 @@
-Usage:  TreeAnalyzer <Graph File Path> <First Vertex> <Second Vertex>
+Usage: TreeAnalyzer <Graph File Path> <First Vertex> <Second Vertex>
