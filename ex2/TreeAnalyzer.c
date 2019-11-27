@@ -25,7 +25,7 @@
 
 #define REQUIREDPATHTOSTORE 3
 const char * ERROR                  = "Invalid input\n";
-const char * USAGE                  = "Usage:  TreeAnalyzer <Graph File Path> <First Vertex> <Second Vertex>\n";
+const char * USAGE                  = "Usage: TreeAnalyzer <Graph File Path> <First Vertex> <Second Vertex>\n";
 const char * MSGMAXHEIGHT           = "Length of Maximal Branch: %d\n";
 const char * MSGMINHEIGHT           = "Length of Minimal Branch: %d\n";
 const char * MSGNUMBEROFVERTAX      = "Vertices Count: %d\n";
