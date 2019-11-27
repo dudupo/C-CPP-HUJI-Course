@@ -588,9 +588,11 @@ int main(int argc, char const *argv[])
 {
 
         // check the args
-        if ( argc == NUMBEROFARGS && checkIfNumber(argv[SECONDARG])
-             && checkIfNumber(argv[TREETHARG]) )
+        if ( argc == NUMBEROFARGS )
         {
+                // checking that the given nodes u, and v are integers.
+                exitFailure(!checkIfNumber(argv[SECONDARG]));
+                exitFailure(!checkIfNumber(argv[TREETHARG]));
                 // check the file path.
                 exitFailure( access( argv[FIRSTARG], F_OK ) == FAILTOOPEN );
                 FILE *file_object;
