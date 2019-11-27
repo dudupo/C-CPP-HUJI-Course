@@ -1,0 +1,139 @@
+starting tester for ex2 version 1.0 
+
+
+===============================================================
+===============================================================
+      _             _   _               _            _
+     | |           | | (_)             | |          | |
+  ___| |_ __ _ _ __| |_ _ _ __   __ _  | |_ ___  ___| |_ ___
+ / __| __/ _` | '__| __| | '_ \ / _` | | __/ _ \/ __| __/ __|
+ \__ \ || (_| | |  | |_| | | | | (_| | | ||  __/\__ \ |_\__ 
+ |___/\__\__,_|_|   \__|_|_| |_|\__, |  \__\___||___/\__|___/
+                                 __/ |
+                                |___/
+
+===============================================================
+===============================================================
+
+==============================
+Starting static test number 1
+TYPE: static test on file 'bad_first_number.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 2
+TYPE: static test on file 'bad_second_number.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 3
+TYPE: static test on file 'double_in_line.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 4
+TYPE: static test on file 'file_doesnt_exist.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 5
+TYPE: static test on file 'file_is_empty.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 6
+TYPE: static test on file 'long_one_sided.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 7
+TYPE: static test on file 'long_one_sided_big_range.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 8
+TYPE: static test on file 'long_one_sided_opposite_big_range.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 9
+TYPE: static test on file 'long_tree.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 10
+TYPE: static test on file 'n_too_big.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 11
+TYPE: static test on file 'n_too_small.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 12
+TYPE: static test on file 'no_arguments.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 13
+TYPE: static test on file 'no_first_number.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 14
+TYPE: static test on file 'no_second_number.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 15
+TYPE: static test on file 'normal.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 16
+TYPE: static test on file 'same_node_route.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 17
+TYPE: static test on file 'small_tree.txt' ... 
+----------------------
+Test passed!
+==============================
+Starting static test number 18
+TYPE: static test on file 'zero_vertices.txt' ... 
+----------------------
+Test passed!
+
+
+                     ,--,
+  .--.--.          ,'_ /|                                 .--.--.    .--.--.
+ /  /    '    .--. |  | :    ,---.     ,---.     ,---.   /  /    '  /  /    '
+|  :  /`./  ,'_ /| :  . |   /     \   /     \   /     \ |  :  /`./ |  :  /`./
+|  :  ;_    |  ' | |  . .  /    / '  /    / '  /    /  ||  :  ;_   |  :  ;_
+ \  \    `. |  | ' |  | | .    ' /  .    ' /  .    ' / | \  \    `. \  \    `.
+  `----.   \:  | : ;  ; | '   ; :__ '   ; :__ '   ;   /|  `----.   \ `----.    /  /`--'  /'  :  `--'   '   | '.'|'   | '.'|'   |  / | /  /`--'  //  /`--'  /
+'--'.     / :  ,      .-./|   :    :|   :    :|   :    |'--'.     /'--'.     /
+  `--'---'   `--`----'     \   \  /  \   \  /  \   \  /   `--'---'   `--'---'
+                            `----'    `----'    `----'
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'               `$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$'                   `$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$'`$$$$$$$$$$$$$'`$$$$$$!                       !$$$$$$'`$$$$$$$$$$$$$'`$$$
+$$$$  $$$$$$$$$$$  $$$$$$$                         $$$$$$$  $$$$$$$$$$$  $$$$
+$$$$. `$' ' \$`  $$$$$$$!                         !$$$$$$$  '$/ `/ `$' .$$$$
+$$$$$. !\  i  i .$$$$$$$$                           $$$$$$$$. i  i  /! .$$$$$
+$$$$$$   `--`--.$$$$$$$$$                           $$$$$$$$$.--'--'   $$$$$$
+$$$$$$L        `$$$$$^^$$                           $$^^$$$$$'        J$$$$$$
+$$$$$$$.   .'   ""~   $$$    $.                 .$  $$$   ~""   `.   .$$$$$$$
+$$$$$$$$.  ;      .e$$$$$!    $$.             .$$  !$$$$$e,      ;  .$$$$$$$$
+$$$$$$$$$   `.$$$$$$$$$$$$     $$$.         .$$$   $$$$$$$$$$$$.'   $$$$$$$$$
+$$$$$$$$    .$$$$$$$$$$$$$!     $$`$$$$$$$$'$$    !$$$$$$$$$$$$$.    $$$$$$$$
+$JT&yd$     $$$$$$$$$$$$$$$$.    $    $$    $   .$$$$$$$$$$$$$$$$     $by&TL$
+                                 $    $$    $
+                                 $.   $$   .$
+                                 `$        $'
+                                  `$$$$$$$$'
+
+Press Enter to quit the tester
