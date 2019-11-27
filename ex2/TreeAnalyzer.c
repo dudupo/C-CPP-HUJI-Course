@@ -276,7 +276,9 @@ Node ** parsingFile(FILE * file_object, int graph_size)
         nodes[graph_size]  = NULL;
         // popping spaces
         popSpaces(file_object);
+
         // get rid of '\n' charter
+        exitFailure (peekFile(file_object) != NEWLINE);
         getc(file_object);
         // initialize the perent, the node which the line discribe.
         int perent = ZERO, children;
@@ -301,7 +303,11 @@ Node ** parsingFile(FILE * file_object, int graph_size)
                         getc(file_object);
                 }
                 popSpaces(file_object);
+
+                // get rid of '\n' charter
+                exitFailure (peekFile(file_object) != NEWLINE);
                 getc(file_object);
+
                 // increasing the perent to the follwing line.
                 perent++;
         }
