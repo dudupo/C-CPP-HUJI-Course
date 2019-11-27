@@ -286,6 +286,8 @@ Node ** parsingFile(FILE * file_object, int graph_size)
         while(peekFile(file_object) != EOF)
         {
                 popSpaces(file_object);
+                // exit in case of empty line
+                exitFailure (peekFile(file_object) == NEWLINE);
                 // define the nmbers in the line as the childrens of the node
                 // which indexed as the line number.
                 while(peekFile(file_object) != EOF &&
@@ -305,7 +307,6 @@ Node ** parsingFile(FILE * file_object, int graph_size)
                 popSpaces(file_object);
 
                 // get rid of '\n' charter
-                exitFailure (peekFile(file_object) != NEWLINE);
                 getc(file_object);
 
                 // increasing the perent to the follwing line.
