@@ -286,7 +286,7 @@ Node ** parsingFile(FILE * file_object, int graph_size)
         while(peekFile(file_object) != EOF)
         {
                 // exit in case there are too many lines
-                exitFailure ( perent < graph_size );
+                exitFailure ( perent >= graph_size );
                 popSpaces(file_object);
                 // exit in case of empty line
                 exitFailure (peekFile(file_object) == NEWLINE);
