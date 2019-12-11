@@ -4,4 +4,4 @@ Edges Count: 41
 Length of Minimal Branch: 1
 Length of Maximal Branch: 13
 Diameter Length: 14
-Shortest Path Between 36 and 9: 36 6 38 9
+Shortest Path Between 40 and 27: 40 31 1 30 2 6 36 34 39 14 27

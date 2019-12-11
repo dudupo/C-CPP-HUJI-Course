@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-#include "RBTree.h"
+//#include "RBTree.h"
 #include "Structs.h"
 
 #define LE -1
@@ -11,6 +11,9 @@ int const SUCCES_CONCATENATE = 1;
 int const FAIL_CONCATENATE = 0;
 int const FAIL_COPY_IF_NORM = 0;
 int const SUCCES_COPY_IF_NORM = 1;
+int const ZERO = 0;
+char const NEW_LINE = '\n';
+char * const NEW_LINE_P = "\n";
 /**
  * handling the case when one of the object is null
  */
@@ -48,15 +51,6 @@ int stringCompare(const void *a, const void *b)
         {
                 return null_case;
         }
-        // if ( *(( const char *) a) == *(( const char *) b) )
-        // {
-        //         return EQ;
-        // }
-        // if ( *(( const char *) a) <  *(( const char *) b) )
-        // {
-        //         return LE;
-        // }
-        // else a > b
         return strcmp( ( const char *) a, ( const char *) b );
 }
 
@@ -69,8 +63,11 @@ int stringCompare(const void *a, const void *b)
  */
 int concatenate(const void *word, void *pConcatenated)
 {
+
         pConcatenated = ( void * )
                         strcat( (char *) pConcatenated, (const char * ) word);
+        pConcatenated = ( void * )
+            strcat( (char *) pConcatenated, NEW_LINE_P);
 
         if ( pConcatenated != NULL)
         {
@@ -142,16 +139,16 @@ void freeVector(void *pVector)
 {
         free( (( Vector *) pVector)->vector );
         free( pVector );
-} // implement it in Structs.c
+}
 
 /**
  * calculate the square norm of the vector.
  */
 double calcSqureNorm(const Vector * vector )
 {
-        double ret = 0;
+        double ret = ZERO;
 
-        for ( int i = 0; i < vector->len; i++ )
+        for ( int i = ZERO; i < vector->len; i++ )
         {
                 ret += (vector->vector[i] * vector->vector[i]);
         }
@@ -179,11 +176,21 @@ int copyIfNormIsLarger(const void *pVector, void *pMaxVector)
 
         if ( norm_pMaxVector < norm_pVector  )
         {
-                ( (Vector *) pMaxVector)->vector = (( const Vector *) pVector)->vector;
-                ( (Vector *) pMaxVector)->len = (( const Vector *) pVector)->len;
+
+            if (((Vector *) pMaxVector)->len < ((Vector *) pVector)->len)
+            {
+                free( ((Vector *) pMaxVector)->vector);
+                ((Vector *) pMaxVector)->vector = (double *)
+                        malloc( sizeof(double) *  ( (Vector *) pVector)->len );
+            }
+
+                ( (Vector *) pMaxVector)->vector = (double *) memcpy(
+                        ((const Vector *) pMaxVector)->vector, ((Vector *) pVector)->vector,
+                        sizeof(double) *  ( (Vector *) pMaxVector)->len )  ;
+            ( (Vector *) pMaxVector)->len = (( const Vector *) pVector)->len;
         }
         return SUCCES_COPY_IF_NORM;
-} // implement it in Structs.c
+}
 
 /**
  * @param tree a pointer to a tree of Vectors
@@ -194,7 +201,13 @@ Vector *findMaxNormVectorInTree(RBTree *tree)
         if ( tree != NULL && tree->root->data != NULL )
         {
                 Vector * pMaxVector =  (Vector * ) malloc( sizeof(Vector) );
-                pMaxVector->vector  = ((Vector * ) tree->root->data)->vector;
+                pMaxVector->vector  =  (double *) malloc(
+                        sizeof(double) *  ( (Vector *) tree->root->data)->len );
+
+                pMaxVector->vector = (double *) memcpy(
+                    (( Vector *) tree->root->data)->vector, pMaxVector->vector ,
+                    sizeof(double) *  ( (Vector *) tree->root->data)->len ) ;
+
                 pMaxVector->len  = ((Vector * ) tree->root->data)->len;
                 forEachRBTree(tree, copyIfNormIsLarger, (void *) pMaxVector );
                 return pMaxVector;
@@ -202,4 +215,4 @@ Vector *findMaxNormVectorInTree(RBTree *tree)
         else {
                 return NULL;
         }
-} // implement it in Structs.c You must use copyIfNormIsLarger in the implementation!
+}

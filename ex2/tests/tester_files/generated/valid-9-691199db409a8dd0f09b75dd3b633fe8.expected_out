@@ -4,4 +4,4 @@ Edges Count: 8
 Length of Minimal Branch: 1
 Length of Maximal Branch: 4
 Diameter Length: 5
-Shortest Path Between 1 and 8: 1 8
+Shortest Path Between 7 and 4: 7 5 0 6 4

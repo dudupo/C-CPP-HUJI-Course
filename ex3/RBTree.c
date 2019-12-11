@@ -19,7 +19,8 @@ int const SUCCES_FOR_EACH = 1;
 int const FAIL_FOR_EACH = 0;
 int const EMPTY_TREE_SIZE = 0;
 int const ADD_ELEMENT = 1;
-
+int const CONTAINS = 1;
+int const NOT_CONTAINS = 0;
 
 
 
@@ -78,8 +79,10 @@ int getState (Node * node)
                 return CASE2_PARENT_BLACK;
         }
         if ( node->parent && node->parent->parent &&
-             node->parent->parent->right->color == RED &&
-             node->parent->parent->left->color == RED)
+                ( node->parent->parent->right != NULL &&
+                node->parent->parent->right->color == RED) &&
+                ( node->parent->parent->left  != NULL &&
+                node->parent->parent->left->color == RED) )
         {
                 return CASE3_PARENT_AND_UNCLE_RED;
         }
@@ -98,20 +101,21 @@ void rotateLeft( Node * node )
 
         if (isLeftChild(node) == IS_LEFT_CHILD)
         {
-                printf("i was here l\n");
                 rightchild->parent->left = rightchild;
         }
         else if(isRightChild(node) == IS_RIGHT_CHILD)
         {
-                printf("i was here r\n");
                 rightchild->parent->right = rightchild;
         }
 
         node->right = rightchild->left;
+        if ( rightchild->left != NULL )
+        {
+            rightchild->left->parent = node;
+        }
         rightchild->left = node;
         node->parent = rightchild;
 
-        return node;
 }
 
 
@@ -141,23 +145,26 @@ Node * deepcopy( Node * node )
 Node * rotateRight( Node * node )
 {
         Node * leftchild= node->left;
-
         leftchild->parent = node->parent;
 
         if (isLeftChild(node) == IS_LEFT_CHILD)
         {
-                printf("i was here l\n");
                 leftchild->parent->left = leftchild;
         }
         else if(isRightChild(node) == IS_RIGHT_CHILD)
         {
-                printf("i was here r\n");
                 leftchild->parent->right = leftchild;
         }
 
         node->left = leftchild->right;
+        if ( leftchild->right !=  NULL)
+        {
+            leftchild->right->parent = node;
+        }
         leftchild->right = node;
         node->parent = leftchild;
+
+
 
         return node;
 
@@ -190,19 +197,27 @@ void balancRBTree( Node * node )
                         balancRBTree(ancestor);
                         return;
                 case CASE4_PARENT_RED:
-                        printf("i was in case 4\n");
                         ancestor = node->parent->parent;
                         parent = node->parent;
                         if ( isLeftChild(node) == IS_LEFT_CHILD &&
                              isRightChild(parent) == IS_RIGHT_CHILD)
                         {
+                                rotateRight(parent);
                                 rotateLeft(ancestor);
+                                ancestor->color = RED;
+                                node->color=BLACK;
+                                return;
                         }
                         else if ( isRightChild(node) == IS_RIGHT_CHILD &&
                              isLeftChild(parent) == IS_LEFT_CHILD )
 
                         {
+                                rotateLeft(parent);
                                 rotateRight(ancestor);
+                                ancestor->color = RED;
+                                node->color=BLACK;
+                                return;
+
                         }
                         else if ( isLeftChild(node) == IS_LEFT_CHILD &&
                              isLeftChild(parent) == IS_LEFT_CHILD)
@@ -217,7 +232,8 @@ void balancRBTree( Node * node )
 
                         parent->color = BLACK;
                         ancestor->color = RED;
-                        balancRBTree(ancestor);
+                        //node->color=BLACK;
+                        //balancRBTree(ancestor);
                         return;
                 }
         }
@@ -230,22 +246,38 @@ void balancRBTree( Node * node )
  * @param tree, the current node.
  * @param data, which we search.
  */
-Node *getNode( Node *node, void *data, CompareFunc compFunc )
+Node *getNode( Node * node, void *data, CompareFunc compFunc )
 {
 
-        if ( node->data == LEAF )
+        if ( node == NULL )
         {
                 return node;
         }
+        int cmp = compFunc(data,  node->data);
 
-        switch (compFunc(data, node->data) )
+        if ( cmp < EQ)
         {
-        case LE:
-                return getNode( node->left, data, compFunc );
-        case EQ:
+
+            if ( node->left )
+            {
+                return getNode( node->left, data, compFunc);
+            }
+            else {
                 return node;
-        case GE:
-                return getNode( node->right, data, compFunc );
+            }
+        }
+        else if ( cmp == EQ)
+        {
+            return node;
+        }
+        else if ( cmp > EQ )
+        {
+            if ( node->right) {
+                return getNode(node->right, data, compFunc);
+            }
+            else {
+                return node;
+            }
         }
         return NULL;
 }
@@ -284,8 +316,8 @@ Node * newLeaf(Node ** parent)
 RBTree *newRBTree(CompareFunc compFunc, FreeFunc freeFunc)
 {
         RBTree * ret = (RBTree * ) malloc( sizeof(RBTree) );
-        ret->root = newLeaf(&(ret->root));
-        ret->root->parent = NULL;
+        ret->root = NULL;
+        //ret->root->parent = NULL;
         ret->compFunc = compFunc;
         ret->freeFunc = freeFunc;
         ret->size = EMPTY_TREE_SIZE;
@@ -300,22 +332,53 @@ RBTree *newRBTree(CompareFunc compFunc, FreeFunc freeFunc)
  */
 int addToRBTree(RBTree *tree, void *data)
 {
-        Node * position = getNodeByRoot(tree, data);
-        if ( position->data == LEAF)
+
+        if ( tree->root == NULL )
         {
-                position->data = data;
-                position->left = newLeaf(&position);
-                position->right = newLeaf(&position);
-                position->color = RED;
-                balancRBTree(position);
+            tree->root = (Node * ) malloc( sizeof(Node) );
+            tree->root->parent = NULL;
+            tree->root->right = NULL;
+            tree->root->left = NULL;
+            tree->root->data = data;
+            tree->root->color = BLACK;
+            tree->size += ADD_ELEMENT;
+            return SUCCES_ADD;
+        }
+
+        else
+        {
+
+            Node *position = getNodeByRoot(tree, data);
+            int cmp = tree->compFunc(data, position->data);
+            if (cmp != 0 && position->data != data) {
+
+
+#define INIT_LEAF(dir) \
+                position->dir = (Node * ) malloc( sizeof(Node) ); \
+                position->dir->parent = position; \
+                position->dir->left = NULL; \
+                position->dir->right = NULL; \
+                position->dir->data = data; \
+                position->dir->color = RED; \
+                balancRBTree(position->dir);
+
+
+                if (cmp < EQ) {
+                    INIT_LEAF(left)
+                } else {
+                    INIT_LEAF(right)
+                }
+#undef INIT_LEAF
+
+
                 tree->size += ADD_ELEMENT;
 
-                while( tree->root->parent != NULL )
-                {
-                        tree->root = tree->root->parent;
+                while (tree->root->parent != NULL) {
+                    tree->root = tree->root->parent;
                 }
 
                 return SUCCES_ADD;
+            }
         }
         return FAIL_ADD;
 }
@@ -328,7 +391,23 @@ int addToRBTree(RBTree *tree, void *data)
  */
 int containsRBTree(RBTree *tree, void *data)
 {
-        return tree == NULL || (getNodeByRoot(tree, data)->data != LEAF);
+    if ( tree == NULL )
+    {
+        return NOT_CONTAINS;
+    }
+    Node * node = getNodeByRoot(tree, data);
+    if ( node == NULL )
+    {
+        return NOT_CONTAINS;
+    }
+    int cmp = tree->compFunc(data, node->data);
+
+    return cmp == EQ;
+//    Node *position = getNodeByRoot(tree, data);
+//    int cmp = tree->compFunc(data, position->data);
+//    if (cmp != 0 && position->data != data)
+
+
 }
 
 
@@ -344,7 +423,7 @@ int containsRBTree(RBTree *tree, void *data)
  */
 int forEachDFS(Node *node, forEachFunc func, void *args)
 {
-        if ( node->data == LEAF )
+        if ( node == NULL )
         {
                 return SUCCES_FOR_EACH;
         }
@@ -376,14 +455,16 @@ int forEachRBTree(RBTree *tree, forEachFunc func, void *args)
  */
 void freeDFS(Node ** node, FreeFunc freeFunc)
 {
-        if ( (*node)->data == LEAF )
+        if ( (*node) == NULL )
         {
-                free((*node));
+                //free((*node));
+                return;
         }
         else
         {
                 freeDFS(&(*node)->left, freeFunc);
                 freeDFS(&(*node)->right, freeFunc);
+                freeFunc((*node)->data);
                 free((*node));
         }
 }
@@ -396,22 +477,4 @@ void freeRBTree(RBTree *tree)
 {
         freeDFS(&tree->root, tree->freeFunc);
         free(tree);
-}
-
-
-int getHeight(Node * node)
-{
-        if ( node->data == LEAF )
-        {
-                return 0;
-        }
-
-        int leftheight =  getHeight(node->left);
-        int righttheight = getHeight(node->right);
-        int ret = leftheight;
-        if( leftheight < righttheight )
-                ret = righttheight;
-
-        printf("i was here : %d\n", ret);
-        return 1 + ret;
 }
