@@ -293,7 +293,8 @@ Node ** parsingFile(FILE * file_object, int graph_size)
                 // define the nmbers in the line as the childrens of the node
                 // which indexed as the line number.
                 while(peekFile(file_object) != EOF &&
-                      peekFile(file_object) != NEWLINE && peekFile(file_object) != UPSCORE)
+                      peekFile(file_object) != NEWLINE &&
+                      peekFile(file_object) != UPSCORE)
                 {
                         getNextNumber(file_object, &children);
                         exitFailure(!connectable( perent, children, graph_size));
@@ -407,7 +408,8 @@ int getHeightbyfun(Node * root, compare_func compare)
         {
                 // calculate the height of the current child.
                 height = getHeightbyfun(ptr_node->node, compare);
-                // than, choose which height to store by the given comparing function.
+                // than, choose which height to store by the given comparing
+                // function.
                 ret = compare(ret, height);
         }
         // adding the contrbutie of the current node to the height.
