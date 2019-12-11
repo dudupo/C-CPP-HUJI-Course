@@ -1,5 +1,4 @@
-gcc -Wextra -Wall -Wvla -lm .\TreeAnalyzer.c -o TreeAnalyzer.exe
-move TreeAnalyzer.exe .\ex2_test\TEST\TreeAnalyzer.exe
-cd .\ex2_test\TEST
-.\run_tester.bat
-cd ..\..\
+rem gcc -std=c99 -Wextra -Wall -Wvla -lm .\ProductExample.c .\RBTree.c -o Product.exe
+gcc  -std=c99 -Wextra -Wall -Wvla -lm .\RBtest.c .\RBTree.c  -o test.exe
+rem .\Product.exe
+.\test.exe

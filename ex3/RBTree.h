@@ -37,7 +37,9 @@ typedef void (*FreeFunc)(void *data);
  */
 typedef struct Node
 {
-	struct Node *parent, *left, *right;
+	struct Node *parent;
+	struct Node *left;
+	struct Node *right;
 	Color color;
 	void *data;
 

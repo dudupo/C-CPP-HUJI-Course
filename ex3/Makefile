@@ -6,8 +6,8 @@ CLEANFILES = ProductExample.o Structs.o RBTree.o
 presubmit: ProductExample.o RBTree.a Structs.o
 	$(CC) -o presubmit ProductExample.o RBTree.a
 	./presubmit
-	
-ProductExample.o: ProductExample.c 
+
+ProductExample.o: ProductExample.c
 	$(CC) -c $(CFLAGS) ProductExample.c
 
 RBTree.a: RBTree.o
