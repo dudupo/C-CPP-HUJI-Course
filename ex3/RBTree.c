@@ -1,6 +1,6 @@
-#ifndef RBTREE_RBTREE_H
+//#ifndef RBTREE_RBTREE_H
 #include "RBTree.h"
-#endif
+//#endif
 
 #include <stdlib.h>
 #define LE -1
@@ -478,3 +478,20 @@ void freeRBTree(RBTree *tree)
         freeDFS(&tree->root, tree->freeFunc);
         free(tree);
 }
+
+
+//int getHeight(Node * node)
+//{
+//        if ( node->data == LEAF )
+//        {
+//                return 0;
+//        }
+//
+//        int leftheight =  getHeight(node->left);
+//        int righttheight = getHeight(node->right);
+//        int ret = leftheight;
+//        if( leftheight < righttheight )
+//                ret = righttheight;
+//
+//        return 1 + ret;
+//}

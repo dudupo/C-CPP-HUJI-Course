@@ -119,17 +119,27 @@ int vectorCompare1By1(const void *a, const void *b)
         int len_b = iterator_b->len;
         int len_cmp = ( len_a > len_b ) - ( len_a < len_b );
 
-        if ( len_cmp != EQ )
-        {
-                return len_cmp;
-        }
         int cmp = EQ;
-        for ( int i = 0; i < len_a && (cmp == EQ); i++ )
+        for ( int i = 0; i < len_a && i < len_b && (cmp == EQ); i++ )
         {
                 cmp = compare_doubles( &iterator_a->vector[i],
                                        &iterator_b->vector[i] );
         }
+
+        if (cmp == EQ)
+        {
+            return len_cmp;
+        }
         return cmp;
+
+//        if ( len_cmp != EQ )
+//        {
+//            return len_cmp;
+//        }
+//        int cmp = EQ;
+//
+//
+//        return cmp;
 }
 
 /**
