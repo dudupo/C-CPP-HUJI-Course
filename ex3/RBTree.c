@@ -22,9 +22,6 @@ int const ADD_ELEMENT = 1;
 int const CONTAINS = 1;
 int const NOT_CONTAINS = 0;
 
-
-
-
 /**
  *  return 1 if the node is the left children of his
  *  parent.
@@ -78,11 +75,12 @@ int getState (Node * node)
         {
                 return CASE2_PARENT_BLACK;
         }
-        if ( node->parent && node->parent->parent &&
-                ( node->parent->parent->right != NULL &&
-                node->parent->parent->right->color == RED) &&
-                ( node->parent->parent->left  != NULL &&
-                node->parent->parent->left->color == RED) )
+        if (
+             node->parent && node->parent->parent && (
+             node->parent->parent->right != NULL &&
+             node->parent->parent->right->color == RED) && (
+             node->parent->parent->left  != NULL &&
+             node->parent->parent->left->color == RED) )
         {
                 return CASE3_PARENT_AND_UNCLE_RED;
         }
@@ -111,40 +109,19 @@ void rotateLeft( Node * node )
         node->right = rightchild->left;
         if ( rightchild->left != NULL )
         {
-            rightchild->left->parent = node;
+                rightchild->left->parent = node;
         }
         rightchild->left = node;
         node->parent = rightchild;
 
 }
-
-
-Node * deepcopy( Node * node )
-{
-        Node * copy = (Node *) malloc(sizeof(Node));
-        #define COPY(field) \
-                if ( node->field != NULL ) \
-                { \
-                        copy->field = node->field; \
-                } \
-                else \
-                { \
-                        copy->field = NULL; \
-                }
-        COPY(parent)
-        COPY(left)
-        COPY(right)
-        copy->data = node->data;
-        return copy;
-}
-
 /**
  *  rotate right the given node
  *  @param tree: the current node
  */
 Node * rotateRight( Node * node )
 {
-        Node * leftchild= node->left;
+        Node * leftchild = node->left;
         leftchild->parent = node->parent;
 
         if (isLeftChild(node) == IS_LEFT_CHILD)
@@ -159,7 +136,7 @@ Node * rotateRight( Node * node )
         node->left = leftchild->right;
         if ( leftchild->right !=  NULL)
         {
-            leftchild->right->parent = node;
+                leftchild->right->parent = node;
         }
         leftchild->right = node;
         node->parent = leftchild;
@@ -183,12 +160,12 @@ void balancRBTree( Node * node )
                 Node * parent;
                 switch ( getState(node) )
                 {
-                case CASE1_ROOT:
+                        case CASE1_ROOT:
                         node->color = BLACK;
                         return;
-                case CASE2_PARENT_BLACK:
+                        case CASE2_PARENT_BLACK:
                         return;
-                case CASE3_PARENT_AND_UNCLE_RED:
+                        case CASE3_PARENT_AND_UNCLE_RED:
                         ancestor = node->parent->parent;
                         parent = node->parent;
                         ancestor->left->color = BLACK;
@@ -196,7 +173,7 @@ void balancRBTree( Node * node )
                         ancestor->color = RED;
                         balancRBTree(ancestor);
                         return;
-                case CASE4_PARENT_RED:
+                        case CASE4_PARENT_RED:
                         ancestor = node->parent->parent;
                         parent = node->parent;
                         if ( isLeftChild(node) == IS_LEFT_CHILD &&
@@ -205,35 +182,33 @@ void balancRBTree( Node * node )
                                 rotateRight(parent);
                                 rotateLeft(ancestor);
                                 ancestor->color = RED;
-                                node->color=BLACK;
+                                node->color = BLACK;
                                 return;
                         }
                         else if ( isRightChild(node) == IS_RIGHT_CHILD &&
-                             isLeftChild(parent) == IS_LEFT_CHILD )
+                                  isLeftChild(parent) == IS_LEFT_CHILD )
 
                         {
                                 rotateLeft(parent);
                                 rotateRight(ancestor);
                                 ancestor->color = RED;
-                                node->color=BLACK;
+                                node->color = BLACK;
                                 return;
 
                         }
                         else if ( isLeftChild(node) == IS_LEFT_CHILD &&
-                             isLeftChild(parent) == IS_LEFT_CHILD)
+                                  isLeftChild(parent) == IS_LEFT_CHILD)
                         {
                                 rotateRight(ancestor);
                         }
                         else if ( isRightChild(node) == IS_RIGHT_CHILD &&
-                             isRightChild(parent) == IS_RIGHT_CHILD)
+                                  isRightChild(parent) == IS_RIGHT_CHILD)
                         {
                                 rotateLeft(ancestor);
                         }
 
                         parent->color = BLACK;
                         ancestor->color = RED;
-                        //node->color=BLACK;
-                        //balancRBTree(ancestor);
                         return;
                 }
         }
@@ -258,26 +233,29 @@ Node *getNode( Node * node, void *data, CompareFunc compFunc )
         if ( cmp < EQ)
         {
 
-            if ( node->left )
-            {
-                return getNode( node->left, data, compFunc);
-            }
-            else {
-                return node;
-            }
+                if ( node->left )
+                {
+                        return getNode( node->left, data, compFunc);
+                }
+                else
+                {
+                        return node;
+                }
         }
         else if ( cmp == EQ)
         {
-            return node;
+                return node;
         }
         else if ( cmp > EQ )
         {
-            if ( node->right) {
-                return getNode(node->right, data, compFunc);
-            }
-            else {
-                return node;
-            }
+                if ( node->right)
+                {
+                        return getNode(node->right, data, compFunc);
+                }
+                else
+                {
+                        return node;
+                }
         }
         return NULL;
 }
@@ -303,9 +281,9 @@ Node * newLeaf(Node ** parent)
         Node * ret = (Node * )malloc( sizeof(Node) );
         ret->data = LEAF;
         ret->parent = *parent;
-        ret->left =NULL;
-        ret->right=NULL;
-        ret->color=BLACK;
+        ret->left = NULL;
+        ret->right = NULL;
+        ret->color = BLACK;
         return ret;
 }
 
@@ -317,7 +295,6 @@ RBTree *newRBTree(CompareFunc compFunc, FreeFunc freeFunc)
 {
         RBTree * ret = (RBTree * ) malloc( sizeof(RBTree) );
         ret->root = NULL;
-        //ret->root->parent = NULL;
         ret->compFunc = compFunc;
         ret->freeFunc = freeFunc;
         ret->size = EMPTY_TREE_SIZE;
@@ -328,57 +305,63 @@ RBTree *newRBTree(CompareFunc compFunc, FreeFunc freeFunc)
  * add an item to the tree
  * @param tree: the tree to add an item to.
  * @param data: item to add to the tree.
- * @return: 0 on failure, other on success. (if the item is already in the tree - failure).
+ * @return: 0 on failure, other on success.
+ * (if the item is already in the tree - failure).
  */
 int addToRBTree(RBTree *tree, void *data)
 {
 
         if ( tree->root == NULL )
         {
-            tree->root = (Node * ) malloc( sizeof(Node) );
-            tree->root->parent = NULL;
-            tree->root->right = NULL;
-            tree->root->left = NULL;
-            tree->root->data = data;
-            tree->root->color = BLACK;
-            tree->size += ADD_ELEMENT;
-            return SUCCES_ADD;
+                tree->root = (Node * ) malloc( sizeof(Node) );
+                tree->root->parent = NULL;
+                tree->root->right = NULL;
+                tree->root->left = NULL;
+                tree->root->data = data;
+                tree->root->color = BLACK;
+                tree->size += ADD_ELEMENT;
+                return SUCCES_ADD;
         }
 
         else
         {
 
-            Node *position = getNodeByRoot(tree, data);
-            int cmp = tree->compFunc(data, position->data);
-            if (cmp != 0 && position->data != data) {
+                Node *position = getNodeByRoot(tree, data);
+                int cmp = tree->compFunc(data, position->data);
+                if (cmp != EQ && position->data != data)
+                {
 
 
 #define INIT_LEAF(dir) \
-                position->dir = (Node * ) malloc( sizeof(Node) ); \
-                position->dir->parent = position; \
-                position->dir->left = NULL; \
-                position->dir->right = NULL; \
-                position->dir->data = data; \
-                position->dir->color = RED; \
-                balancRBTree(position->dir);
+        position->dir = (Node * ) malloc( sizeof(Node) ); \
+        position->dir->parent = position; \
+        position->dir->left = NULL; \
+        position->dir->right = NULL; \
+        position->dir->data = data; \
+        position->dir->color = RED; \
+        balancRBTree(position->dir);
 
 
-                if (cmp < EQ) {
-                    INIT_LEAF(left)
-                } else {
-                    INIT_LEAF(right)
-                }
+                        if (cmp < EQ)
+                        {
+                                INIT_LEAF(left)
+                        }
+                        else
+                        {
+                                INIT_LEAF(right)
+                        }
 #undef INIT_LEAF
 
 
-                tree->size += ADD_ELEMENT;
+                        tree->size += ADD_ELEMENT;
 
-                while (tree->root->parent != NULL) {
-                    tree->root = tree->root->parent;
+                        while (tree->root->parent != NULL)
+                        {
+                                tree->root = tree->root->parent;
+                        }
+
+                        return SUCCES_ADD;
                 }
-
-                return SUCCES_ADD;
-            }
         }
         return FAIL_ADD;
 }
@@ -391,34 +374,31 @@ int addToRBTree(RBTree *tree, void *data)
  */
 int containsRBTree(RBTree *tree, void *data)
 {
-    if ( tree == NULL )
-    {
-        return NOT_CONTAINS;
-    }
-    Node * node = getNodeByRoot(tree, data);
-    if ( node == NULL )
-    {
-        return NOT_CONTAINS;
-    }
-    int cmp = tree->compFunc(data, node->data);
+        if ( tree == NULL )
+        {
+                return NOT_CONTAINS;
+        }
+        Node * node = getNodeByRoot(tree, data);
+        if ( node == NULL )
+        {
+                return NOT_CONTAINS;
+        }
+        int cmp = tree->compFunc(data, node->data);
 
-    return cmp == EQ;
-//    Node *position = getNodeByRoot(tree, data);
-//    int cmp = tree->compFunc(data, position->data);
-//    if (cmp != 0 && position->data != data)
-
-
+        return cmp == EQ;
 }
 
 
 
 
 /**
- * Activate a function on each item of the tree. the order is an ascending order. if one of the activations of the
+ * Activate a function on each item of the tree. the order is an ascending order.
+ * if one of the activations of the
  * function returns 0, the process stops.
  * @param מםגק: the current node.
  * @param func: the function to activate on all items.
- * @param args: more optional arguments to the function (may be null if the given function support it).
+ * @param args: more optional arguments to the function
+ * (may be null if the given function support it).
  * @return: 0 on failure, other on success.
  */
 int forEachDFS(Node *node, forEachFunc func, void *args)
@@ -436,11 +416,14 @@ int forEachDFS(Node *node, forEachFunc func, void *args)
 
 
 /**
- * Activate a function on each item of the tree. the order is an ascending order. if one of the activations of the
+ * Activate a function on each item of the tree.
+ * the order is an ascending order.
+ * if one of the activations of the
  * function returns 0, the process stops.
  * @param tree: the tree with all the items.
  * @param func: the function to activate on all items.
- * @param args: more optional arguments to the function (may be null if the given function support it).
+ * @param args: more optional arguments to the function
+ * (may be null if the given function support it).
  * @return: 0 on failure, other on success.
  */
 int forEachRBTree(RBTree *tree, forEachFunc func, void *args)
@@ -457,7 +440,6 @@ void freeDFS(Node ** node, FreeFunc freeFunc)
 {
         if ( (*node) == NULL )
         {
-                //free((*node));
                 return;
         }
         else
@@ -478,20 +460,3 @@ void freeRBTree(RBTree *tree)
         freeDFS(&tree->root, tree->freeFunc);
         free(tree);
 }
-
-
-//int getHeight(Node * node)
-//{
-//        if ( node->data == LEAF )
-//        {
-//                return 0;
-//        }
-//
-//        int leftheight =  getHeight(node->left);
-//        int righttheight = getHeight(node->right);
-//        int ret = leftheight;
-//        if( leftheight < righttheight )
-//                ret = righttheight;
-//
-//        return 1 + ret;
-//}

@@ -1,0 +1,5 @@
+g++ -Wall -Wvla -Wextra -Werror -g -std=c++17   -c -o Matrix.o Matrix.cpp
+g++ -Wall -Wvla -Wextra -Werror -g -std=c++17   -c -o Activation.o Activation.cpp
+g++ -Wall -Wvla -Wextra -Werror -g -std=c++17   -c -o Dense.o Dense.cpp
+g++ -Wall -Wvla -Wextra -Werror -g -std=c++17   -c -o MlpNetwork.o MlpNetwork.cpp
+g++ -Wall -Wvla -Wextra -Werror -g -std=c++17   -c -o main.o main.cpp

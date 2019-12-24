@@ -1,6 +1,8 @@
 #include <string.h>
 #include <stdlib.h>
+//#ifndef RBTREE_RBTREE_H
 #include "RBTree.h"
+//#endif
 #include "Structs.h"
 
 #define LE -1
@@ -12,6 +14,7 @@ int const FAIL_CONCATENATE = 0;
 int const FAIL_COPY_IF_NORM = 0;
 int const SUCCES_COPY_IF_NORM = 1;
 int const ZERO = 0;
+double const ZEROF = 0.f;
 char const NEW_LINE = '\n';
 char * const NEW_LINE_P = "\n";
 /**
@@ -64,10 +67,14 @@ int stringCompare(const void *a, const void *b)
 int concatenate(const void *word, void *pConcatenated)
 {
 
-        pConcatenated = ( void * )
-                        strcat( (char *) pConcatenated, (const char * ) word);
-        pConcatenated = ( void * )
-            strcat( (char *) pConcatenated, NEW_LINE_P);
+        pConcatenated =
+                ( void * ) strcat(
+                        (char *) pConcatenated,
+                        (const char * ) word);
+        pConcatenated =
+                ( void * ) strcat(
+                        (char *) pConcatenated,
+                        NEW_LINE_P);
 
         if ( pConcatenated != NULL)
         {
@@ -90,7 +97,7 @@ void freeString(void *s)
 /**
  * compering two doubles.
  */
-int compare_doubles( const double *x, const double *y)
+int compareDoubles(const double *x, const double *y)
 {
         return ( *x > *y ) - ( *x < *y );
 }
@@ -120,26 +127,19 @@ int vectorCompare1By1(const void *a, const void *b)
         int len_cmp = ( len_a > len_b ) - ( len_a < len_b );
 
         int cmp = EQ;
-        for ( int i = 0; i < len_a && i < len_b && (cmp == EQ); i++ )
+        for ( int i = ZERO; i < len_a && i < len_b && (cmp == EQ); i++ )
         {
-                cmp = compare_doubles( &iterator_a->vector[i],
-                                       &iterator_b->vector[i] );
+                cmp =
+                        compareDoubles(
+                                &iterator_a->vector[i],
+                                &iterator_b->vector[i] );
         }
 
         if (cmp == EQ)
         {
-            return len_cmp;
+                return len_cmp;
         }
         return cmp;
-
-//        if ( len_cmp != EQ )
-//        {
-//            return len_cmp;
-//        }
-//        int cmp = EQ;
-//
-//
-//        return cmp;
 }
 
 /**
@@ -147,8 +147,6 @@ int vectorCompare1By1(const void *a, const void *b)
  */
 void freeVector(void *pVector)
 {
-
-        //if ( (( Vector *) pVector)->vector != NULL)
         free( (( Vector *) pVector)->vector );
         free( pVector );
 }
@@ -158,7 +156,7 @@ void freeVector(void *pVector)
  */
 double calcSqureNorm(const Vector * vector )
 {
-        double ret = 0.f;
+        double ret = ZEROF;
 
         for ( int i = ZERO; i < vector->len; i++ )
         {
@@ -179,42 +177,51 @@ int copyIfNormIsLarger(const void *pVector, void *pMaxVector)
 {
         int copy = (pMaxVector == NULL);
 
-        if ( ! copy )
+        if ( !copy )
         {
 
-            int null_case = compareNULLcase(pVector, pMaxVector);
-            if (null_case != NOT_NULL_CASE)
-            {
-                return FAIL_COPY_IF_NORM;
-            }
+                int null_case = compareNULLcase(pVector, pMaxVector);
+                if (null_case != NOT_NULL_CASE)
+                {
+                        return FAIL_COPY_IF_NORM;
+                }
 
-            double norm_pVector = calcSqureNorm(((const Vector *) pVector));
-            double norm_pMaxVector = calcSqureNorm((( Vector *) pMaxVector));
+                double norm_pVector =
+                        calcSqureNorm(((const Vector *) pVector));
+                double norm_pMaxVector =
+                        calcSqureNorm((( Vector *) pMaxVector));
 
-            copy = copy || ( norm_pMaxVector < norm_pVector  );
+                copy = copy || ( norm_pMaxVector < norm_pVector  );
 
         }
         else
         {
-            pMaxVector =  malloc ( sizeof(Vector) );
+                pMaxVector =  malloc ( sizeof(Vector) );
         }
 
 
         if ( copy )
         {
-            if ( ((Vector *) pMaxVector)->vector != NULL )
-            {
-                free(((Vector *) pMaxVector)->vector);
-            }
+                if ( ((Vector *) pMaxVector)->vector != NULL )
+                {
+                        free(((Vector *) pMaxVector)->vector);
+                }
 
-            ((Vector *) pMaxVector)->vector = (double *)
-                    malloc( sizeof(double) *  ( (Vector *) pVector)->len );
+                ( (Vector *) pMaxVector)->vector =
+                        (double *) malloc(
+                                sizeof(double) *
+                                ( (Vector *) pVector)->len );
 
 
-            ( (Vector *) pMaxVector)->vector = (double *) memcpy(
-                    ((Vector *) pMaxVector)->vector, ((Vector *) pVector)->vector,
-                    sizeof(double) *  ( (const Vector *) pVector)->len )  ;
-            ( (Vector *) pMaxVector)->len = (( const Vector *) pVector)->len;
+                ( (Vector *) pMaxVector)->vector =
+                        (double *) memcpy(
+                                ((Vector *) pMaxVector)->vector,
+                                ((Vector *) pVector)->vector,
+                                sizeof(double) *
+                                ( (const Vector *) pVector)->len );
+
+                ( (Vector *) pMaxVector)->len =
+                        (( const Vector *) pVector)->len;
         }
         return SUCCES_COPY_IF_NORM;
 }
@@ -228,18 +235,24 @@ Vector *findMaxNormVectorInTree(RBTree *tree)
         if ( tree != NULL && tree->root->data != NULL )
         {
                 Vector * pMaxVector =  (Vector * ) malloc( sizeof(Vector) );
-                pMaxVector->vector  =  (double *) malloc(
-                        sizeof(double) *  ( (Vector *) tree->root->data)->len );
+                pMaxVector->vector  =
+                        (double *) malloc(
+                                sizeof(double) *
+                                ( (Vector *) tree->root->data)->len );
 
-                pMaxVector->vector = (double *) memcpy(
-                    pMaxVector->vector, (( Vector *) tree->root->data)->vector,
-                    sizeof(double) *  ( (Vector *) tree->root->data)->len ) ;
+                pMaxVector->vector =
+                        (double *) memcpy(
+                                pMaxVector->vector,
+                                (( Vector *) tree->root->data)->vector,
+                                sizeof(double) *
+                                ( (Vector *) tree->root->data)->len );
 
                 pMaxVector->len  = ((Vector * ) tree->root->data)->len;
                 forEachRBTree(tree, copyIfNormIsLarger, (void *) pMaxVector );
                 return pMaxVector;
         }
-        else {
+        else
+        {
                 return NULL;
         }
 }
