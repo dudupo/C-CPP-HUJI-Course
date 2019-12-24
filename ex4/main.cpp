@@ -24,13 +24,10 @@
 #define BIAS_START_IDX (ARGS_START_IDX + MLP_SIZE)
 
 
-
-
 /**
  * Prints program usage to stdout.
  */
-void usage()
-{
+void usage() {
     std::cout << USAGE_MSG << std::endl;
 }
 
@@ -44,18 +41,15 @@ void usage()
  *          true - success
  *          false - failure
  */
-bool readFileToMatrix(const std::string &filePath, Matrix &mat)
-{
+bool readFileToMatrix(const std::string &filePath, Matrix &mat) {
     std::ifstream is;
     is.open(filePath, std::ios::in | std::ios::binary | std::ios::ate);
-    if(!is.is_open())
-    {
+    if (!is.is_open()) {
         return false;
     }
 
     long int matByteSize = (long int) mat.getCols() * mat.getRows() * sizeof(float);
-    if(is.tellg() != matByteSize)
-    {
+    if (is.tellg() != matByteSize) {
         is.close();
         return false;
     }
@@ -75,24 +69,22 @@ bool readFileToMatrix(const std::string &filePath, Matrix &mat)
  * @param biases array of matrix, biases[i] is the i'th layer bias matrix
  *          (which is actually a vector)
  */
-void loadParameters(char *paths[ARGS_COUNT], Matrix weights[MLP_SIZE], Matrix biases[MLP_SIZE])
-{
-    std::cout << MLP_SIZE <<  '\n';
-    for(int i = 0; i < 4; i++)
-    {
-        std::cout << "/* message " << i <<  '\n';
+void loadParameters(char *paths[ARGS_COUNT], Matrix weights[MLP_SIZE], Matrix biases[MLP_SIZE]) {
+    std::cout << MLP_SIZE << '\n';
+    for (int i = 0; i < 4; i++) {
+        std::cout << "/* message " << i << '\n';
         weights[i] = Matrix(weightsDims[i].rows, weightsDims[i].cols);
         biases[i] = Matrix(biasDims[i].rows, biasDims[i].cols);
 
         std::string biasPath(paths[BIAS_START_IDX + i]);
         std::string weightsPath(paths[WEIGHTS_START_IDX + i]);
-        std::cout << "/* message " << i <<  '\n';
+        std::cout << "/* message " << i << '\n';
 
         std::cout << weightsDims[i].rows << " " << weightsDims[i].cols << '\n' \
-         << weights[i].getRows() << " " << weights[i].getCols() << '\n';
+ << weights[i].getRows() << " " << weights[i].getCols() << '\n';
 
-         readFileToMatrix(weightsPath, weights[i]);
-         readFileToMatrix(biasPath, biases[i]);
+        readFileToMatrix(weightsPath, weights[i]);
+        readFileToMatrix(biasPath, biases[i]);
         // if(!(flag1 && flag2 ))
         // {
         //     std::cout << " message " << i <<  '\n';
@@ -114,23 +106,19 @@ void loadParameters(char *paths[ARGS_COUNT], Matrix weights[MLP_SIZE], Matrix bi
  * Exits (code == 1) on fatal errors: unable to read user input path.
  * @param mlp MlpNetwork to use in order to predict img.
  */
-void mlpCli(MlpNetwork &mlp)
-{
+void mlpCli(MlpNetwork &mlp) {
     Matrix img(imgDims.rows, imgDims.cols);
     std::string imgPath;
 
     std::cout << INSERT_IMAGE_PATH << std::endl;
     std::cin >> imgPath;
-    if(!std::cin.good())
-    {
+    if (!std::cin.good()) {
         std::cout << ERROR_INVALID_INPUT << std::endl;
         exit(EXIT_FAILURE);
     }
 
-    while(imgPath != QUIT)
-    {
-        if(readFileToMatrix(imgPath, img))
-        {
+    while (imgPath != QUIT) {
+        if (readFileToMatrix(imgPath, img)) {
             Matrix imgVec = img;
 
             std::cout << "/* processed message */" << '\n';
@@ -140,16 +128,13 @@ void mlpCli(MlpNetwork &mlp)
                       << img << std::endl;
             std::cout << "Mlp result: " << output.value <<
                       " at probability: " << output.probability << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << ERROR_INVALID_IMG << imgPath << std::endl;
         }
 
         std::cout << INSERT_IMAGE_PATH << std::endl;
         std::cin >> imgPath;
-        if(!std::cin.good())
-        {
+        if (!std::cin.good()) {
             std::cout << ERROR_INVALID_INPUT << std::endl;
             exit(EXIT_FAILURE);
         }
@@ -162,10 +147,8 @@ void mlpCli(MlpNetwork &mlp)
  * @param argv args values
  * @return program exit status code
  */
-int main(int argc, char **argv)
-{
-    if(argc != ARGS_COUNT)
-    {
+int main(int argc, char **argv) {
+    if (argc != ARGS_COUNT) {
         usage();
         exit(EXIT_FAILURE);
     }

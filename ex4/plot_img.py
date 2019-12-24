@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 
-import sys
-import os
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+import sys
 
 IMG_EDGE = 28
 IMG_LEN = IMG_EDGE * IMG_EDGE
@@ -22,8 +22,8 @@ def main(argv):
     img = np.fromfile(im_path, dtype=np.float32)
     if img.size != IMG_LEN:
         print("Unknown img file len")
-    
-    plt.imshow(img.reshape(IMG_EDGE, IMG_EDGE),cmap='gray')
+
+    plt.imshow(img.reshape(IMG_EDGE, IMG_EDGE), cmap='gray')
     plt.show()
 
 

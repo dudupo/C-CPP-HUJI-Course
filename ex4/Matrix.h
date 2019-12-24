@@ -15,20 +15,17 @@
         UNUSED(j)
 
 
-
 #include <ostream>
 #include <fstream>
 #include <iostream>
 #include <string>
 
 
-
 /**
  * @struct MatrixDims
  * @brief Matrix dimensions container
  */
-typedef struct MatrixDims
-{
+typedef struct MatrixDims {
     int rows, cols;
 } MatrixDims;
 
@@ -42,38 +39,61 @@ private:
     int rows = 0;
     int cols = 0;
 
-    float ** matrix;
-    void freeMatrix();
-public:
-    void forEach( void (*fun)( float&, void *, int, int), void *args);
+    float **matrix;
 
-    void ones( );
+
+    void init(int rows, int cols);
+
+    void init();
+
+public:
+    void forEach(void (*fun)(float &, void *, int, int), void *args);
+
+    void freeMatrix();
+
+    void ones();
+
     Matrix(int rows, int cols);
+
     Matrix();
-    Matrix( const Matrix& other );
+
+    Matrix(const Matrix &other);
+
     ~Matrix();
+
     int getRows() const;
+
     int getCols() const;
-    Matrix& vectorize();
+
+    Matrix &vectorize();
+
     void plainPrint();
 
     // Matrix& transpose( ) const;
     // matrixIter& iterator() const;
 
-    Matrix & operator=( const Matrix &assignmented );
+    Matrix &operator=(const Matrix &assignmented);
 
-    Matrix & operator+( const Matrix & other );
-    void    operator+=( const Matrix & other );
-    Matrix & operator*(  const Matrix & other );
-    Matrix & operator*( float scalar ) const;
+    Matrix &operator+(const Matrix &other);
 
-    float operator()( const int i, const int j );
-    float operator[]( const int i );
-    friend int operator>>( std::ifstream& is, Matrix & matrix );
+    Matrix &operator+=(const Matrix &other);
+
+    Matrix &operator*(const Matrix &other);
+
+    Matrix &operator*(float scalar) const;
+
+    float operator()(const int i, const int j) const;
+
+    float operator[](const int i) const;
+
+    friend int operator>>(std::ifstream &is, Matrix &matrix);
     //friend Digit MlpNetwork::operator()( Matrix&  matrix );
 };
-std::ostream& operator<<( std::ostream& os, Matrix & matrix );
-Matrix & operator* (float scalar, const Matrix & other );
-int operator >>( std::ifstream& is, Matrix & matrix );
+
+std::ostream &operator<<(std::ostream &os, Matrix &matrix);
+
+Matrix &operator*(float scalar, const Matrix &other);
+
+int operator>>(std::ifstream &is, Matrix &matrix);
 
 #endif //MATRIX_H

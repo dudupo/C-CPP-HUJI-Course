@@ -4,56 +4,50 @@
 
 // #include ""
 
-#include "matrix.cpp"
-
+#include "Matrix.cpp"
 
 
 static const std::string FAILMSG = std::string("fail test");
 static const std::string PASSMSG = std::string("pass test");
 
-void pass( const std::string& test_name )
-{
-  std::cout << PASSMSG << ' ' << test_name  << '\n';
+void pass(const std::string &test_name) {
+    std::cout << PASSMSG << ' ' << test_name << '\n';
 }
 
-void fail ( const std::string& test_name )
-{
-  std::cout << FAILMSG << ' ' << test_name  << '\n';
+void fail(const std::string &test_name) {
+    std::cout << FAILMSG << ' ' << test_name << '\n';
 }
 
-void test_init_matrix (  )
-{
+void test_init_matrix() {
 
-    Matrix matrix (3,4);
+    Matrix matrix(3, 4);
     matrix.ones();
     matrix = (matrix * 3);
     std::cout << matrix;
-    Matrix matrix2 (4,5);
+    Matrix matrix2(4, 5);
     matrix2.ones();
     matrix2 = matrix2 * 2;
     std::cout << matrix2;
     std::cout << (matrix * matrix2);
     matrix.plainPrint();
     std::cout << matrix[4] << std::endl;
-    std::cout << matrix(1,1) << std::endl;
+    std::cout << matrix(1, 1) << std::endl;
 
     std::cout << matrix2.vectorize() << '\n';
 
     pass("test_init_matrix");
 }
 
-bool readFileToMatrix(const std::string &filePath, Matrix &mat)
-{
+bool readFileToMatrix(const std::string &filePath, Matrix &mat) {
     std::ifstream is;
     is.open(filePath, std::ios::in | std::ios::binary | std::ios::ate);
-    if(!is.is_open())
-    {
+    if (!is.is_open()) {
         return false;
     }
 
     long int matByteSize = (long int) mat.getCols() * mat.getRows() * sizeof(float);
-    if(is.tellg() != matByteSize)
-    {
+
+    if (is.tellg() != matByteSize) {
         is.close();
         return false;
     }
@@ -62,9 +56,9 @@ bool readFileToMatrix(const std::string &filePath, Matrix &mat)
     is.close();
     return true;
 }
+
 //std::ifstream::binary
-void test_reading_matrix()
-{
+void test_reading_matrix() {
     //128, 784
     Matrix weights[3];
 
@@ -91,7 +85,7 @@ void test_reading_matrix()
 
     std::cout << weights[0];
 
-    std::cout << weights[2](0,324) << '\n';
+    std::cout << weights[2](0, 324) << '\n';
     // Matrix matrix2 (28,28);
     // std::ifstream is2 ( std::string("./images/im2") , std::ios::binary );
     // is2 >> matrix2;
@@ -101,8 +95,8 @@ void test_reading_matrix()
     pass("test_reading_matrix");
 }
 
-int main(){
-  //test_init_matrix();
-  test_reading_matrix( );
-  return 0;
+int main() {
+    //test_init_matrix();
+    test_reading_matrix();
+    return 0;
 }

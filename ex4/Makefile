@@ -1,5 +1,5 @@
 CC=g++
-CXXFLAGS= -Wall -Wvla -Wextra -Werror -g -std=c++17
+CXXFLAGS=-g -std=c++17 -Wall -Wvla -Wextra -Werror
 LDFLAGS= -lm
 HEADERS= Matrix.h Activation.h Dense.h MlpNetwork.h Digit.h
 OBJS= Matrix.o Activation.o Dense.o MlpNetwork.o main.o

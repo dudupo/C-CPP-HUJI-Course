@@ -9,8 +9,7 @@
  * @var value - Identified digit value
  * @var probability - identification probability
  */
-typedef struct Digit
-{
+typedef struct Digit {
     unsigned int value;
     float probability;
 } Digit;

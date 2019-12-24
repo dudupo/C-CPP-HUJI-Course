@@ -10,61 +10,56 @@
         UNUSED(i); \
         UNUSED(j)
 #endif
+
 #include <cmath>
 #include "Activation.h"
 
 
-static Matrix& reluFun ( Matrix& matrix )
-{
-        Matrix& ref (matrix);
-        LAMBDA(fun) {
-                UNUSED_LAMBDA();
+static Matrix &reluFun(Matrix &matrix) {
+    LAMBDA(fun) {
+        UNUSED_LAMBDA();
 
-                if ( s < 0  )
-                {
-                        s = 0;
-                }
-        };
-        std::cout << "/* relu */" << '\n';
-        ref.forEach(fun, nullptr);
-        return ref;
-}
-static Matrix& SoftmaxFun ( Matrix& matrix )
-{
-        Matrix& ref (matrix);
-        LAMBDA(fun) {
-                UNUSED_LAMBDA();
-                s = std::exp(s);
-                *((float *) args) += s;
-
-                std::cout << *((float *) args) << '\n';
-        };
-
-        float * args = new float(0);
-
-        ref.forEach(fun, (void *) args);
-        return ref * ((float) 1 / args[0] );
-}
-
-
-Activation::Activation(ActivationType activationType )
-{
-        this->activationType = activationType;
-}
-Matrix& Activation::operator()( Matrix& matrix )
-{
-        std::cout << "/* message  Activation */" << '\n';
-        if ( this->activationType == Relu)
-        {
-                return reluFun(matrix);
+        if (s < 0) {
+            s = 0;
         }
-        else if ( this->activationType == Softmax )
-        {
-                return SoftmaxFun(matrix);
-        }
-        std::cout << "/* message  Activation */" << '\n';
-        return matrix;
+    };
+    matrix.forEach(fun, nullptr);
+    return matrix;
 }
+
+static Matrix& SoftmaxFun(Matrix &matrix) {
+    LAMBDA(fun) {
+        UNUSED_LAMBDA();
+        s = std::exp(s);
+        *((float *) args) += s;
+        std::cout << s << std::endl;
+    };
+
+    float *args = new float(0);
+
+    matrix.forEach(fun, (void *) args);
+
+    float factor = (float) 1 / args[0];
+    delete args;
+    return matrix * factor;;
+}
+
+
+Activation::Activation(ActivationType activationType) {
+    this->activationType = activationType;
+}
+
+Matrix &Activation::operator()(Matrix &matrix) {
+
+    if (this->activationType == Relu) {
+        return reluFun(matrix);
+    } else if (this->activationType == Softmax) {
+        return SoftmaxFun(matrix);
+    }
+
+    return matrix;
+}
+
 ActivationType Activation::getActivationType() const {
-        return this->activationType;
+    return this->activationType;
 }

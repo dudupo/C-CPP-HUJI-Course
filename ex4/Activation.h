@@ -11,14 +11,13 @@
  * @enum ActivationType
  * @brief Indicator of activation function.
  */
-enum ActivationType
-{
+enum ActivationType {
     Relu,
     Softmax
 };
 
 // Insert Activation class here...
- //ACTIVATION_H
+//ACTIVATION_H
 
 
 
@@ -27,8 +26,10 @@ class Activation {
 private:
     ActivationType activationType;
 public:
-    Activation( ActivationType activationType );
-    Matrix& operator()( Matrix& );
+    Activation(ActivationType activationType);
+
+    Matrix &operator()(Matrix &);
+
     ActivationType getActivationType() const;
 
 };

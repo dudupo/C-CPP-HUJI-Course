@@ -6,22 +6,29 @@
 #include "Matrix.h"
 #include "Activation.h"
 
-class Dense
-{
+
+class Dense {
 
 private:
 
-  Matrix& w;
-  Matrix& bias;
-  Activation activation;
-
+    Matrix &w;
+    Matrix &bias;
+    Activation activation;
 public:
-  Dense();
-  Dense(Matrix& w, Matrix& bias, ActivationType activationType);
-  Matrix& getWeights();
-  Matrix& getBias();
-  Matrix& operator()( Matrix& );
-  Activation& getActivation();
+    Dense();
+
+    Dense(Matrix &w, Matrix &bias, ActivationType activationType);
+
+    Matrix &getWeights();
+
+    Matrix &getBias();
+
+//Dense&operator=(const Dense& other);
+    Matrix &operator()(Matrix &);
+
+    Activation &getActivation();
+
+
 };
 
 #endif
