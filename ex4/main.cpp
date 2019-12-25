@@ -148,6 +148,11 @@ void mlpCli(MlpNetwork &mlp) {
  * @return program exit status code
  */
 int main(int argc, char **argv) {
+
+    std::ifstream in("/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/inp.txt");
+    std::cin.rdbuf(in.rdbuf());
+
+
     if (argc != ARGS_COUNT) {
         usage();
         exit(EXIT_FAILURE);

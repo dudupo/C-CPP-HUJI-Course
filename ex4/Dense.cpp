@@ -1,37 +1,36 @@
 #include "Dense.h"
 
-//
-// Dense::Dense() : w(),
-//  bias(), activation(Relu)
-// {
-//   // this->w(w);
-//   // this->bias(bias);
-//
-//   //this->activation = activationType ;
-//
-// }
 
 Dense::Dense(Matrix &w, Matrix &bias, ActivationType activationType) : w(w),
-                                                                       bias(bias), activation(activationType) {
+                                                                       bias(bias), activation(activationType)
+                                                                       {
 
 }
 
-//Dense& Dense::operator=(const Dense& other){
-//
-//}
 
-Matrix &Dense::getWeights() {
+Matrix &Dense::getWeights()
+{
     return this->w;
 }
 
-Matrix &Dense::getBias() {
+Matrix &Dense::getBias()
+{
     return this->bias;
 }
 
-Activation &Dense::getActivation() {
+Activation &Dense::getActivation()
+{
     return this->activation;
 }
 
-Matrix &Dense::operator()(Matrix &matrix) {
-    return this->activation(this->w * matrix + this->bias);
+Matrix &Dense::operator()(Matrix &matrix)
+{
+
+    Matrix& ref  = (this->w * matrix) += this->bias;
+    Matrix& ret  = *(new Matrix(this->activation(   ref)));
+    ref.freeMatrix();
+    delete &ref;
+    matrix = ret;
+    delete &ret;
+    return matrix;
 }

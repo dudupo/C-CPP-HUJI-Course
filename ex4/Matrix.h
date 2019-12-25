@@ -33,13 +33,15 @@ typedef struct MatrixDims {
 
 
 
+
 class Matrix {
+
 
 private:
     int rows = 0;
     int cols = 0;
 
-    float **matrix;
+    float ** matrix = nullptr;
 
 
     void init(int rows, int cols);
@@ -58,6 +60,8 @@ public:
     Matrix();
 
     Matrix(const Matrix &other);
+
+//    Matrix& copy( Matrix  &other);
 
     ~Matrix();
 

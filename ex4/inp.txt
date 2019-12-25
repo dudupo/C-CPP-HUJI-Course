@@ -8,4 +8,8 @@
 ./images/im7
 ./images/im8
 ./images/im9
+./images/im5
+./images/im6
+./images/im7
+./images/im8
 ^C

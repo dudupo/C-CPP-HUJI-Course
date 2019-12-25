@@ -1,0 +1,3 @@
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/cmake-build-debug/CMakeFiles/edit_cache.dir

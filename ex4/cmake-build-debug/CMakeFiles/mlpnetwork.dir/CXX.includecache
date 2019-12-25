@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Activation.h
+Matrix.h
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Matrix.h
+
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Dense.cpp
+Dense.h
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Dense.h
+
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Dense.h
+Matrix.h
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Matrix.h
+Activation.h
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Activation.h
+
+/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Matrix.h
+ostream
+-
+fstream
+-
+iostream
+-
+string
+-
+

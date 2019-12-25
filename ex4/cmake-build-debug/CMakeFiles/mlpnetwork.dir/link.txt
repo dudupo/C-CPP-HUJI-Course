@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/mlpnetwork.dir/main.cpp.o CMakeFiles/mlpnetwork.dir/MlpNetwork.cpp.o CMakeFiles/mlpnetwork.dir/Dense.cpp.o CMakeFiles/mlpnetwork.dir/Activation.cpp.o CMakeFiles/mlpnetwork.dir/Matrix.cpp.o  -o mlpnetwork 

@@ -28,6 +28,7 @@ static Matrix &reluFun(Matrix &matrix) {
 }
 
 static Matrix& SoftmaxFun(Matrix &matrix) {
+
     LAMBDA(fun) {
         UNUSED_LAMBDA();
         s = std::exp(s);
@@ -39,9 +40,16 @@ static Matrix& SoftmaxFun(Matrix &matrix) {
 
     matrix.forEach(fun, (void *) args);
 
-    float factor = (float) 1 / args[0];
+    LAMBDA(fun2) {
+        UNUSED_LAMBDA();
+        s /=  *((float *) args);
+        std::cout << s << std::endl;
+    };
+
+    matrix.forEach(fun2, (void *) args);
+
     delete args;
-    return matrix * factor;;
+    return matrix;
 }
 
 

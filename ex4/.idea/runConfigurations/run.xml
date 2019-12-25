@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="run" type="ShConfigurationType" singleton="false">
+    <option name="SCRIPT_PATH" value="$PROJECT_DIR$/test.sh" />
+    <option name="SCRIPT_OPTIONS" value="" />
+    <option name="INTERPRETER_PATH" value="/bin/sh" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <method v="2" />
+  </configuration>
+</component>

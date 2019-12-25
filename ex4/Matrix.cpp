@@ -2,6 +2,7 @@
 
 
 void Matrix::init(int rows, int cols) {
+
     this->matrix = new float *[rows];
     for (int i = 0; i < rows; i++) {
         this->matrix[i] = new float[cols];
@@ -20,9 +21,13 @@ void Matrix::init(int rows, int cols) {
 
 void Matrix::init() {
     this->init(this->getRows(), this->getCols());
-
-
 }
+
+
+//Matrix& Matrix::copy( Matrix  &other)
+//{
+//    Matrix* ret = new Matrix( other.getRows() , other.getRows() )
+//}
 
 Matrix::Matrix(int rows, int cols) : rows(rows), cols(cols) {
 
@@ -45,15 +50,20 @@ Matrix::Matrix(const Matrix &other) : Matrix(other.getRows(), other.getCols()) {
 }
 
 
-void Matrix::freeMatrix() {
-    for (int i = 0; i < this->getRows(); i++) {
-        delete[] this->matrix[i];
+void Matrix::freeMatrix()
+{
+    if (this->matrix != nullptr && *this->matrix != nullptr)
+    {
+        for (int i = 0; i < this->getRows(); i++) {
+            delete[] this->matrix[i];
+        }
+        delete [] this->matrix;
+        this->matrix = nullptr;
     }
-    delete[] this->matrix;
 }
 
 Matrix::~Matrix() {
-    this->freeMatrix();
+    //this->freeMatrix();
 }
 
 int Matrix::getRows() const {
@@ -64,8 +74,9 @@ int Matrix::getCols() const {
     return this->cols;
 }
 
-Matrix &Matrix::vectorize() {
-    float **new_matrix = new float *[this->getRows() * this->getCols()];
+Matrix &Matrix::vectorize()
+{
+    float ** new_matrix = new float *[this->getRows() * this->getCols()];
 
     for (int i = 0; i < this->getRows() * this->getCols(); i++) {
         new_matrix[i] = new float[1];
@@ -83,23 +94,13 @@ Matrix &Matrix::vectorize() {
 
 Matrix &Matrix::operator=(const Matrix &assignmented) {
 
-    if (this != &assignmented) {
+    if (this != &assignmented)
+    {
         this->freeMatrix();
-
-        this->init( assignmented.getRows(), assignmented.getCols() );
-
-        for (int i = 0; i < assignmented.getRows(); i++ )
-        {
-            for (int j = 0; j < assignmented.getCols(); j++ )
-            {
-                this->matrix[i][j] = assignmented(i,j);
-            }
-        }
-
+        this->matrix = assignmented.matrix;
         this->rows = assignmented.getRows();
         this->cols = assignmented.getCols();
     }
-
     return *this;
 }
 
@@ -194,7 +195,7 @@ void Matrix::plainPrint() {
 
 }
 
-std::ostream &operator<<(std::ostream &os, Matrix &matrix) {
+std::ostream &operator<<(std::ostream &os, Matrix  &matrix) {
 
     LAMBDA(fun) {
         UNUSED_LAMBDA();
@@ -235,6 +236,11 @@ Matrix &operator*(float scalar, const Matrix &other) {
 }
 
 int operator>>(std::ifstream &is, Matrix &matrix) {
+
+    if ( *matrix.matrix == nullptr )
+    {
+        matrix.init();
+    }
 
     for (int i = 0; i < matrix.getRows(); i++) {
         for (int j = 0; j < matrix.getCols(); j++) {
