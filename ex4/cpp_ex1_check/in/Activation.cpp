@@ -11,7 +11,7 @@
         UNUSED(j)
 #endif
 
-#include <cmath>
+#include "math.h"
 #include "Activation.h"
 
 const int ZERO = 0;
@@ -48,7 +48,7 @@ Matrix& Activation::_softmaxFun(Matrix &matrix)
     LAMBDA(fun)
     {
         UNUSED_LAMBDA();
-        s = std::exp(s);
+        s = expf(s);
         *((float *) args) += s;
     };
 
