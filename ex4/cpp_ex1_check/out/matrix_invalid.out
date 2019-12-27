@@ -1,0 +1,4 @@
+Pass means you exited from the program with code 1 (as you should have)
+If 'Pass x' is absent it means you accepted invalid parameter instead of exiting from the program
+
+Try build invalid matrix
