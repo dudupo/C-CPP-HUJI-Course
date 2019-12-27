@@ -211,7 +211,7 @@ Matrix & operator*(const Matrix &matrix, const Matrix &other)
                 for (int k = ZERO; k < (ptr[FIRSTMATRIX])->getCols(); k++)
                 {
                         s = s + ((*ptr[FIRSTMATRIX])(i, k) *
-                         (*ptr[SECONEDMATRIX])(k, j));
+                                 (*ptr[SECONEDMATRIX])(k, j));
                 }
         };
 
@@ -312,6 +312,13 @@ std::ostream &operator<<(std::ostream &os, Matrix  &matrix)
  */
 float& Matrix::operator()(const int i, const int j) const
 {
+        if (i < ZERO ||  i >= this->getRows() || j < ZERO ||
+            j >=this->getCols())
+        {
+                std::cerr << ERRMSG << std::endl;
+                exit(ERR);
+        }
+
         return this->matrix[i][j];
 }
 /**
@@ -321,6 +328,12 @@ float& Matrix::operator()(const int i, const int j) const
  */
 float& Matrix::operator[](const int i)  const
 {
+        if ( i < ZERO || i >= this->getCols() * this->getRows() )
+        {
+                std::cerr << ERRMSG << std::endl;
+                exit(ERR);
+        }
+
         return this->matrix[i / this->getCols()][i % this->getCols()];
 }
 /**
@@ -402,7 +415,7 @@ bool Matrix::check_validity()
  */
 bool Matrix::check_neg(int rows, int cols)
 {
-        if ( ! (rows > 0 && cols > 0 ) )
+        if ( !(rows > ZERO && cols > ZERO ) )
         {
                 std::cerr << ERRMSG << std::endl;
                 exit(ERR);
