@@ -74,6 +74,12 @@ private:
         friend int operator>>(std::ifstream &is, Matrix &matrix);
         friend std::ostream &operator<<(std::ostream &os, Matrix &matrix);
 
+        /**
+         * check_validity, exit in case of exception.
+         * @return true if vallid.
+         */
+        bool check_validity();
+
 public:
         /**
          * initialize the matrix, allocates the memory.
