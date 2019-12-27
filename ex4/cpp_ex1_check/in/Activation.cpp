@@ -28,9 +28,9 @@ Matrix& Activation::_reluFun(Matrix &matrix)
     {
         UNUSED_LAMBDA();
 
-        if (s < ZERO)
+        if (s < ZEROF)
         {
-            s = ZERO;
+            s = ZEROF;
         }
     };
     matrix._forEach(fun, nullptr);
