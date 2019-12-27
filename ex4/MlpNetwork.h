@@ -19,19 +19,26 @@ const MatrixDims biasDims[] = {{128, 1},
                                {64,  1},
                                {20,  1},
                                {10,  1}};
-
-// Insert MlpNetwork class here...
-
-
-class MlpNetwork {
-
+/**
+ * MlpNetwork, holds the layers and performs
+ * the calculations.
+ */
+class MlpNetwork
+{
 private:
     Dense *layers[MLP_SIZE];
 public:
+    /**
+     * constructor, construct the network.
+     * @param weights, the weights matrixes.
+     * @param biases, the biases matrixes.
+     */
     MlpNetwork(Matrix weights[], Matrix biases[]);
-
+    /**
+     * perform the calculations of given image,
+     * and returns the gussed digit.
+     * @return the digit with height probability.
+     */
     Digit operator()(Matrix &);
-    // ~MlpNetwork();
 };
-
 #endif // MLPNETWORK_H

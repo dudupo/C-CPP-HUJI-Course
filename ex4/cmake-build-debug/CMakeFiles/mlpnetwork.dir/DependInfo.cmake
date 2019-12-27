@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Activation.cpp" "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/Activation.cpp.o"
-  "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Dense.cpp" "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/Dense.cpp.o"
-  "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/Matrix.cpp" "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/Matrix.cpp.o"
-  "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/MlpNetwork.cpp" "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/MlpNetwork.cpp.o"
-  "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/main.cpp" "/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/main.cpp.o"
+  "C:/Users/davidponar/workspace/c_cpp/ex4/Activation.cpp" "C:/Users/davidponar/workspace/c_cpp/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/Activation.cpp.obj"
+  "C:/Users/davidponar/workspace/c_cpp/ex4/Dense.cpp" "C:/Users/davidponar/workspace/c_cpp/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/Dense.cpp.obj"
+  "C:/Users/davidponar/workspace/c_cpp/ex4/Matrix.cpp" "C:/Users/davidponar/workspace/c_cpp/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/Matrix.cpp.obj"
+  "C:/Users/davidponar/workspace/c_cpp/ex4/MlpNetwork.cpp" "C:/Users/davidponar/workspace/c_cpp/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/MlpNetwork.cpp.obj"
+  "C:/Users/davidponar/workspace/c_cpp/ex4/main.cpp" "C:/Users/davidponar/workspace/c_cpp/ex4/cmake-build-debug/CMakeFiles/mlpnetwork.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

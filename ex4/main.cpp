@@ -70,28 +70,21 @@ bool readFileToMatrix(const std::string &filePath, Matrix &mat) {
  *          (which is actually a vector)
  */
 void loadParameters(char *paths[ARGS_COUNT], Matrix weights[MLP_SIZE], Matrix biases[MLP_SIZE]) {
-    std::cout << MLP_SIZE << '\n';
     for (int i = 0; i < 4; i++) {
-        std::cout << "/* message " << i << '\n';
         weights[i] = Matrix(weightsDims[i].rows, weightsDims[i].cols);
         biases[i] = Matrix(biasDims[i].rows, biasDims[i].cols);
 
         std::string biasPath(paths[BIAS_START_IDX + i]);
         std::string weightsPath(paths[WEIGHTS_START_IDX + i]);
-        std::cout << "/* message " << i << '\n';
 
-        std::cout << weightsDims[i].rows << " " << weightsDims[i].cols << '\n' \
- << weights[i].getRows() << " " << weights[i].getCols() << '\n';
-
-        readFileToMatrix(weightsPath, weights[i]);
+        bool flag1 = readFileToMatrix(weightsPath, weights[i]);
+        bool flag2 =
         readFileToMatrix(biasPath, biases[i]);
-        // if(!(flag1 && flag2 ))
-        // {
-        //     std::cout << " message " << i <<  '\n';
-        //     std::cerr << ERROR_INAVLID_PARAMETER << (i + 1) << std::endl;
-        //     exit(EXIT_FAILURE);
-        // }
-        //std::cout << " message " << i <<  '\n';
+        if(!(flag1 && flag2 ))
+        {
+            std::cerr << ERROR_INAVLID_PARAMETER << (i + 1) << std::endl;
+            exit(EXIT_FAILURE);
+        }
     }
 
 }
@@ -121,11 +114,9 @@ void mlpCli(MlpNetwork &mlp) {
         if (readFileToMatrix(imgPath, img)) {
             Matrix imgVec = img;
 
-            std::cout << "/* processed message */" << '\n';
 
             Digit output = mlp(imgVec.vectorize());
-            std::cout << "Image processed:" << std::endl
-                      << img << std::endl;
+            std::cout << "Image processed:" << std::endl << img << std::endl;
             std::cout << "Mlp result: " << output.value <<
                       " at probability: " << output.probability << std::endl;
         } else {
@@ -149,8 +140,8 @@ void mlpCli(MlpNetwork &mlp) {
  */
 int main(int argc, char **argv) {
 
-    std::ifstream in("/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/inp.txt");
-    std::cin.rdbuf(in.rdbuf());
+    //std::ifstream in("/cs/usr/davidponar/Desktop/c/c_cpp_course/ex4/inp.txt");
+    //std::cin.rdbuf(in.rdbuf());
 
 
     if (argc != ARGS_COUNT) {
@@ -164,7 +155,6 @@ int main(int argc, char **argv) {
 
     loadParameters(argv, weights, biases);
 
-    std::cout << "/* message */" << '\n';
     MlpNetwork mlp(weights, biases);
 
     mlpCli(mlp);

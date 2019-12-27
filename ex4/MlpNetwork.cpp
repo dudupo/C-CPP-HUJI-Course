@@ -1,38 +1,57 @@
 #include "MlpNetwork.h"
+const int ZERO = 0;
+const int LASTRELULAYER = 3;
+const int SOFTMAXLAYER = 3;
+const float ZEROF = 0.f;
 
-MlpNetwork::MlpNetwork(Matrix weights[4], Matrix biases[4]) {
+/**
+* constructor, construct the network.
+* @param weights, the weights matrixes.
+* @param biases, the biases matrixes.
+*/
+MlpNetwork::MlpNetwork(Matrix weights[MLP_SIZE], Matrix biases[MLP_SIZE])
+{
 
-    for (int i = 0; i < 3; i++) {
-        this->layers[i] = new Dense(weights[i], biases[i], Relu);
-    }
-    this->layers[3] = new Dense(weights[3], biases[3], Softmax);
-}
-
-
-Digit MlpNetwork::operator()(Matrix &matrix) {
-    Digit *digit = new Digit;
-
-    digit->probability = 0;
-    digit->value = 0;
-
-    Matrix &ref(matrix);
-    for (int i = 0; i < 4; i++) {
-        ref = (*(this->layers[i]))(ref);
-    }
-    LAMBDA(fun) {
-        UNUSED_LAMBDA();
-
-        if (((Digit *) args)->probability < s) {
-            ((Digit *) args)->probability = s;
-            ((Digit *) args)->value = i;
+        for (int i = ZERO; i < LASTRELULAYER; i++)
+        {
+                this->layers[i] = new Dense(weights[i], biases[i], Relu);
         }
+        this->layers[SOFTMAXLAYER] = new Dense(weights[SOFTMAXLAYER],
+                 biases[SOFTMAXLAYER], Softmax);
+}
+/**
+* perform the calculations of given image,
+* and returns the gussed digit.
+* @return the digit with height probability.
+*/
+Digit MlpNetwork::operator()(Matrix &matrix)
+{
+        Digit *digit = new Digit;
 
-    };
+        digit->probability = ZEROF;
+        digit->value = ZERO;
 
-    void *args = (void *) (digit);
-    ref.forEach(fun, args);
-    ref.freeMatrix();
-    Digit ret = *digit;
-    delete digit;
-    return ret;
+        Matrix &ref(matrix);
+        for (int i = ZERO; i < MLP_SIZE; i++)
+        {
+                ref = (*(this->layers[i]))(ref);
+        }
+        LAMBDA(fun)
+        {
+                UNUSED_LAMBDA();
+
+                if (((Digit *) args)->probability < s)
+                {
+                        ((Digit *) args)->probability = s;
+                        ((Digit *) args)->value = i;
+                }
+
+        };
+
+        void *args = (void *) (digit);
+        ref._forEach(fun, args);
+        ref._freeMatrix();
+        Digit ret = *digit;
+        delete digit;
+        return ret;
 }
