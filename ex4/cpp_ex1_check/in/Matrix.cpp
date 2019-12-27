@@ -183,7 +183,7 @@ Matrix &Matrix::operator+=(const Matrix &other)
         LAMBDA(fun)
         {
                 Matrix *ptr = (Matrix *) args;
-                s += (*ptr)(i, j);
+                s = s + (*ptr)(i, j);
         };
         void *args = (void *) &other;
         this->_forEach(fun, args);
@@ -206,8 +206,8 @@ Matrix & operator*(const Matrix &matrix, const Matrix &other)
 
                 for (int k = ZERO; k < (ptr[FIRSTMATRIX])->getCols(); k++)
                 {
-                        s += (*ptr[FIRSTMATRIX])(i, k) *
-                         (*ptr[SECONEDMATRIX])(k, j);
+                        s = s + ((*ptr[FIRSTMATRIX])(i, k) *
+                         (*ptr[SECONEDMATRIX])(k, j));
                 }
         };
 
