@@ -1,3 +1,4 @@
+#/bin/sh
 # -Wall -Wvla -Wextra -Werror -g
 # g++  -g  -std=c++17 test.cpp -o test.exe
 # ./test.exe
