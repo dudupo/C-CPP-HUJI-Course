@@ -49,7 +49,7 @@ Matrix& Activation::_softmaxFun(Matrix &matrix)
     {
         UNUSED_LAMBDA();
         s = expf(s);
-        *((float *) args) += s;
+        *((float *) args) = *((float *) args) + s;
     };
 
     float *args = new float(ZEROF);
@@ -59,7 +59,7 @@ Matrix& Activation::_softmaxFun(Matrix &matrix)
     LAMBDA(fun2)
     {
         UNUSED_LAMBDA();
-        s /=  *((float *) args);
+        s = s / *((float *) args);
     };
 
     matrix._forEach(fun2, (void *) args);
