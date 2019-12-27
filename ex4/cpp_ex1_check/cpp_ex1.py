@@ -66,7 +66,7 @@ def check_valgrind_file(val_file):
 
 
 def t_file(file_name, extra_file=False):
-    in_file = f"in/{file_name}.exe"
+    in_file = f"in/{file_name}"
     input_file = convert_file_name(file_name, IN)
     out_file = convert_file_name(file_name, OUT)
     cmp_file = convert_file_name(file_name, CMP)
