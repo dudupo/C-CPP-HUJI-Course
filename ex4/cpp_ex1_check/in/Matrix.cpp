@@ -24,6 +24,7 @@ const int ERR = 1;
  */
 void Matrix::_init(int rows, int cols)
 {
+        this->check_neg(rows, cols);
 
         this->matrix = new float *[rows];
         for (int i = ZERO; i < rows; i++)
@@ -386,7 +387,7 @@ void Matrix::_forEach(void (*fun)(float &, void *, int, int), void *args)
  */
 bool Matrix::check_validity()
 {
-        if ( *this->matrix == nullptr ) 
+        if ( *this->matrix == nullptr )
         {
                 std::cerr << ERRMSG << std::endl;
                 exit(ERR);
