@@ -76,6 +76,19 @@ private:
         friend Matrix& operator*(const Matrix&, const Matrix&);
         friend Matrix& operator+(const Matrix&, const Matrix&);
 
+        /**
+         * check_validity description
+         * @return true if valid, otherwise, exit.
+         */
+        bool check_validity();
+
+        /**
+         * check if the given cols and rows greter than 0.
+         * @param rows [description]
+         * @param cols [description]
+         */
+        bool check_neg(int rows, int cols);
+
 public:
         /**
          * initialize the matrix, allocates the memory.

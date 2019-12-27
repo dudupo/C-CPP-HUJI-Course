@@ -12,6 +12,9 @@ const float LOWERBOUD = 0.1f;
 const char * DOUBLESTAR = "**";
 const char * DOUBLESPACE = "  ";
 const char * SPACE = " ";
+const char * ERRMSG = "Error";
+const int ERR = 1;
+
 
 
 /**
@@ -183,7 +186,7 @@ Matrix &Matrix::operator+=(const Matrix &other)
         LAMBDA(fun)
         {
                 Matrix *ptr = (Matrix *) args;
-                s += (*ptr)(i, j);
+                s = s + (*ptr)(i, j);
         };
         void *args = (void *) &other;
         this->_forEach(fun, args);
@@ -206,8 +209,8 @@ Matrix & operator*(const Matrix &matrix, const Matrix &other)
 
                 for (int k = ZERO; k < (ptr[FIRSTMATRIX])->getCols(); k++)
                 {
-                        s += (*ptr[FIRSTMATRIX])(i, k) *
-                         (*ptr[SECONEDMATRIX])(k, j);
+                        s = s + ((*ptr[FIRSTMATRIX])(i, k) *
+                         (*ptr[SECONEDMATRIX])(k, j));
                 }
         };
 
@@ -344,6 +347,12 @@ int operator>>(std::ifstream &is, Matrix &matrix)
         {
                 for (int j = ZERO; j < matrix.getCols(); j++)
                 {
+                        if ( is.eof() )
+                        {
+                                std::cerr << ERRMSG << std::endl;
+                                exit(ERR);
+                        }
+
                         is.seekg(sizeof(float) * (i * matrix.getCols() + j));
                         is.read(reinterpret_cast<char *>(
                                         &matrix.matrix[i][j]), sizeof(float));
@@ -368,4 +377,34 @@ void Matrix::_forEach(void (*fun)(float &, void *, int, int), void *args)
                         fun(this->matrix[i][j], args, i, j);
                 }
         }
+}
+
+
+/**
+ * check_validity description
+ * @return true if valid, otherwise, exit.
+ */
+bool Matrix::check_validity()
+{
+        if ( *this->matrix == nullptr ) 
+        {
+                std::cerr << ERRMSG << std::endl;
+                exit(ERR);
+        }
+        return true;
+}
+
+/**
+ * check if the given cols and rows greter than 0.
+ * @param rows [description]
+ * @param cols [description]
+ */
+bool Matrix::check_neg(int rows, int cols)
+{
+        if ( ! (rows > 0 && cols > 0 ) )
+        {
+                std::cerr << ERRMSG << std::endl;
+                exit(ERR);
+        }
+        return true;
 }
