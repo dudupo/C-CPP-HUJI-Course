@@ -160,9 +160,9 @@ Matrix &Matrix::operator=(const Matrix &assignmented)
  * summing a matrix pair.
  * @return the matrix.
  */
-Matrix &operator+(const Matrix& matrix, const Matrix &other)
+Matrix &Matrix::operator+(const Matrix &other)
 {
-        Matrix *ref = new Matrix(matrix.getRows(), matrix.getCols());
+        Matrix *ref = new Matrix(this->getRows(), this->getCols());
 
         LAMBDA(fun)
         {
@@ -170,7 +170,7 @@ Matrix &operator+(const Matrix& matrix, const Matrix &other)
                 s = (*ptr[FIRSTMATRIX])(i, j) + (*ptr[SECONEDMATRIX])(i, j);
         };
 
-        void *args[PAIR] = {(void *) &matrix, (void *) &other};
+        void *args[PAIR] = {(void *) this, (void *) &other};
         ref->_forEach(fun, args);
         return *ref;
 }
@@ -194,9 +194,9 @@ Matrix &Matrix::operator+=(const Matrix &other)
  * multiplate the matrix by scalr.
  * @return the result of the multiplationa.
  */
-Matrix & operator*(const Matrix &matrix, const Matrix &other)
+Matrix &Matrix::operator*(const Matrix &other)
 {
-        Matrix *ref = new Matrix(matrix.getRows(), other.getCols());
+        Matrix *ref = new Matrix(this->getRows(), other.getCols());
 
 
         LAMBDA(fun)
@@ -211,7 +211,7 @@ Matrix & operator*(const Matrix &matrix, const Matrix &other)
                 }
         };
 
-        void *args[PAIR] = {(void *) &matrix, (void *) &other};
+        void *args[PAIR] = {(void *) this, (void *) &other};
         ref->_forEach(fun, args);
         return *ref;
 }
@@ -249,17 +249,31 @@ typedef struct pair_col_os
 /**
  * prints the matrix.
  */
-void Matrix::plainPrint() const
+void Matrix::plainPrint()
 {
-
-        for (int i = ZERO; i < this->getRows(); i++)
+        LAMBDA(fun)
         {
-                for (int j = ZERO; j < this->getCols(); j++)
+                UNUSED_LAMBDA();
+
+                pair_col_os *ptr = (pair_col_os *) args;
+                *(ptr->os) << s << SPACE;
+
+                if (j + ONE == ptr->cols)
                 {
-                        std::cout << this->matrix[i][j];
+                        *(ptr->os) << std::endl;
                 }
-                std::cout << std::endl;
-        }
+        };
+
+        pair_col_os *args =
+                (pair_col_os *) malloc(sizeof(pair_col_os));
+
+        args->os = &std::cout;
+        args->cols = this->getCols();
+        this->_forEach(fun, (void *) args);
+        *(args->os) << std::endl;
+        free(args);
+
+
 }
 /**
  *  printing the matrix in aligan format.

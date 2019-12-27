@@ -73,8 +73,6 @@ private:
         friend class Dense;
         friend int operator>>(std::ifstream &is, Matrix &matrix);
         friend std::ostream &operator<<(std::ostream &os, Matrix &matrix);
-        friend Matrix& operator*(const Matrix&, const Matrix&);
-        friend Matrix& operator+(const Matrix&, const Matrix&);
 
 public:
         /**
@@ -114,19 +112,27 @@ public:
         /**
          * prints the matrix.
          */
-        void plainPrint() const;
+        void plainPrint();
         /**
          * move assignmente.
          * @return the matrix.
          */
         Matrix& operator=(const Matrix &assignmented);
-
+        /**
+         * summing a matrix pair.
+         * @return the matrix.
+         */
+        Matrix& operator+(const Matrix &other);
         /**
          * add other matrix to the matrix and assignmente.
          * @return this matrix.
          */
         Matrix& operator+=(const Matrix &other);
-
+        /**
+         * multiplate the matrix by other matrix.
+         * @return the multiplation of the two matrix.
+         */
+        Matrix& operator*(const Matrix &other);
         /**
          * multiplate the matrix by scalr.
          * @return the result of the multiplationa.
@@ -167,17 +173,5 @@ Matrix &operator*(float scalar, const Matrix &other);
  * @param matrix, the matrix which the values will be inserted to.
  */
 int operator>>(std::ifstream &is, Matrix &matrix);
-
-/**
- * multiplate the matrix by other matrix.
- * @return the multiplation of the two matrix.
- */
-Matrix& operator*(const Matrix&, const Matrix&);
-
-/**
- * summing a matrix pair.
- * @return the matrix.
- */
-Matrix& operator+(const Matrix&, const Matrix&);
 
 #endif //MATRIX_H
