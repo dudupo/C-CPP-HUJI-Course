@@ -74,8 +74,7 @@ def t_file(file_name, extra_file=False):
 
     with open(out_file, 'w') as fOut:
         try:
-            #"valgrind --leak-check=full --log-file=" + val_file + " " +
-            program =  in_file + ARGS
+            program = "valgrind --leak-check=full --log-file=" + val_file + " " +  in_file + ARGS
 
             if extra_file:
                 with open(input_file, 'r') as fIn:
@@ -89,7 +88,7 @@ def t_file(file_name, extra_file=False):
             return
 
     cmp_files(cmp_file, out_file)
-    #check_valgrind_file(val_file)
+    check_valgrind_file(val_file)
 
 
 def t_no_valg(file_name):
@@ -116,9 +115,9 @@ if __name__ == "__main__":
 
     print("Compile your files and place binaries at './in' folder...")
 
-    # if subprocess.run("(cd in; make all)", text=True, shell=True).returncode != 0:
-    #     print("\nProgram failed compiling")
-    #     exit(1)
+    if subprocess.run("(cd in; make all)", text=True, shell=True).returncode != 0:
+        print("\nProgram failed compiling")
+        exit(1)
 
     print("------- COMPILATION END - The section above should have no warnings nor errors -------")
     print("\nProgram compiled successfully")
