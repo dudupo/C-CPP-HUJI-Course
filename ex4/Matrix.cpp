@@ -166,6 +166,14 @@ Matrix &Matrix::operator=(const Matrix &assignmented)
  */
 Matrix &operator+(const Matrix& matrix, const Matrix &other)
 {
+
+        if (    matrix.getCols() != other.getCols() ||
+                matrix.getRows() != other.getRows() )
+        {
+                std::cerr << ERRMSG << std::endl;
+                exit(ERR);
+        }
+
         Matrix *ref = new Matrix(matrix.getRows(), matrix.getCols());
 
         LAMBDA(fun)
@@ -184,6 +192,13 @@ Matrix &operator+(const Matrix& matrix, const Matrix &other)
  */
 Matrix &Matrix::operator+=(const Matrix &other)
 {
+        if (    this->getCols() != other.getCols() ||
+                this->getRows() != other.getRows() )
+        {
+                std::cerr << ERRMSG << std::endl;
+                exit(ERR);
+        }
+
         LAMBDA(fun)
         {
                 Matrix *ptr = (Matrix *) args;
@@ -200,8 +215,14 @@ Matrix &Matrix::operator+=(const Matrix &other)
  */
 Matrix & operator*(const Matrix &matrix, const Matrix &other)
 {
-        Matrix *ref = new Matrix(matrix.getRows(), other.getCols());
 
+        if ( matrix.getCols() != other.getRows())
+        {
+                std::cerr << ERRMSG << std::endl;
+                exit(ERR);
+        }
+
+        Matrix *ref = new Matrix(matrix.getRows(), other.getCols());
 
         LAMBDA(fun)
         {
