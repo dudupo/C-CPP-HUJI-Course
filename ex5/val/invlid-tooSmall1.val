@@ -1,0 +1,24 @@
+==10250== Memcheck, a memory error detector
+==10250== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==10250== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==10250== Command: in/FractalDrawer /cs/usr/davidponar/Desktop/c/c_cpp_course/ex5/csv/invlid-tooSmall1.csv
+==10250== Parent PID: 10205
+==10250== 
+==10250== 
+==10250== HEAP SUMMARY:
+==10250==     in use at exit: 8,904 bytes in 4 blocks
+==10250==   total heap usage: 15 allocs, 11 frees, 86,937 bytes allocated
+==10250== 
+==10250== LEAK SUMMARY:
+==10250==    definitely lost: 0 bytes in 0 blocks
+==10250==    indirectly lost: 0 bytes in 0 blocks
+==10250==      possibly lost: 0 bytes in 0 blocks
+==10250==    still reachable: 8,904 bytes in 4 blocks
+==10250==                       of which reachable via heuristic:
+==10250==                         newarray           : 160 bytes in 2 blocks
+==10250==         suppressed: 0 bytes in 0 blocks
+==10250== Reachable blocks (those to which a pointer was found) are not shown.
+==10250== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==10250== 
+==10250== For counts of detected and suppressed errors, rerun with: -v
+==10250== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

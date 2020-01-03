@@ -1,3 +1,9 @@
+#include <iostream>
+#include <vector>
+
+
+
+
 typedef class BitMap BitMap;
 
 class Point {
@@ -13,12 +19,20 @@ public :
 class BitMap {
 public:
   long width, height;
-  Point * points;
+  Point * points = nullptr;
   BitMap(long width, long height, Point * points) :
     width(width), height(height), points(points) {
 
-
     };
+
+    ~BitMap() {
+        if (this->points != nullptr  )
+        {
+            delete [] this->points;
+        }
+        this->points = nullptr;
+    }
+
   Point * begin();
   Point * end();
 };
@@ -39,7 +53,7 @@ static BitMap SierpinskiSieve = BitMap(2, 2,
 static BitMap CantorDust = BitMap(3, 3,
   new Point[9]{
     Point(0,0,'#'),Point(1,0,' '),Point(2,0,'#'),
-    Point(0,1,' '),Point(1,1,' '),Point(2,1,' '),
+    Point(0,1,' '),Point(1,1,'#'),Point(2,1,' '),
     Point(0,2,'#'),Point(1,2,' '),Point(2,2,'#')
   }
 );

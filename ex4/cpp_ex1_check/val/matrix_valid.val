@@ -1,806 +1,806 @@
-==17876== Memcheck, a memory error detector
-==17876== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==17876== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==17876== Command: in/matrix_valid param/w1 param/w2 param/w3 param/w4 param/b1 param/b2 param/b3 param/b4
-==17876== Parent PID: 17851
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E97: Matrix::operator[](int) const (Matrix.cpp:320)
-==17876==    by 0x10AC36: main (t_matrix_valid.cpp:52)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid write of size 4
-==17876==    at 0x10AC3F: main (t_matrix_valid.cpp:52)
-==17876==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E97: Matrix::operator[](int) const (Matrix.cpp:320)
-==17876==    by 0x10AC69: main (t_matrix_valid.cpp:54)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x10AC6A: main (t_matrix_valid.cpp:54)
-==17876==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E97: Matrix::operator[](int) const (Matrix.cpp:320)
-==17876==    by 0x10ACB1: main (t_matrix_valid.cpp:55)
-==17876==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x10ACB2: main (t_matrix_valid.cpp:55)
-==17876==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E97: Matrix::operator[](int) const (Matrix.cpp:320)
-==17876==    by 0x10ACF9: main (t_matrix_valid.cpp:56)
-==17876==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x10ACFA: main (t_matrix_valid.cpp:56)
-==17876==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E97: Matrix::operator[](int) const (Matrix.cpp:320)
-==17876==    by 0x10AD47: main (t_matrix_valid.cpp:57)
-==17876==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x10AD48: main (t_matrix_valid.cpp:57)
-==17876==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x10ADD0: main (t_matrix_valid.cpp:62)
-==17876==  Address 0x4d9ae10 is 16 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid write of size 4
-==17876==    at 0x10ADD9: main (t_matrix_valid.cpp:62)
-==17876==  Address 0x4d9afb4 is 4 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x10AE08: main (t_matrix_valid.cpp:64)
-==17876==  Address 0x4d9ae10 is 16 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x10AE09: main (t_matrix_valid.cpp:64)
-==17876==  Address 0x4d9afb4 is 4 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x109A29: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:209)
-==17876==    by 0x109AAB: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:212)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x109B31: operator*(Matrix const&, Matrix const&) (Matrix.cpp:215)
-==17876==    by 0x10AF7B: main (t_matrix_valid.cpp:72)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x109A2A: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:209)
-==17876==    by 0x109AAB: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:212)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x109B31: operator*(Matrix const&, Matrix const&) (Matrix.cpp:215)
-==17876==    by 0x10AF7B: main (t_matrix_valid.cpp:72)
-==17876==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x109A4D: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:210)
-==17876==    by 0x109AAB: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:212)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x109B31: operator*(Matrix const&, Matrix const&) (Matrix.cpp:215)
-==17876==    by 0x10AF7B: main (t_matrix_valid.cpp:72)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x109A4E: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:210)
-==17876==    by 0x109AAB: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:212)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x109B31: operator*(Matrix const&, Matrix const&) (Matrix.cpp:215)
-==17876==    by 0x10AF7B: main (t_matrix_valid.cpp:72)
-==17876==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E97: Matrix::operator[](int) const (Matrix.cpp:320)
-==17876==    by 0x10B0C6: main (t_matrix_valid.cpp:86)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid write of size 4
-==17876==    at 0x10B0CF: main (t_matrix_valid.cpp:86)
-==17876==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x10945C: Matrix::Matrix(Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:77)
-==17876==    by 0x10949F: Matrix::Matrix(Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:78)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x109508: Matrix::Matrix(Matrix const&) (Matrix.cpp:81)
-==17876==    by 0x109BF9: Matrix::operator*(float) const (Matrix.cpp:226)
-==17876==    by 0x10B0E3: main (t_matrix_valid.cpp:87)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x10945D: Matrix::Matrix(Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:77)
-==17876==    by 0x10949F: Matrix::Matrix(Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:78)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x109508: Matrix::Matrix(Matrix const&) (Matrix.cpp:81)
-==17876==    by 0x109BF9: Matrix::operator*(float) const (Matrix.cpp:226)
-==17876==    by 0x10B0E3: main (t_matrix_valid.cpp:87)
-==17876==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109551: Matrix::_freeMatrix() (Matrix.cpp:88)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B0F5: main (t_matrix_valid.cpp:87)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x10958F: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B0F5: main (t_matrix_valid.cpp:87)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x1095AC: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B0F5: main (t_matrix_valid.cpp:87)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid free() / delete / delete[] / realloc()
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B0F5: main (t_matrix_valid.cpp:87)
-==17876==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid free() / delete / delete[] / realloc()
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B0F5: main (t_matrix_valid.cpp:87)
-==17876==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABBB: main (t_matrix_valid.cpp:46)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A8F6: main (t_matrix_valid.cpp:16)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x10B200: main (t_matrix_valid.cpp:95)
-==17876==  Address 0x4d9ae10 is 16 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid write of size 4
-==17876==    at 0x10B209: main (t_matrix_valid.cpp:95)
-==17876==  Address 0x4d9afb4 is 4 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109551: Matrix::_freeMatrix() (Matrix.cpp:88)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B22F: main (t_matrix_valid.cpp:96)
-==17876==  Address 0x4d9ae00 is 0 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x10958F: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B22F: main (t_matrix_valid.cpp:96)
-==17876==  Address 0x4d9ae00 is 0 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x1095AC: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B22F: main (t_matrix_valid.cpp:96)
-==17876==  Address 0x4d9ae00 is 0 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid free() / delete / delete[] / realloc()
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B22F: main (t_matrix_valid.cpp:96)
-==17876==  Address 0x4d9ae90 is 0 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid free() / delete / delete[] / realloc()
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10B22F: main (t_matrix_valid.cpp:96)
-==17876==  Address 0x4d9ae00 is 0 bytes inside a block of size 80 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABE7: main (t_matrix_valid.cpp:48)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A968: main (t_matrix_valid.cpp:21)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x10980D: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:170)
-==17876==    by 0x109855: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:171)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x1098DB: operator+(Matrix const&, Matrix const&) (Matrix.cpp:174)
-==17876==    by 0x10B347: main (t_matrix_valid.cpp:104)
-==17876==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x10980E: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:170)
-==17876==    by 0x109855: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:171)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x1098DB: operator+(Matrix const&, Matrix const&) (Matrix.cpp:174)
-==17876==    by 0x10B347: main (t_matrix_valid.cpp:104)
-==17876==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x1097E9: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:170)
-==17876==    by 0x109855: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:171)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x1098DB: operator+(Matrix const&, Matrix const&) (Matrix.cpp:174)
-==17876==    by 0x10B35A: main (t_matrix_valid.cpp:105)
-==17876==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x1097EA: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:170)
-==17876==    by 0x109855: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:171)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x1098DB: operator+(Matrix const&, Matrix const&) (Matrix.cpp:174)
-==17876==    by 0x10B35A: main (t_matrix_valid.cpp:105)
-==17876==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109E4F: Matrix::operator()(int, int) const (Matrix.cpp:311)
-==17876==    by 0x10993E: Matrix::operator+=(Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:186)
-==17876==    by 0x10998D: Matrix::operator+=(Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:187)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x1099C9: Matrix::operator+=(Matrix const&) (Matrix.cpp:189)
-==17876==    by 0x10B4A4: main (t_matrix_valid.cpp:118)
-==17876==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x10993F: Matrix::operator+=(Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:186)
-==17876==    by 0x10998D: Matrix::operator+=(Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:187)
-==17876==    by 0x10A077: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:368)
-==17876==    by 0x1099C9: Matrix::operator+=(Matrix const&) (Matrix.cpp:189)
-==17876==    by 0x10B4A4: main (t_matrix_valid.cpp:118)
-==17876==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 8
-==17876==    at 0x109CA5: Matrix::plainPrint() const (Matrix.cpp:259)
-==17876==    by 0x10BA06: main (t_matrix_valid.cpp:154)
-==17876==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095D9: Matrix::_freeMatrix() (Matrix.cpp:94)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== Invalid read of size 4
-==17876==    at 0x109CB5: Matrix::plainPrint() const (Matrix.cpp:259)
-==17876==    by 0x10BA06: main (t_matrix_valid.cpp:154)
-==17876==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
-==17876==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
-==17876==    by 0x1095B6: Matrix::_freeMatrix() (Matrix.cpp:92)
-==17876==    by 0x10976F: Matrix::operator=(Matrix const&) (Matrix.cpp:152)
-==17876==    by 0x10ABD1: main (t_matrix_valid.cpp:47)
-==17876==  Block was alloc'd at
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x109336: Matrix::_init(int, int) (Matrix.cpp:28)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x109429: Matrix::Matrix() (Matrix.cpp:64)
-==17876==    by 0x10A92A: main (t_matrix_valid.cpp:19)
-==17876== 
-==17876== 
-==17876== HEAP SUMMARY:
-==17876==     in use at exit: 7,884 bytes in 522 blocks
-==17876==   total heap usage: 553 allocs, 44 frees, 90,592 bytes allocated
-==17876== 
-==17876== 12 (8 direct, 4 indirect) bytes in 1 blocks are definitely lost in loss record 25 of 55
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x1094DE: Matrix::Matrix(Matrix const&) (Matrix.cpp:72)
-==17876==    by 0x10B3BD: main (t_matrix_valid.cpp:109)
-==17876== 
-==17876== 12 (8 direct, 4 indirect) bytes in 1 blocks are definitely lost in loss record 26 of 55
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x1094DE: Matrix::Matrix(Matrix const&) (Matrix.cpp:72)
-==17876==    by 0x10B59E: main (t_matrix_valid.cpp:123)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 27 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109AEA: operator*(Matrix const&, Matrix const&) (Matrix.cpp:199)
-==17876==    by 0x10AF7B: main (t_matrix_valid.cpp:72)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 28 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109AEA: operator*(Matrix const&, Matrix const&) (Matrix.cpp:199)
-==17876==    by 0x10AF8E: main (t_matrix_valid.cpp:73)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 29 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109AEA: operator*(Matrix const&, Matrix const&) (Matrix.cpp:199)
-==17876==    by 0x10AFA1: main (t_matrix_valid.cpp:74)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 30 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109AEA: operator*(Matrix const&, Matrix const&) (Matrix.cpp:199)
-==17876==    by 0x10AFB4: main (t_matrix_valid.cpp:75)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 31 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109BE7: Matrix::operator*(float) const (Matrix.cpp:226)
-==17876==    by 0x10B0E3: main (t_matrix_valid.cpp:87)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 32 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109894: operator+(Matrix const&, Matrix const&) (Matrix.cpp:165)
-==17876==    by 0x10B334: main (t_matrix_valid.cpp:103)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 33 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109894: operator+(Matrix const&, Matrix const&) (Matrix.cpp:165)
-==17876==    by 0x10B347: main (t_matrix_valid.cpp:104)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 34 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109894: operator+(Matrix const&, Matrix const&) (Matrix.cpp:165)
-==17876==    by 0x10B35A: main (t_matrix_valid.cpp:105)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 35 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109894: operator+(Matrix const&, Matrix const&) (Matrix.cpp:165)
-==17876==    by 0x10B36D: main (t_matrix_valid.cpp:106)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 36 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109894: operator+(Matrix const&, Matrix const&) (Matrix.cpp:165)
-==17876==    by 0x10B3A8: main (t_matrix_valid.cpp:109)
-==17876== 
-==17876== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 37 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109894: operator+(Matrix const&, Matrix const&) (Matrix.cpp:165)
-==17876==    by 0x10B589: main (t_matrix_valid.cpp:123)
-==17876== 
-==17876== 160 (40 direct, 120 indirect) bytes in 1 blocks are definitely lost in loss record 41 of 55
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10BB67: main (t_matrix_valid.cpp:168)
-==17876== 
-==17876== 280 (80 direct, 200 indirect) bytes in 1 blocks are definitely lost in loss record 44 of 55
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x1094DE: Matrix::Matrix(Matrix const&) (Matrix.cpp:72)
-==17876==    by 0x10B004: main (t_matrix_valid.cpp:78)
-==17876== 
-==17876== 296 (16 direct, 280 indirect) bytes in 1 blocks are definitely lost in loss record 45 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109AEA: operator*(Matrix const&, Matrix const&) (Matrix.cpp:199)
-==17876==    by 0x10AFEF: main (t_matrix_valid.cpp:78)
-==17876== 
-==17876== 560 (160 direct, 400 indirect) bytes in 1 blocks are definitely lost in loss record 48 of 55
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x10A9A6: main (t_matrix_valid.cpp:24)
-==17876== 
-==17876== 560 (160 direct, 400 indirect) bytes in 1 blocks are definitely lost in loss record 49 of 55
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x1094DE: Matrix::Matrix(Matrix const&) (Matrix.cpp:72)
-==17876==    by 0x10AA1C: main (t_matrix_valid.cpp:30)
-==17876== 
-==17876== 896 (16 direct, 880 indirect) bytes in 1 blocks are definitely lost in loss record 53 of 55
-==17876==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
-==17876==    by 0x109BE7: Matrix::operator*(float) const (Matrix.cpp:226)
-==17876==    by 0x109EE1: operator*(float, Matrix const&) (Matrix.cpp:328)
-==17876==    by 0x10B21D: main (t_matrix_valid.cpp:96)
-==17876== 
-==17876== 2,400 (1,600 direct, 800 indirect) bytes in 1 blocks are definitely lost in loss record 54 of 55
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x10965E: Matrix::vectorize() (Matrix.cpp:127)
-==17876==    by 0x10B71B: main (t_matrix_valid.cpp:133)
-==17876== 
-==17876== 2,400 (1,600 direct, 800 indirect) bytes in 1 blocks are definitely lost in loss record 55 of 55
-==17876==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
-==17876==    by 0x1092D4: Matrix::_init(int, int) (Matrix.cpp:25)
-==17876==    by 0x109404: Matrix::Matrix(int, int) (Matrix.cpp:58)
-==17876==    by 0x1094DE: Matrix::Matrix(Matrix const&) (Matrix.cpp:72)
-==17876==    by 0x10B730: main (t_matrix_valid.cpp:133)
-==17876== 
-==17876== LEAK SUMMARY:
-==17876==    definitely lost: 3,864 bytes in 21 blocks
-==17876==    indirectly lost: 4,020 bytes in 501 blocks
-==17876==      possibly lost: 0 bytes in 0 blocks
-==17876==    still reachable: 0 bytes in 0 blocks
-==17876==         suppressed: 0 bytes in 0 blocks
-==17876== 
-==17876== For counts of detected and suppressed errors, rerun with: -v
-==17876== ERROR SUMMARY: 2510 errors from 63 contexts (suppressed: 0 from 0)
+==25958== Memcheck, a memory error detector
+==25958== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==25958== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==25958== Command: in/matrix_valid param/w1 param/w2 param/w3 param/w4 param/b1 param/b2 param/b3 param/b4
+==25958== Parent PID: 25949
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109FB6: Matrix::operator[](int) const (Matrix.cpp:337)
+==25958==    by 0x10AE46: main (t_matrix_valid.cpp:52)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid write of size 4
+==25958==    at 0x10AE4F: main (t_matrix_valid.cpp:52)
+==25958==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109FB6: Matrix::operator[](int) const (Matrix.cpp:337)
+==25958==    by 0x10AE79: main (t_matrix_valid.cpp:54)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x10AE7A: main (t_matrix_valid.cpp:54)
+==25958==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109FB6: Matrix::operator[](int) const (Matrix.cpp:337)
+==25958==    by 0x10AEC1: main (t_matrix_valid.cpp:55)
+==25958==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x10AEC2: main (t_matrix_valid.cpp:55)
+==25958==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109FB6: Matrix::operator[](int) const (Matrix.cpp:337)
+==25958==    by 0x10AF09: main (t_matrix_valid.cpp:56)
+==25958==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x10AF0A: main (t_matrix_valid.cpp:56)
+==25958==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109FB6: Matrix::operator[](int) const (Matrix.cpp:337)
+==25958==    by 0x10AF57: main (t_matrix_valid.cpp:57)
+==25958==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x10AF58: main (t_matrix_valid.cpp:57)
+==25958==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x10AFE0: main (t_matrix_valid.cpp:62)
+==25958==  Address 0x4d9ae10 is 16 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid write of size 4
+==25958==    at 0x10AFE9: main (t_matrix_valid.cpp:62)
+==25958==  Address 0x4d9afb4 is 4 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x10B018: main (t_matrix_valid.cpp:64)
+==25958==  Address 0x4d9ae10 is 16 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x10B019: main (t_matrix_valid.cpp:64)
+==25958==  Address 0x4d9afb4 is 4 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x109A70: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:213)
+==25958==    by 0x109AE7: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:216)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x109B6D: operator*(Matrix const&, Matrix const&) (Matrix.cpp:219)
+==25958==    by 0x10B18B: main (t_matrix_valid.cpp:72)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x109A71: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:213)
+==25958==    by 0x109AE7: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:216)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x109B6D: operator*(Matrix const&, Matrix const&) (Matrix.cpp:219)
+==25958==    by 0x10B18B: main (t_matrix_valid.cpp:72)
+==25958==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x109A94: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:214)
+==25958==    by 0x109AE7: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:216)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x109B6D: operator*(Matrix const&, Matrix const&) (Matrix.cpp:219)
+==25958==    by 0x10B18B: main (t_matrix_valid.cpp:72)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x109A95: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:214)
+==25958==    by 0x109AE7: operator*(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:216)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x109B6D: operator*(Matrix const&, Matrix const&) (Matrix.cpp:219)
+==25958==    by 0x10B18B: main (t_matrix_valid.cpp:72)
+==25958==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109FB6: Matrix::operator[](int) const (Matrix.cpp:337)
+==25958==    by 0x10B2D6: main (t_matrix_valid.cpp:86)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid write of size 4
+==25958==    at 0x10B2DF: main (t_matrix_valid.cpp:86)
+==25958==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x109490: Matrix::Matrix(Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:81)
+==25958==    by 0x1094D3: Matrix::Matrix(Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:82)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x10953C: Matrix::Matrix(Matrix const&) (Matrix.cpp:85)
+==25958==    by 0x109C35: Matrix::operator*(float) const (Matrix.cpp:230)
+==25958==    by 0x10B2F3: main (t_matrix_valid.cpp:87)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x109491: Matrix::Matrix(Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:81)
+==25958==    by 0x1094D3: Matrix::Matrix(Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:82)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x10953C: Matrix::Matrix(Matrix const&) (Matrix.cpp:85)
+==25958==    by 0x109C35: Matrix::operator*(float) const (Matrix.cpp:230)
+==25958==    by 0x10B2F3: main (t_matrix_valid.cpp:87)
+==25958==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109585: Matrix::_freeMatrix() (Matrix.cpp:92)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B305: main (t_matrix_valid.cpp:87)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x1095C3: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B305: main (t_matrix_valid.cpp:87)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x1095E0: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B305: main (t_matrix_valid.cpp:87)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid free() / delete / delete[] / realloc()
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B305: main (t_matrix_valid.cpp:87)
+==25958==  Address 0x4d9ad10 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid free() / delete / delete[] / realloc()
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B305: main (t_matrix_valid.cpp:87)
+==25958==  Address 0x4d9acc0 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADCB: main (t_matrix_valid.cpp:46)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB06: main (t_matrix_valid.cpp:16)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x10B410: main (t_matrix_valid.cpp:95)
+==25958==  Address 0x4d9ae10 is 16 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid write of size 4
+==25958==    at 0x10B419: main (t_matrix_valid.cpp:95)
+==25958==  Address 0x4d9afb4 is 4 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109585: Matrix::_freeMatrix() (Matrix.cpp:92)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B43F: main (t_matrix_valid.cpp:96)
+==25958==  Address 0x4d9ae00 is 0 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x1095C3: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B43F: main (t_matrix_valid.cpp:96)
+==25958==  Address 0x4d9ae00 is 0 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x1095E0: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B43F: main (t_matrix_valid.cpp:96)
+==25958==  Address 0x4d9ae00 is 0 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid free() / delete / delete[] / realloc()
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B43F: main (t_matrix_valid.cpp:96)
+==25958==  Address 0x4d9ae90 is 0 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid free() / delete / delete[] / realloc()
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10B43F: main (t_matrix_valid.cpp:96)
+==25958==  Address 0x4d9ae00 is 0 bytes inside a block of size 80 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADF7: main (t_matrix_valid.cpp:48)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10AB78: main (t_matrix_valid.cpp:21)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x109841: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:174)
+==25958==    by 0x109889: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:175)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x10990F: operator+(Matrix const&, Matrix const&) (Matrix.cpp:178)
+==25958==    by 0x10B557: main (t_matrix_valid.cpp:104)
+==25958==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x109842: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:174)
+==25958==    by 0x109889: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:175)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x10990F: operator+(Matrix const&, Matrix const&) (Matrix.cpp:178)
+==25958==    by 0x10B557: main (t_matrix_valid.cpp:104)
+==25958==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x10981D: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:174)
+==25958==    by 0x109889: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:175)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x10990F: operator+(Matrix const&, Matrix const&) (Matrix.cpp:178)
+==25958==    by 0x10B56A: main (t_matrix_valid.cpp:105)
+==25958==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x10981E: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:174)
+==25958==    by 0x109889: operator+(Matrix const&, Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:175)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x10990F: operator+(Matrix const&, Matrix const&) (Matrix.cpp:178)
+==25958==    by 0x10B56A: main (t_matrix_valid.cpp:105)
+==25958==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109F02: Matrix::operator()(int, int) const (Matrix.cpp:322)
+==25958==    by 0x10997F: Matrix::operator+=(Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:190)
+==25958==    by 0x1099C7: Matrix::operator+=(Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:191)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x109A03: Matrix::operator+=(Matrix const&) (Matrix.cpp:193)
+==25958==    by 0x10B6B4: main (t_matrix_valid.cpp:118)
+==25958==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x109980: Matrix::operator+=(Matrix const&)::{lambda(float&, void*, int, int)#1}::operator()(float&, void*, int, int) const (Matrix.cpp:190)
+==25958==    by 0x1099C7: Matrix::operator+=(Matrix const&)::{lambda(float&, void*, int, int)#1}::_FUN(float&, void*, int, int) (Matrix.cpp:191)
+==25958==    by 0x10A1EF: Matrix::_forEach(void (*)(float&, void*, int, int), void*) (Matrix.cpp:391)
+==25958==    by 0x109A03: Matrix::operator+=(Matrix const&) (Matrix.cpp:193)
+==25958==    by 0x10B6B4: main (t_matrix_valid.cpp:118)
+==25958==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 8
+==25958==    at 0x109CE1: Matrix::plainPrint() const (Matrix.cpp:263)
+==25958==    by 0x10BC16: main (t_matrix_valid.cpp:154)
+==25958==  Address 0x4d9ad60 is 0 bytes inside a block of size 8 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x10960D: Matrix::_freeMatrix() (Matrix.cpp:98)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== Invalid read of size 4
+==25958==    at 0x109CF1: Matrix::plainPrint() const (Matrix.cpp:263)
+==25958==    by 0x10BC16: main (t_matrix_valid.cpp:154)
+==25958==  Address 0x4d9adb0 is 0 bytes inside a block of size 4 free'd
+==25958==    at 0x483758B: operator delete[](void*) (vg_replace_malloc.c:641)
+==25958==    by 0x1095EA: Matrix::_freeMatrix() (Matrix.cpp:96)
+==25958==    by 0x1097A3: Matrix::operator=(Matrix const&) (Matrix.cpp:156)
+==25958==    by 0x10ADE1: main (t_matrix_valid.cpp:47)
+==25958==  Block was alloc'd at
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x10936A: Matrix::_init(int, int) (Matrix.cpp:32)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10945D: Matrix::Matrix() (Matrix.cpp:68)
+==25958==    by 0x10AB3A: main (t_matrix_valid.cpp:19)
+==25958== 
+==25958== 
+==25958== HEAP SUMMARY:
+==25958==     in use at exit: 7,884 bytes in 522 blocks
+==25958==   total heap usage: 553 allocs, 44 frees, 90,592 bytes allocated
+==25958== 
+==25958== 12 (8 direct, 4 indirect) bytes in 1 blocks are definitely lost in loss record 25 of 55
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x109512: Matrix::Matrix(Matrix const&) (Matrix.cpp:76)
+==25958==    by 0x10B5CD: main (t_matrix_valid.cpp:109)
+==25958== 
+==25958== 12 (8 direct, 4 indirect) bytes in 1 blocks are definitely lost in loss record 26 of 55
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x109512: Matrix::Matrix(Matrix const&) (Matrix.cpp:76)
+==25958==    by 0x10B7AE: main (t_matrix_valid.cpp:123)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 27 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x109B26: operator*(Matrix const&, Matrix const&) (Matrix.cpp:203)
+==25958==    by 0x10B18B: main (t_matrix_valid.cpp:72)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 28 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x109B26: operator*(Matrix const&, Matrix const&) (Matrix.cpp:203)
+==25958==    by 0x10B19E: main (t_matrix_valid.cpp:73)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 29 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x109B26: operator*(Matrix const&, Matrix const&) (Matrix.cpp:203)
+==25958==    by 0x10B1B1: main (t_matrix_valid.cpp:74)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 30 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x109B26: operator*(Matrix const&, Matrix const&) (Matrix.cpp:203)
+==25958==    by 0x10B1C4: main (t_matrix_valid.cpp:75)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 31 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x109C23: Matrix::operator*(float) const (Matrix.cpp:230)
+==25958==    by 0x10B2F3: main (t_matrix_valid.cpp:87)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 32 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x1098C8: operator+(Matrix const&, Matrix const&) (Matrix.cpp:169)
+==25958==    by 0x10B544: main (t_matrix_valid.cpp:103)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 33 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x1098C8: operator+(Matrix const&, Matrix const&) (Matrix.cpp:169)
+==25958==    by 0x10B557: main (t_matrix_valid.cpp:104)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 34 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x1098C8: operator+(Matrix const&, Matrix const&) (Matrix.cpp:169)
+==25958==    by 0x10B56A: main (t_matrix_valid.cpp:105)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 35 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x1098C8: operator+(Matrix const&, Matrix const&) (Matrix.cpp:169)
+==25958==    by 0x10B57D: main (t_matrix_valid.cpp:106)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 36 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x1098C8: operator+(Matrix const&, Matrix const&) (Matrix.cpp:169)
+==25958==    by 0x10B5B8: main (t_matrix_valid.cpp:109)
+==25958== 
+==25958== 28 (16 direct, 12 indirect) bytes in 1 blocks are definitely lost in loss record 37 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x1098C8: operator+(Matrix const&, Matrix const&) (Matrix.cpp:169)
+==25958==    by 0x10B799: main (t_matrix_valid.cpp:123)
+==25958== 
+==25958== 160 (40 direct, 120 indirect) bytes in 1 blocks are definitely lost in loss record 41 of 55
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10BD77: main (t_matrix_valid.cpp:168)
+==25958== 
+==25958== 280 (80 direct, 200 indirect) bytes in 1 blocks are definitely lost in loss record 44 of 55
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x109512: Matrix::Matrix(Matrix const&) (Matrix.cpp:76)
+==25958==    by 0x10B214: main (t_matrix_valid.cpp:78)
+==25958== 
+==25958== 296 (16 direct, 280 indirect) bytes in 1 blocks are definitely lost in loss record 45 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x109B26: operator*(Matrix const&, Matrix const&) (Matrix.cpp:203)
+==25958==    by 0x10B1FF: main (t_matrix_valid.cpp:78)
+==25958== 
+==25958== 560 (160 direct, 400 indirect) bytes in 1 blocks are definitely lost in loss record 48 of 55
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x10ABB6: main (t_matrix_valid.cpp:24)
+==25958== 
+==25958== 560 (160 direct, 400 indirect) bytes in 1 blocks are definitely lost in loss record 49 of 55
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x109512: Matrix::Matrix(Matrix const&) (Matrix.cpp:76)
+==25958==    by 0x10AC2C: main (t_matrix_valid.cpp:30)
+==25958== 
+==25958== 896 (16 direct, 880 indirect) bytes in 1 blocks are definitely lost in loss record 53 of 55
+==25958==    at 0x4835DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==25958==    by 0x109C23: Matrix::operator*(float) const (Matrix.cpp:230)
+==25958==    by 0x10A000: operator*(float, Matrix const&) (Matrix.cpp:345)
+==25958==    by 0x10B42D: main (t_matrix_valid.cpp:96)
+==25958== 
+==25958== 2,400 (1,600 direct, 800 indirect) bytes in 1 blocks are definitely lost in loss record 54 of 55
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109692: Matrix::vectorize() (Matrix.cpp:131)
+==25958==    by 0x10B92B: main (t_matrix_valid.cpp:133)
+==25958== 
+==25958== 2,400 (1,600 direct, 800 indirect) bytes in 1 blocks are definitely lost in loss record 55 of 55
+==25958==    at 0x483650F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==25958==    by 0x109308: Matrix::_init(int, int) (Matrix.cpp:29)
+==25958==    by 0x109438: Matrix::Matrix(int, int) (Matrix.cpp:62)
+==25958==    by 0x109512: Matrix::Matrix(Matrix const&) (Matrix.cpp:76)
+==25958==    by 0x10B940: main (t_matrix_valid.cpp:133)
+==25958== 
+==25958== LEAK SUMMARY:
+==25958==    definitely lost: 3,864 bytes in 21 blocks
+==25958==    indirectly lost: 4,020 bytes in 501 blocks
+==25958==      possibly lost: 0 bytes in 0 blocks
+==25958==    still reachable: 0 bytes in 0 blocks
+==25958==         suppressed: 0 bytes in 0 blocks
+==25958== 
+==25958== For counts of detected and suppressed errors, rerun with: -v
+==25958== ERROR SUMMARY: 2510 errors from 63 contexts (suppressed: 0 from 0)

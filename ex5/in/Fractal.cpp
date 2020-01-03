@@ -1,4 +1,11 @@
-#include "headers.h"
+#include <functional>
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <cstdlib>
+#include <vector>
+#include "Fractal.h"
+
 
 Point Point::relaitve(Point & other, BitMap & bitmap, int deep){
     return Point(
@@ -49,10 +56,14 @@ BitMap createEmptyBitMap(BitMap & bitmap) {
 }
 
 void PrintFractal(outVec out) {
-  for ( auto i = out.begin(); i !=  out.end() ; i++) {
-    for ( auto j = (*i).begin(); j !=  (*i).end() ; j++)
-      std::cout << (*j);
-    std::cout << '\n';
+  for ( auto i = out.begin(); i !=  out.end();) {
+    for ( auto j = (*i).begin(); j !=  (*i).end() ; j++) {
+        std::cout << (*j);
+    }
+    i++;
+    if ( i != out.end() ) {
+        std::cout << '\n';
+    }
   }
 }
 
@@ -68,14 +79,4 @@ void Fractal::draw(BitMap & bitmap ,int deep){
     Fractal::draw(begin_point, bitmap, empty, deep, out);
 
     PrintFractal(out);
-}
-
-int main() {
-
-  int inpfrac, inpdeep;
-  std::cout << "enter frac and deep " << '\n';
-  std::cin >> inpfrac >> inpdeep ;
-  std::cout << '\n';
-  Fractal::draw(fractals[inpfrac], inpdeep);
-
 }
