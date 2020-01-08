@@ -80,14 +80,14 @@ private:
          * check_validity description
          * @return true if valid, otherwise, exit.
          */
-        bool check_validity();
+        bool _checkValidity();
 
         /**
          * check if the given cols and rows greter than 0.
          * @param rows [description]
          * @param cols [description]
          */
-        bool check_neg(int rows, int cols);
+        bool _checkNeg(int rows, int cols);
 
 public:
         /**

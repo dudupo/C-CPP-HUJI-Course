@@ -24,7 +24,7 @@ const int ERR = 1;
  */
 void Matrix::_init(int rows, int cols)
 {
-        this->check_neg(rows, cols);
+        this->_checkNeg(rows, cols);
 
         this->matrix = new float *[rows];
         for (int i = ZERO; i < rows; i++)
@@ -334,7 +334,7 @@ std::ostream &operator<<(std::ostream &os, Matrix  &matrix)
 float& Matrix::operator()(const int i, const int j) const
 {
         if (i < ZERO ||  i >= this->getRows() || j < ZERO ||
-            j >=this->getCols())
+            j >= this->getCols())
         {
                 std::cerr << ERRMSG << std::endl;
                 exit(ERR);
@@ -419,7 +419,7 @@ void Matrix::_forEach(void (*fun)(float &, void *, int, int), void *args)
  * check_validity description
  * @return true if valid, otherwise, exit.
  */
-bool Matrix::check_validity()
+bool Matrix::_checkValidity()
 {
         if ( *this->matrix == nullptr )
         {
@@ -434,7 +434,7 @@ bool Matrix::check_validity()
  * @param rows [description]
  * @param cols [description]
  */
-bool Matrix::check_neg(int rows, int cols)
+bool Matrix::_checkNeg(int rows, int cols)
 {
         if ( !(rows > ZERO && cols > ZERO ) )
         {

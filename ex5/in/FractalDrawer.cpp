@@ -34,8 +34,8 @@ const int PAIRARGS = 2;
  */
 void exitErorr()
 {
-    std::cout <<  INVALIDINPUT << std::endl;
-    exit(FAILURECODE);
+        std::cout <<  INVALIDINPUT << std::endl;
+        exit(FAILURECODE);
 }
 /**
  * checking that the given string is a number of single digit.
@@ -44,26 +44,26 @@ void exitErorr()
  */
 bool checkNumber( const std::basic_string<char>& str )
 {
-    int num = ZERO;
-    for (char c : str )
-    {
-        if ( c < ZERODIGIT || c >  NINEDIGIT )
+        int num = ZERO;
+        for (char c : str )
         {
-            return false;
+                if ( c < ZERODIGIT || c >  NINEDIGIT )
+                {
+                        return false;
+                }
+                num++;
         }
-        num++;
-    }
-    if ( num > ONE)
-    {
-        return false;
-    }
-    return true;
+        if ( num > ONE)
+        {
+                return false;
+        }
+        return true;
 }
 
 
 /**
- * main - the main function, paring the csv file, checking the validity of the input.
- * than calling calling to the drawing function with asked fractal.
+ * main - the main function, paring the csv file, checking the validity of the
+ *  input. than calling calling to the drawing function with asked fractal.
  * @param argc - the number of the parameters the program got.
  * @param argv - the given parameters.
  * @return
@@ -72,83 +72,88 @@ int main( int argc, char * argv [])
 {
 
 
-    if (argc != PAIRARGS)
-    {
-        std::cout << USAGE << std::endl;
-        exit(FAILURECODE);
-    }
-
-
-    if ( boost::filesystem::exists(argv[1]) )
-    {
-
-        std::ifstream ifnput_stream(argv[1]);
-        std::string data;
-
-        ifnput_stream.seekg(ZERO, std::ios::end);
-        data.reserve(ifnput_stream.tellg());
-        ifnput_stream.seekg(ZERO, std::ios::beg);
-
-        data.assign((std::istreambuf_iterator<char>(ifnput_stream)),
-                   std::istreambuf_iterator<char>());
-
-
-
-        std::reverse(data.begin(), data.end());
-
-
-        int inpfrac, inpdeep;
-        typedef boost::tokenizer <boost::char_separator<char>> tokenizer;
-        boost::char_separator<char> line_sep {  NEWLINEASSTRING };
-        boost::char_separator<char> sep {COMMA};
-        tokenizer lines { data, line_sep };
-        for (auto & line  : lines )
+        if (argc != PAIRARGS)
         {
-
-            tokenizer  params { line , sep };
-            auto it = params.begin();
-
-            try
-            {
-
-                if ( it == params.end() ||  (!checkNumber(  *it )) )
-                {
-                    exitErorr();
-                }
-
-                inpdeep = stoi(  (*it) ); it++;
-
-                if ( it == params.end() || (!checkNumber( *it )))
-                {
-                    exitErorr();
-                }
-                inpfrac = stoi(  (*it) ); it++;
-
-                if ( it != params.end() )
-                {
-                    exitErorr();
-                }
-
-            }
-            catch(std::exception const & e)
-            {
-                exitErorr();
-            }
-
-            if ( inpfrac > HIGHBOUNDFRACTAL || inpfrac < LOWEBOUNDFRACTAL ||
-            inpdeep > HIGHBOUNDRECURSION  || inpdeep < LOWEBOUNDRECURSION  )
-            {
-                exitErorr();
-            }
-            Fractal::draw(fractals[inpfrac-ONE], inpdeep);
-            std::cout << std::endl << std::endl ;
+                std::cout << USAGE << std::endl;
+                exit(FAILURECODE);
         }
 
-    }
-    else
-    {
-        exitErorr();
-    }
-    return SUCSSESCODE;
+
+        if ( boost::filesystem::exists(argv[1]) )
+        {
+
+                std::ifstream ifnput_stream(argv[1]);
+                std::string data;
+
+                ifnput_stream.seekg(ZERO, std::ios::end);
+                data.reserve(ifnput_stream.tellg());
+                ifnput_stream.seekg(ZERO, std::ios::beg);
+
+                data.assign((std::istreambuf_iterator<char>(ifnput_stream)),
+                            std::istreambuf_iterator<char>());
+
+
+
+                std::reverse(data.begin(), data.end());
+
+
+                int inpfrac, inpdeep;
+                typedef boost::tokenizer <boost::char_separator<char> >
+                        tokenizer;
+                boost::char_separator<char> line_sep {  NEWLINEASSTRING };
+                boost::char_separator<char> sep {COMMA};
+                tokenizer lines { data, line_sep };
+                for (auto & line  : lines )
+                {
+
+                        tokenizer params { line, sep };
+                        auto it = params.begin();
+
+                        try
+                        {
+
+                                if ( it == params.end() ||
+                                     (!checkNumber(  *it )) )
+                                {
+                                        exitErorr();
+                                }
+
+                                inpdeep = stoi(  (*it) ); it++;
+
+                                if ( it == params.end() ||
+                                     (!checkNumber( *it )))
+                                {
+                                        exitErorr();
+                                }
+                                inpfrac = stoi(  (*it) ); it++;
+
+                                if ( it != params.end() )
+                                {
+                                        exitErorr();
+                                }
+
+                        }
+                        catch(std::exception const & e)
+                        {
+                                exitErorr();
+                        }
+
+                        if ( inpfrac > HIGHBOUNDFRACTAL ||
+                             inpfrac < LOWEBOUNDFRACTAL ||
+                             inpdeep > HIGHBOUNDRECURSION  ||
+                             inpdeep < LOWEBOUNDRECURSION  )
+                        {
+                                exitErorr();
+                        }
+                        Fractal::draw(fractals[inpfrac-ONE], inpdeep);
+                        std::cout << std::endl << std::endl;
+                }
+
+        }
+        else
+        {
+                exitErorr();
+        }
+        return SUCSSESCODE;
 
 }
