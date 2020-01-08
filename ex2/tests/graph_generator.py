@@ -22,7 +22,7 @@ class Graph:
         n = len(self.graph.nodes)
         lines = [str(n)]
         for node in sorted(self.graph.nodes):
-            neighs = ' '.join(str(key) for key in self.graph.neighbors(node))
+            neighs = SPACE.join(str(key) for key in self.graph.neighbors(node))
             if len(neighs) == 0:
                 lines.append('-')
             else:

@@ -11,11 +11,11 @@ static const std::string FAILMSG = std::string("fail test");
 static const std::string PASSMSG = std::string("pass test");
 
 void pass(const std::string &test_name) {
-    std::cout << PASSMSG << ' ' << test_name << '\n';
+    std::cout << PASSMSG << SPACE << test_name << '\n';
 }
 
 void fail(const std::string &test_name) {
-    std::cout << FAILMSG << ' ' << test_name << '\n';
+    std::cout << FAILMSG << SPACE << test_name << '\n';
 }
 
 void test_init_matrix() {

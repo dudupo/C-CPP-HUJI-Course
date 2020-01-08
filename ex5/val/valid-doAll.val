@@ -1,6 +1,6 @@
-==10259== Memcheck, a memory error detector
-==10259== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==10259== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==10259== Command: in/FractalDrawer /cs/usr/davidponar/Desktop/c/c_cpp_course/ex5/csv/valid-doAll.csv
-==10259== Parent PID: 10205
-==10259== 
+==9413== Memcheck, a memory error detector
+==9413== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==9413== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==9413== Command: in/FractalDrawer /cs/usr/davidponar/Desktop/c/c_cpp_course/ex5/csv/valid-doAll.csv
+==9413== Parent PID: 9362
+==9413== 

@@ -79,7 +79,7 @@ float read_float()
 		int pressed, position = 10, step=0;
 		float ret = 0;
 		read_func aggregate[2] = { &aggregate_before_dot, &aggregate_after_dot };
-		while( (peek_stdin()) != '\n' && (pressed = getchar()) != ' ') {
+		while( (peek_stdin()) != '\n' && (pressed = getchar()) != SPACE) {
 				if (pressed != '.' ) {
 
 					if ( pressed < '0' || pressed > '9' ){

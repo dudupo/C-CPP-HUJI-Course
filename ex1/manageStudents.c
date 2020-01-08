@@ -147,7 +147,7 @@ int isLetter(char c)
  */
 int isSpace(char c)
 {
-	return c == ' ' || c == '\t' || c == '\n';
+	return c == SPACE || c == '\t' || c == '\n';
 }
 /**
  * @brief printing the error to stdout.
@@ -241,7 +241,7 @@ int parseNameWithSpaces(int scan_feedback, char * str)
     char * pointer = str;
     for ( ; *pointer ; pointer++ )
     {
-      if ((*pointer != ' ') && (!isLetter( *pointer )))
+      if ((*pointer != SPACE) && (!isLetter( *pointer )))
       {
         return DROPLINE;
       }

@@ -238,7 +238,7 @@ def print_with_indentation(title, to_print):
     prefix = title + ": "
     wrapper = textwrap.TextWrapper(initial_indent=prefix,
                                    break_long_words=False,
-                                   subsequent_indent=' ' * len(prefix))
+                                   subsequent_indent=SPACE * len(prefix))
     print(wrapper.fill(to_print))
 
 

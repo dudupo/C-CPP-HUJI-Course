@@ -23,7 +23,7 @@ HashMap<std::string, int> readDataBase( std::ifstream & database ) {
     ret.insert(key, value);
     key = "";
 
-    while( database.peek() == ' ' || database.peek() == '\n' )
+    while( database.peek() == SPACE || database.peek() == '\n' )
       database.get();
 
   }

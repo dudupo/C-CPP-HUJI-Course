@@ -11,53 +11,85 @@
 #include <algorithm>
 #include <boost/filesystem.hpp>
 
-void exit_eror( )
-{
-    std::cout <<  "Invalid input" << std::endl;
-    exit(1);
-}
+const std::string INVALIDINPUT =  "Invalid input";
+const std::string USAGE  = "Usage: FractalDrawer <file path>";
+const char * NEWLINEASSTRING = "\n";
+const char *  COMMA = ",";
+const int LOWEBOUNDRECURSION = 1;
+const int HIGHBOUNDRECURSION = 6;
+const int LOWEBOUNDFRACTAL = 1;
+const int HIGHBOUNDFRACTAL = 3;
+const int FAILURECODE = 1;
+const int SUCSSESCODE = 0;
+const char ZERODIGIT = '0';
+const char NINEDIGIT = '9';
+const int ZERO = 0;
+const int ONE = 1;
+const int PAIRARGS = 2;
 
-bool check_number(  const std::basic_string<char>& str )
+
+/**
+ *  exitErorr responsible to print an informative message and than exit
+ *  from the program.
+ */
+void exitErorr()
 {
-    int num = 0 ;
+    std::cout <<  INVALIDINPUT << std::endl;
+    exit(FAILURECODE);
+}
+/**
+ * checking that the given string is a number of single digit.
+ * @param str the given string.
+ * @return true if the string is contains a single digit. false otherwise.
+ */
+bool checkNumber( const std::basic_string<char>& str )
+{
+    int num = ZERO;
     for (char c : str )
     {
-        if ( c < '0' || c > '9' )
+        if ( c < ZERODIGIT || c >  NINEDIGIT )
         {
             return false;
         }
         num++;
     }
-    if ( num > 1)
+    if ( num > ONE)
     {
         return false;
     }
-
     return true;
 }
 
 
+/**
+ * main - the main function, paring the csv file, checking the validity of the input.
+ * than calling calling to the drawing function with asked fractal.
+ * @param argc - the number of the parameters the program got.
+ * @param argv - the given parameters.
+ * @return
+ */
+int main( int argc, char * argv [])
+{
 
-int main( int argc, char * argv []) {
 
-
-    if (argc != 2){
-        std::cout << "Usage: FractalDrawer <file path>" << std::endl;
-        exit(1);
+    if (argc != PAIRARGS)
+    {
+        std::cout << USAGE << std::endl;
+        exit(FAILURECODE);
     }
 
 
     if ( boost::filesystem::exists(argv[1]) )
     {
 
-        std::ifstream t(argv[1]);
+        std::ifstream ifnput_stream(argv[1]);
         std::string data;
 
-        t.seekg(0, std::ios::end);
-        data.reserve(t.tellg());
-        t.seekg(0, std::ios::beg);
+        ifnput_stream.seekg(ZERO, std::ios::end);
+        data.reserve(ifnput_stream.tellg());
+        ifnput_stream.seekg(ZERO, std::ios::beg);
 
-        data.assign((std::istreambuf_iterator<char>(t)),
+        data.assign((std::istreambuf_iterator<char>(ifnput_stream)),
                    std::istreambuf_iterator<char>());
 
 
@@ -67,52 +99,56 @@ int main( int argc, char * argv []) {
 
         int inpfrac, inpdeep;
         typedef boost::tokenizer <boost::char_separator<char>> tokenizer;
-        boost::char_separator<char> line_sep { "\n"};
-        boost::char_separator<char> sep {","};
+        boost::char_separator<char> line_sep {  NEWLINEASSTRING };
+        boost::char_separator<char> sep {COMMA};
         tokenizer lines { data, line_sep };
-        for (auto & line  : lines ){
+        for (auto & line  : lines )
+        {
 
             tokenizer  params { line , sep };
             auto it = params.begin();
 
-            try {
+            try
+            {
 
-                if ( it == params.end() ||  (!check_number(  *it )) )
+                if ( it == params.end() ||  (!checkNumber(  *it )) )
                 {
-                    exit_eror();
+                    exitErorr();
                 }
 
                 inpdeep = stoi(  (*it) ); it++;
 
-                if ( it == params.end() || (!check_number( *it )))
+                if ( it == params.end() || (!checkNumber( *it )))
                 {
-                    exit_eror();
+                    exitErorr();
                 }
                 inpfrac = stoi(  (*it) ); it++;
 
                 if ( it != params.end() )
                 {
-                    exit_eror();
+                    exitErorr();
                 }
 
             }
             catch(std::exception const & e)
             {
-                exit_eror();
+                exitErorr();
             }
 
-            if ( inpfrac > 3 || inpfrac <= 0 || inpdeep > 6  || inpdeep < 1  )
+            if ( inpfrac > HIGHBOUNDFRACTAL || inpfrac < LOWEBOUNDFRACTAL ||
+            inpdeep > HIGHBOUNDRECURSION  || inpdeep < LOWEBOUNDRECURSION  )
             {
-                exit_eror();
+                exitErorr();
             }
-            Fractal::draw(fractals[inpfrac-1], inpdeep);
+            Fractal::draw(fractals[inpfrac-ONE], inpdeep);
             std::cout << std::endl << std::endl ;
         }
 
     }
-    else {
-        exit_eror();
+    else
+    {
+        exitErorr();
     }
-    return 0;
+    return SUCSSESCODE;
 
 }

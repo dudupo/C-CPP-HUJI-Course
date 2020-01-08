@@ -132,7 +132,7 @@ def run_with_cmd(command_list, str="", valgrind=False):
         valgrind_outfile = NamedTemporaryFile(mode='r+', encoding='utf-8')
         command_list = ['valgrind', '--leak-check=yes', f'--log-file={valgrind_outfile.name}'] + command_list
 
-    print(f"Running command \"{' '.join(command_list)}\"")
+    print(f"Running command \"{SPACE.join(command_list)}\"")
     try:
         process = subprocess.run(command_list, shell=False, input=str,
                                  stdout=subprocess.PIPE,

@@ -22,3 +22,5 @@ prod:
 	make FractalDrawer
 	rm -rf *.o *.h *.cpp Makefile
 	chmod 755 FractalDrawer
+tar:
+	tar cvf cpp_ex2 Fractal.cpp Fractal.h FractalDrawer.cpp
