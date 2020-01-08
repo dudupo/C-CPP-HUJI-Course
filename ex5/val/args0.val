@@ -1,24 +1,24 @@
-==9366== Memcheck, a memory error detector
-==9366== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==9366== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==9366== Command: in/FractalDrawer
-==9366== Parent PID: 9362
-==9366== 
-==9366== 
-==9366== HEAP SUMMARY:
-==9366==     in use at exit: 160 bytes in 2 blocks
-==9366==   total heap usage: 13 allocs, 11 frees, 78,155 bytes allocated
-==9366== 
-==9366== LEAK SUMMARY:
-==9366==    definitely lost: 0 bytes in 0 blocks
-==9366==    indirectly lost: 0 bytes in 0 blocks
-==9366==      possibly lost: 0 bytes in 0 blocks
-==9366==    still reachable: 160 bytes in 2 blocks
-==9366==                       of which reachable via heuristic:
-==9366==                         newarray           : 160 bytes in 2 blocks
-==9366==         suppressed: 0 bytes in 0 blocks
-==9366== Reachable blocks (those to which a pointer was found) are not shown.
-==9366== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==9366== 
-==9366== For counts of detected and suppressed errors, rerun with: -v
-==9366== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==17287== Memcheck, a memory error detector
+==17287== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==17287== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==17287== Command: in/FractalDrawer
+==17287== Parent PID: 17283
+==17287== 
+==17287== 
+==17287== HEAP SUMMARY:
+==17287==     in use at exit: 160 bytes in 2 blocks
+==17287==   total heap usage: 13 allocs, 11 frees, 78,155 bytes allocated
+==17287== 
+==17287== LEAK SUMMARY:
+==17287==    definitely lost: 0 bytes in 0 blocks
+==17287==    indirectly lost: 0 bytes in 0 blocks
+==17287==      possibly lost: 0 bytes in 0 blocks
+==17287==    still reachable: 160 bytes in 2 blocks
+==17287==                       of which reachable via heuristic:
+==17287==                         newarray           : 160 bytes in 2 blocks
+==17287==         suppressed: 0 bytes in 0 blocks
+==17287== Reachable blocks (those to which a pointer was found) are not shown.
+==17287== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==17287== 
+==17287== For counts of detected and suppressed errors, rerun with: -v
+==17287== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

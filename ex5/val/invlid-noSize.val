@@ -1,24 +1,24 @@
-==9399== Memcheck, a memory error detector
-==9399== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==9399== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==9399== Command: in/FractalDrawer /cs/usr/davidponar/Desktop/c/c_cpp_course/ex5/csv/invlid-noSize.csv
-==9399== Parent PID: 9362
-==9399== 
-==9399== 
-==9399== HEAP SUMMARY:
-==9399==     in use at exit: 8,904 bytes in 4 blocks
-==9399==   total heap usage: 16 allocs, 12 frees, 86,967 bytes allocated
-==9399== 
-==9399== LEAK SUMMARY:
-==9399==    definitely lost: 0 bytes in 0 blocks
-==9399==    indirectly lost: 0 bytes in 0 blocks
-==9399==      possibly lost: 0 bytes in 0 blocks
-==9399==    still reachable: 8,904 bytes in 4 blocks
-==9399==                       of which reachable via heuristic:
-==9399==                         newarray           : 160 bytes in 2 blocks
-==9399==         suppressed: 0 bytes in 0 blocks
-==9399== Reachable blocks (those to which a pointer was found) are not shown.
-==9399== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==9399== 
-==9399== For counts of detected and suppressed errors, rerun with: -v
-==9399== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==17319== Memcheck, a memory error detector
+==17319== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==17319== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==17319== Command: in/FractalDrawer /cs/usr/davidponar/Desktop/c/c_cpp_course/ex5/csv/invlid-noSize.csv
+==17319== Parent PID: 17283
+==17319== 
+==17319== 
+==17319== HEAP SUMMARY:
+==17319==     in use at exit: 8,904 bytes in 4 blocks
+==17319==   total heap usage: 16 allocs, 12 frees, 86,967 bytes allocated
+==17319== 
+==17319== LEAK SUMMARY:
+==17319==    definitely lost: 0 bytes in 0 blocks
+==17319==    indirectly lost: 0 bytes in 0 blocks
+==17319==      possibly lost: 0 bytes in 0 blocks
+==17319==    still reachable: 8,904 bytes in 4 blocks
+==17319==                       of which reachable via heuristic:
+==17319==                         newarray           : 160 bytes in 2 blocks
+==17319==         suppressed: 0 bytes in 0 blocks
+==17319== Reachable blocks (those to which a pointer was found) are not shown.
+==17319== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==17319== 
+==17319== For counts of detected and suppressed errors, rerun with: -v
+==17319== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

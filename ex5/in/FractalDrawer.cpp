@@ -11,21 +11,24 @@
 #include <algorithm>
 #include <boost/filesystem.hpp>
 
-const std::string INVALIDINPUT =  "Invalid input";
-const std::string USAGE  = "Usage: FractalDrawer <file path>";
-const char * NEWLINEASSTRING = "\n";
-const char *  COMMA = ",";
-const int LOWEBOUNDRECURSION = 1;
-const int HIGHBOUNDRECURSION = 6;
-const int LOWEBOUNDFRACTAL = 1;
-const int HIGHBOUNDFRACTAL = 3;
-const int FAILURECODE = 1;
-const int SUCSSESCODE = 0;
-const char ZERODIGIT = '0';
-const char NINEDIGIT = '9';
-const int ZERO = 0;
-const int ONE = 1;
-const int PAIRARGS = 2;
+const std::string INVALIDINPUT          =  "Invalid input";
+const std::string USAGE                 = "Usage: FractalDrawer <file path>";
+const int LOWEBOUNDRECURSION            = 1;
+const int HIGHBOUNDRECURSION            = 6;
+const int LOWEBOUNDFRACTAL              = 1;
+const int HIGHBOUNDFRACTAL              = 3;
+const int FAILURECODE                   = 1;
+const int SUCSSESCODE                   = 0;
+const int ZERO                          = 0;
+const int ONE                           = 1;
+const int PAIRARGS                      = 2;
+const char ZERODIGIT                    = '0';
+const char NINEDIGIT                    = '9';
+const char * NEWLINEASSTRING            = "\n";
+const char *  COMMA                     = ",";
+
+typedef boost::tokenizer <boost::char_separator<char> >
+        tokenizer;
 
 
 /**
@@ -58,6 +61,54 @@ bool checkNumber( const std::basic_string<char>& str )
                 return false;
         }
         return true;
+}
+/**
+ * processLine - executing a single line
+ * @param params - tokenizion of the line.
+ */
+void processLine(tokenizer params)
+{
+    int inpfrac, inpdeep;
+    auto it = params.begin();
+
+    try
+    {
+        // line validity.
+        if ( it == params.end() ||
+             (!checkNumber(  *it )) )
+        {
+            exitErorr();
+        }
+
+        inpdeep = stoi(  (*it) ); it++;
+
+        if ( it == params.end() ||
+             (!checkNumber( *it )))
+        {
+            exitErorr();
+        }
+        inpfrac = stoi(  (*it) ); it++;
+
+        if ( it != params.end() )
+        {
+            exitErorr();
+        }
+
+    }
+    catch(std::exception const & e)
+    {
+        exitErorr();
+    }
+
+    if ( inpfrac > HIGHBOUNDFRACTAL ||
+         inpfrac < LOWEBOUNDFRACTAL ||
+         inpdeep > HIGHBOUNDRECURSION  ||
+         inpdeep < LOWEBOUNDRECURSION  )
+    {
+        exitErorr();
+    }
+    Fractal::draw(fractals[inpfrac-ONE], inpdeep);
+    std::cout << std::endl << std::endl;
 }
 
 
@@ -93,60 +144,14 @@ int main( int argc, char * argv [])
                             std::istreambuf_iterator<char>());
 
 
-
                 std::reverse(data.begin(), data.end());
-
-
-                int inpfrac, inpdeep;
-                typedef boost::tokenizer <boost::char_separator<char> >
-                        tokenizer;
                 boost::char_separator<char> line_sep {  NEWLINEASSTRING };
                 boost::char_separator<char> sep {COMMA};
                 tokenizer lines { data, line_sep };
                 for (auto & line  : lines )
                 {
-
-                        tokenizer params { line, sep };
-                        auto it = params.begin();
-
-                        try
-                        {
-
-                                if ( it == params.end() ||
-                                     (!checkNumber(  *it )) )
-                                {
-                                        exitErorr();
-                                }
-
-                                inpdeep = stoi(  (*it) ); it++;
-
-                                if ( it == params.end() ||
-                                     (!checkNumber( *it )))
-                                {
-                                        exitErorr();
-                                }
-                                inpfrac = stoi(  (*it) ); it++;
-
-                                if ( it != params.end() )
-                                {
-                                        exitErorr();
-                                }
-
-                        }
-                        catch(std::exception const & e)
-                        {
-                                exitErorr();
-                        }
-
-                        if ( inpfrac > HIGHBOUNDFRACTAL ||
-                             inpfrac < LOWEBOUNDFRACTAL ||
-                             inpdeep > HIGHBOUNDRECURSION  ||
-                             inpdeep < LOWEBOUNDRECURSION  )
-                        {
-                                exitErorr();
-                        }
-                        Fractal::draw(fractals[inpfrac-ONE], inpdeep);
-                        std::cout << std::endl << std::endl;
+                    tokenizer params { line, sep };
+                    processLine( params );
                 }
 
         }

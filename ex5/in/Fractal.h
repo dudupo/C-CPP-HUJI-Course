@@ -43,7 +43,7 @@ Point(long x, long y, char chart) : x(x), y(y), chart(chart)
  * pair of the points.
  */
 Point operator + ( Point const &other );
-/*
+/**
  *  relaitve - scaling the coordinates of the point, relative to
  *  the recursion deep.
  *  @return the scaling the coordinates.
@@ -97,37 +97,45 @@ Point * begin();
  */
 Point * end();
 };
-
-static BitMap SierpinskiCarpet = BitMap(3, 3,
-                                        new Point[9]{
-        Point(0,0,SHARP),Point(1,0,SHARP),Point(2,0,SHARP),
-        Point(0,1,SHARP),Point(1,1,SPACE),Point(2,1,SHARP),
-        Point(0,2,SHARP),Point(1,2,SHARP),Point(2,2,SHARP)
-}
-                                        );
-static BitMap SierpinskiSieve = BitMap(2, 2,
-                                       new Point[4]{
-        Point(0,0,SHARP),Point(1,0,SHARP),
-        Point(0,1,SHARP),Point(1,1,SPACE)
-}
-                                       );
-static BitMap CantorDust = BitMap(3, 3,
-                                  new Point[9]{
-        Point(0,0,SHARP),Point(1,0,SPACE),Point(2,0,SHARP),
-        Point(0,1,SPACE),Point(1,1,SHARP),Point(2,1,SPACE),
-        Point(0,2,SHARP),Point(1,2,SPACE),Point(2,2,SHARP)
-}
-                                  );
+/**
+ * sierpinskiCarpet bitmap.
+ */
+static BitMap sierpinskiCarpet (3, 3, new Point[9]
+                                {
+                                Point(0, 0, SHARP), Point(1, 0, SHARP), Point(2, 0, SHARP),
+                                Point(0, 1, SHARP), Point(1, 1, SPACE), Point(2, 1, SHARP),
+                                Point(0, 2, SHARP), Point(1, 2, SHARP), Point(2, 2, SHARP)
+                                });
+/**
+ * sierpinskiSieve bitmap.
+ */
+static BitMap sierpinskiSieve (2, 2, new Point[4]
+                               {
+                               Point(0, 0, SHARP), Point(1, 0, SHARP),
+                               Point(0, 1, SHARP), Point(1, 1, SPACE)
+                               });
+/**
+ * cantorDust bitmap.
+ */
+static BitMap cantorDust (3, 3, new Point[9]
+                          {
+                          Point(0, 0, SHARP), Point(1, 0, SPACE), Point(2, 0, SHARP),
+                          Point(0, 1, SPACE), Point(1, 1, SHARP), Point(2, 1, SPACE),
+                          Point(0, 2, SHARP), Point(1, 2, SPACE), Point(2, 2, SHARP)
+                          });
 
 static BitMap * fractals = new BitMap[3] {
-        SierpinskiCarpet,
-        SierpinskiSieve,
-        CantorDust
+        sierpinskiCarpet,
+        sierpinskiSieve,
+        cantorDust
 };
 
 typedef std::vector<std::vector<char> > outVec;
 
-
+/**
+ * the Fractal class, holds servel static functions which printing
+ * a given fractal.
+ */
 class Fractal
 {
 private:
@@ -139,7 +147,7 @@ private:
  * @param p_prime the original point in the bitmap when deep equals zero.
  * @param out the output vector which in the end will printed.
  */
-static void draw(Point & p, Point & p_prime, outVec & out);
+static void _draw(Point & p, Point & p_prime, outVec & out);
 /**
  * Fractal::draw - the core method, getting dawn in recursion, and print the
  * given bitmap in the finally stage.
@@ -152,8 +160,8 @@ static void draw(Point & p, Point & p_prime, outVec & out);
  * @param out - a vector which will holds the the values that will be printed
  *  to the screen.
  */
-static void draw(Point & p, BitMap & bitmap, BitMap & empty, int deep,
-                 outVec & out);
+static void _draw(Point & p, BitMap & bitmap, BitMap & empty, int deep,
+                  outVec & out);
 
 public:
 /**
@@ -163,5 +171,5 @@ public:
  * @param bitmap the given fractal to print.
  * @param deep the depth of the recursion.
  */
-static void draw(BitMap & bitmap,int deep);
+static void draw(BitMap & bitmap, int deep);
 };

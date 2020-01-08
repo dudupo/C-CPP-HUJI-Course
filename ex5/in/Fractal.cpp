@@ -8,9 +8,8 @@
 
 const int ONEDEGREE = 1;
 const int ZERO      = 0;
-//const char SPACE    = ' ';
 
-/*
+/**
  *  relaitve - scaling the coordinates of the point, relative to
  *  the recursion deep.
  *  @return the scaling the coordinates.
@@ -45,7 +44,8 @@ Point * BitMap::begin()
  * BitMap::end() return a pointer to the ends of the points segment.
  * @return a pointer to the ends of the points segment.
  */
-Point * BitMap::end() {
+Point * BitMap::end()
+{
         return &this->points[this->width * this->height - ONEDEGREE];
 }
 /**
@@ -56,7 +56,7 @@ Point * BitMap::end() {
  * @param p_prime the original point in the bitmap when deep equals zero.
  * @param out the output vector which in the end will printed.
  */
-void Fractal::draw(Point & p, Point & p_prime, outVec & out)
+void Fractal::_draw(Point & p, Point & p_prime, outVec & out)
 {
         out[ p.y ][ p.x ] = p_prime.chart;
 }
@@ -71,13 +71,13 @@ void Fractal::draw(Point & p, Point & p_prime, outVec & out)
  * @param deep the depth of the recursion.
  * @param out - a vector which will holds the the values that will be printed to the screen.
  */
-void Fractal::draw(Point & p, BitMap & bitmap, BitMap & empty, int deep, outVec & out)
+void Fractal::_draw(Point & p, BitMap & bitmap, BitMap & empty, int deep, outVec & out)
 {
         Point * p_prime = bitmap.begin();
         if (!deep)
         {
                 Point temp = p.relaitve(*p_prime, bitmap, deep);
-                Fractal::draw(temp, *p_prime, out);
+                Fractal::_draw(temp, *p_prime, out);
         }
         else
         {
@@ -86,11 +86,11 @@ void Fractal::draw(Point & p, BitMap & bitmap, BitMap & empty, int deep, outVec 
                         Point temp = p.relaitve(*p_prime, bitmap, deep);
                         if ( temp.chart != SPACE)
                         {
-                                Fractal::draw(temp, bitmap, empty, deep - ONEDEGREE, out);
+                                Fractal::_draw(temp, bitmap, empty, deep - ONEDEGREE, out);
                         }
                         else
                         {
-                                Fractal::draw(temp, empty, empty, deep - ONEDEGREE, out);
+                                Fractal::_draw(temp, empty, empty, deep - ONEDEGREE, out);
                         }
                 }
         }
@@ -100,7 +100,8 @@ void Fractal::draw(Point & p, BitMap & bitmap, BitMap & empty, int deep, outVec 
  * @param bitmap - an reference to other bitmap with willed shape.
  * @return the empty bitmap.
  */
-BitMap createEmptyBitMap(BitMap & bitmap) {
+BitMap createEmptyBitMap(BitMap & bitmap)
+{
         Point * empty_points = new Point[ bitmap.height * bitmap.width ];
         for (int i = 0; i < bitmap.height; i++)
         {
@@ -115,9 +116,9 @@ BitMap createEmptyBitMap(BitMap & bitmap) {
  * PrintFractal - printing the output vector.
  * @param out - the vector which will be printed.
  */
-void PrintFractal(outVec out)
+void printFractal(outVec out)
 {
-        for ( auto i = out.begin(); i !=  out.end();)
+        for ( auto i = out.begin(); i !=  out.end(); )
         {
                 for ( auto j = (*i).begin(); j !=  (*i).end(); j++)
                 {
@@ -137,7 +138,7 @@ void PrintFractal(outVec out)
  * @param bitmap the given fractal to print.
  * @param deep the depth of the recursion.
  */
-void Fractal::draw(BitMap & bitmap,int deep)
+void Fractal::draw(BitMap & bitmap, int deep)
 {
         BitMap empty = createEmptyBitMap(bitmap);
         outVec out;
@@ -147,8 +148,8 @@ void Fractal::draw(BitMap & bitmap,int deep)
         {
                 (*i).resize(std::pow(bitmap.width, deep));
         }
-        Point begin_point (ZERO,ZERO, SPACE);
-        Fractal::draw(begin_point, bitmap, empty, deep, out);
+        Point begin_point (ZERO, ZERO, SPACE);
+        Fractal::_draw(begin_point, bitmap, empty, deep, out);
 
-        PrintFractal(out);
+        printFractal(out);
 }
