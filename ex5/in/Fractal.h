@@ -50,6 +50,7 @@ Point operator + ( Point const &other );
  */
 Point relaitve(Point & other, BitMap & bitmap, int deep);
 };
+    class TableIterator;
 
 
 /**
