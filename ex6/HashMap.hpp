@@ -252,99 +252,151 @@ public:
 
 
     }
+    class iterator
+    {
+    public:
+        typedef iterator self_type;
+        typedef pairT value_type;
+        typedef pairT& reference;
+        typedef iteratorT pointer;
+        typedef std::forward_iterator_tag iterator_category;
+        typedef int difference_type;
 
-  class TableIterator : std::iterator<std::forward_iterator_tag, HashMap<keyT,valueT>>
-  {
-
-  private:
-    HashMap & hashtable;
-    mutable iteratorT pos;
-    mutable int list = 0;
-
-    bool endofcell() const {
-      return this->pos == this->table[this->list].end();
-    }
-    bool endoftable() const {
-      return this->endofcell() && this->list == (this->cells-1);
-    }
-    void assignment_position() const {
-      this->pos = this->table[this->list].begin();
-    }
-    void advance_to_next() const {
-      while (endofcell() && !endoftable()) {
-          this->list++;
-          this->assignment_position();
-      }
-    }
-
-  public:
-        TableIterator( HashMap const & hashtable ) : hashtable(hashtable)
+        iterator(listT * ptr, listT * ptr_end) : list_pos(ptr), cell_pos(ptr->begin()), end_cell(ptr_end)
         {
-        this->assignment_position();
-        this->advance_to_next();
-      }
 
-//      ~TableIterator() { }
-
-      TableIterator & end() const {
-        this->list = (this->hashtable.cells-1);
-        this->pos = this->hashtable.table[this->list].end();
-        return *this;
-      }
-      TableIterator & operator++(int)  {
-        this->pos++;
-        this->advance_to_next();
-        return *this;
-      }
-      TableIterator & operator++()   {
-        return this->operator++(1);
-      }
-      pairT  operator* () const {
-         return *(this->pos);
-      }
-      pairT & operator->() const {
-         return *(this->pos);
-      }
-
-      bool operator==( TableIterator other ) const {
-          return this->pos == other.pos;
-      }
-      bool operator!=( TableIterator other ) const {
-          return this->pos != other.pos;
-      }
-//
-//      TableIterator & operator=( const TableIterator & other )  {
-////            this->hashtable = other.hashtable;
-//
-//
-//            this->list = 0;
-//            this->assignment_position();
-//            this->advance_to_next();
-//      }
-  };
-
-  HashMap<keyT,valueT>::TableIterator& begin() const {
-    return *(new TableIterator(*this));
-  }
-  HashMap<keyT,valueT>::TableIterator& end() const {
-    return TableIterator(*this ).end();
-  }
-
-    HashMap<keyT,valueT>::TableIterator& cbegin() const {
-        return  *(new TableIterator(*this));
-    }
-    HashMap<keyT,valueT>::TableIterator& cend() const {
-        return TableIterator(  *this).end( );
-    }
-
-    bool operator==(const HashMap<keyT, valueT>& hashtable) const {
-        for ( auto it : *this )
+        }
+        self_type operator++()
         {
-            if ( !hashtable.containsKey( it.first ) )
+            cell_pos++;
+
+            while (  (list_pos != end_cell) && (cell_pos == list_pos->end())  )
+            {
+                list_pos++;
+                cell_pos = list_pos->begin();
+            }
+
+            return *this;
+
+        }
+        self_type operator++(int junk)
+        {
+            return this->operator++();
+        }
+        reference operator*()
+        {
+            return cell_pos.operator*();
+        }
+        pointer operator->()
+        {
+            return cell_pos.operator->();
+        }
+        bool operator==(const self_type& rhs)
+        {
+            return cell_pos == rhs.cell_pos;
+        }
+        bool operator!=(const self_type& rhs)
+        {
+            return cell_pos != rhs.cell_pos;
+        }
+    private:
+        listT * list_pos;
+        pointer cell_pos;
+        listT * end_cell;
+    };
+
+    class const_iterator
+    {
+    public:
+        typedef const_iterator self_type;
+        typedef pairT value_type;
+        typedef pairT& reference;
+        typedef iteratorT pointer;
+        typedef std::forward_iterator_tag iterator_category;
+        typedef int difference_type;
+        const_iterator(listT * ptr, listT * ptr_end) : list_pos(ptr), cell_pos(ptr->begin()), end_cell(ptr_end)
+        {
+
+        }
+        self_type operator++()
+        {
+          cell_pos++;
+
+          while (  (list_pos != end_cell) && (cell_pos == list_pos->end())  )
+          {
+              list_pos++;
+              cell_pos = list_pos->begin();
+          }
+
+          return *this;
+        }
+        self_type operator++(int junk)
+        {
+          return this->operator++();
+        }
+        const reference operator*()
+        {
+          return cell_pos.operator*();
+        }
+        const pointer operator->()
+        {
+          return cell_pos.operator->();
+      }
+      bool operator==(const self_type& rhs)
+      {
+          return cell_pos == rhs.cell_pos;
+      }
+      bool operator!=(const self_type& rhs)
+      {
+          return cell_pos != rhs.cell_pos;
+      }
+    private:
+      listT * list_pos;
+      pointer cell_pos;
+      listT * end_cell;
+    };
+
+
+    iterator begin()
+    {
+        return iterator(this->table, this->table + this->cells);
+    }
+
+    iterator end()
+    {
+        return iterator(this->table + this->cells, this->table + this->cells);
+    }
+
+    const_iterator begin() const
+    {
+        return const_iterator(this->table , this->table + this->cells);
+    }
+
+    const_iterator end() const
+    {
+        return const_iterator(this->table + this->cells, this->table + this->cells);
+    }
+
+
+    const_iterator cbegin() const
+    {
+        return const_iterator(this->table , this->table + this->cells);
+    }
+
+    const_iterator cend() const
+    {
+        return const_iterator(this->table + this->cells, this->table + this->cells);
+    }
+
+
+     bool operator==(const HashMap<keyT, valueT>& hashtable) const {
+        for ( const auto& it : hashtable )
+        {
+            if ( !this->containsKey( it.first ) )
             {
                 return false;
             }
-            if ( hashtable.at( it.first ) != it.second )
+            if ( this->at( it.first ) != it.second )
             {
                 return false;
             }
@@ -353,16 +405,16 @@ public:
     }
 
 
-    bool operator!=(const HashMap & hashtable) const {
+     bool operator!=(const HashMap & hashtable) const {
 
-        for ( auto it : *this )
+        for ( const auto& it : hashtable )
         {
-            if ( !hashtable.containsKey( it.first ) )
+            if ( !this->containsKey( it.first ) )
             {
                 return true;
             }
 
-            if ( hashtable.at( it.first ) != it.second )
+            if ( this->at( it.first ) != it.second )
             {
                 return true;
             }
@@ -371,11 +423,4 @@ public:
         return false;
     }
 
-};HashMap( HashMap & const_ref ) {
-        this->table = const_ref.table;
-        this->cells = const_ref.cells;
-        this->items  = const_ref.items;
-        this->lower_load_factor = const_ref.lower_load_factor;
-        this->upper_load_factor = const_ref.upper_load_factor;
-
-    }
+};
