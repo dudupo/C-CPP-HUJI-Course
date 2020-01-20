@@ -29,7 +29,9 @@ private:
   double upper_load_factor;
   int cells, items;
 
-  const iteratorT null_iterator = (new listT())->end();
+
+  listT * ptrlistT = new listT();
+  const iteratorT null_iterator =  ptrlistT->end();  //end();
 
 
   int hash(keyT key, int parameter) const {
@@ -59,7 +61,7 @@ private:
   }
 
   bool rehash(int new_size) {
-    listT * new_table = new listT[new_size];
+    listT * new_table = new listT[new_size + 1];
 
     for (auto it = this->begin(); it != this->end(); it++)
     {
@@ -89,13 +91,49 @@ private:
     return true;
   }
 
+  void fill ( HashMap const & const_ref)
+  {
+      for ( const auto& it : const_ref )
+      {
+          this->insert( it.first , it.second  );
+      }
+  }
+
+  class Shell {
+  private:
+      keyT& key;
+      valueT& val;
+      HashMap& hashtable;
+  public:
+    Shell( keyT key ,  HashMap& hashtable, valueT val = valueT() ) : val(val),  key(key), hashtable(hashtable) {}
+    //Shell( keyT key,  HashMap& hashtable  ) : val(  default )  , key(key), hashtable(hashtable) {}
+    operator valueT()
+    {
+      return this->val;
+    }
+
+    Shell& operator=(valueT val )
+    {
+      this->val = val;
+      this->hashtable.insert(this->key, this->val);
+      return *this;
+    }
+
+  };
+
 public:
     HashMap( HashMap const & const_ref ) {
-      this->table = const_ref.table;
+
       this->cells = const_ref.cells;
-      this->items  = const_ref.items;
+      this->items  = 0;
       this->lower_load_factor = const_ref.lower_load_factor;
       this->upper_load_factor = const_ref.upper_load_factor;
+
+      this->table =  new listT [this->cells + 1];
+
+       this->fill( const_ref );
+
+
 
   }
 
@@ -113,7 +151,7 @@ public:
     upper_load_factor(upper_load_factor) {
 
       this->cells= DEFAULTSIZE;
-      table = new listT[cells];
+      table = new listT[cells +  1];
       this->items = 0;
 
   }
@@ -143,17 +181,17 @@ public:
   }
 
 
-
     // HashMap( HashMap&& );
   // HashMap( const HashMap&);
   virtual ~HashMap () {
       delete [] this->table;
+      delete this->ptrlistT;
   };
   int size() const {
       return this->items;
   }
   int capacity() const {
-    return this->cells * this->upper_load_factor;
+    return this->cells;
   }
   double getLoadFactor() const {
      return (double) this->items / this->cells;
@@ -164,11 +202,16 @@ public:
   bool insert(keyT key, valueT value) {
 
     iteratorT position = this->getPoisition(key);
-    if (position != this->null_iterator)
-      position->second = value;
+    if (position != this->null_iterator) {
+        // override
+        position->second = value;
+        return false;
+    }
     else
-      this->table[this->hash(key)].push_front( pairT(key, value) );
+    {
+        this->table[this->hash(key)].push_front(pairT(key, value));
 
+    }
     this->items++;
     return this->balance();
   }
@@ -211,45 +254,44 @@ public:
   void clear() {
 
       delete [] this->table;
-      this->cells= DEFAULTSIZE;
-      table = new listT[cells];
+      //this->cells= DEFAULTSIZE;
+      table = new listT[cells + 1];
       this->items = 0;
 
   }
 
-
-
-    HashMap & operator=(HashMap && hashtable) {
-        this->cells = hashtable.cells;
-        this->items = hashtable.items;
-        this->lower_load_factor = hashtable.lower_load_factor;
-        this->upper_load_factor = hashtable.upper_load_factor;
-        this->table = &hashtable.table[0];
-        return *this;
-    }
-    HashMap & operator=(HashMap const & hashtable) {
-    this->cells = hashtable.cells;
-    this->items = hashtable.items;
-    this->lower_load_factor = hashtable.lower_load_factor;
-    this->upper_load_factor = hashtable.upper_load_factor;
-    this->table = &hashtable.table[0];
-    return *this;
-  }
-//
-//    HashMap& operator=(const HashMap & const_ref){
-//        this->table = const_ref.table;
-//        this->cells = const_ref.cells;hashtable
-//        this->items  = const_ref.items;
-//        this->lower_load_factor = const_ref.lower_load_factor;
-//        this->upper_load_factor = const_ref.upper_load_factor;
+//    HashMap & operator=(HashMap && hashtable) {
+//        this->cells = hashtable.cells;
+//        this->items = hashtable.items;
+//        this->lower_load_factor = hashtable.lower_load_factor;
+//        this->upper_load_factor = hashtable.upper_load_factor;
+//        this->table = &hashtable.table[0];
 //        return *this;
 //    }
+    HashMap & operator=(HashMap const & hashtable) {
 
-    valueT& operator[] (keyT key) {
+        if ( this->table != hashtable.table )
+        {
+          this->clear();
+          this->lower_load_factor = hashtable.lower_load_factor;
+          this->upper_load_factor = hashtable.upper_load_factor;
+          this->fill(  hashtable  );
+        }
+        return *this;
+  }
 
-        return this->getPoisition(key)->second;
+    Shell operator[] (keyT key) {
 
+      iteratorT it = this->getPoisition(key);
 
+      if ( it != null_iterator )
+      {
+          return Shell(key, *this, it->second);
+      }
+      else
+      {
+        return Shell(key, *this);
+      }
 
     }
     class iterator
@@ -264,7 +306,7 @@ public:
 
         iterator(listT * ptr, listT * ptr_end) : list_pos(ptr), cell_pos(ptr->begin()), end_cell(ptr_end)
         {
-
+            nextOccupy();
         }
         self_type operator++()
         {
@@ -300,6 +342,16 @@ public:
             return cell_pos != rhs.cell_pos;
         }
     private:
+
+        void nextOccupy()
+        {
+          while (  (list_pos != end_cell) && (cell_pos == list_pos->end())  )
+          {
+              list_pos++;
+              cell_pos = list_pos->begin();
+          }
+        }
+
         listT * list_pos;
         pointer cell_pos;
         listT * end_cell;
@@ -316,7 +368,7 @@ public:
         typedef int difference_type;
         const_iterator(listT * ptr, listT * ptr_end) : list_pos(ptr), cell_pos(ptr->begin()), end_cell(ptr_end)
         {
-
+            nextOccupy();
         }
         self_type operator++()
         {
@@ -351,6 +403,16 @@ public:
           return cell_pos != rhs.cell_pos;
       }
     private:
+        void nextOccupy()
+        {
+            while (  (list_pos != end_cell) && (cell_pos == list_pos->end())  )
+            {
+                list_pos++;
+                cell_pos = list_pos->begin();
+            }
+        }
+
+
       listT * list_pos;
       pointer cell_pos;
       listT * end_cell;
@@ -401,6 +463,19 @@ public:
                 return false;
             }
         }
+
+         for ( const auto& it : *this )
+         {
+             if ( !hashtable.containsKey( it.first ) )
+             {
+                 return false;
+             }
+             if ( hashtable.at( it.first ) != it.second )
+             {
+                 return false;
+             }
+         }
+
         return true;
     }
 
@@ -419,6 +494,18 @@ public:
                 return true;
             }
         }
+
+         for ( const auto& it : *this )
+         {
+             if ( !hashtable.containsKey( it.first ) )
+             {
+                 return true;
+             }
+             if ( hashtable.at( it.first ) != it.second )
+             {
+                 return true;
+             }
+         }
 
         return false;
     }
